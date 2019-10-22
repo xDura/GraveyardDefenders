@@ -12,6 +12,7 @@ namespace XD
         public float lastSpawnTime;
         public GameObject enemyPrefab;
         public Transform spawnTransform;
+        public bool HasToSpawn { get { return Time.timeSinceLevelLoad - lastSpawnTime > timeToSpawn; } }
 
         [Header("Shake")]
         public float maxShakeAmmount;
@@ -22,19 +23,35 @@ namespace XD
         public int lastShakeID = 0;
         public int CurrentShakeID
         {
-            get { return Mathf.FloorToInt(((Time.timeSinceLevelLoad - lastSpawnTime) * 3.0f )/ (timeToSpawn)); }
+            get
+            {
+                return Mathf.FloorToInt(((Time.timeSinceLevelLoad - lastSpawnTime) * 3.0f )/ (timeToSpawn));
+            }
         }
 
-        public bool HasToSpawn { get { return Time.timeSinceLevelLoad - lastSpawnTime > timeToSpawn; } }
+        public const int randomSeed = 200;
+
+        private bool needsInit = false;
 
         void Start()
         {
-            lastSpawnTime = Time.timeSinceLevelLoad;
+            needsInit = true;
+        }
+
+        public void Init()
+        {
+            needsInit = false;
             lastShakeID = 0;
+
+            //TODO Remove this random
+            lastSpawnTime = Time.timeSinceLevelLoad + Random.Range(0.0f, timeToSpawn / 2.0f);
+            Debug.LogFormat($"lastSpawnTime {lastSpawnTime}");
         }
 
         void Update()
         {
+            if (needsInit) Init();
+
             if (HasToSpawn)
                 SpawnEnemy();
 

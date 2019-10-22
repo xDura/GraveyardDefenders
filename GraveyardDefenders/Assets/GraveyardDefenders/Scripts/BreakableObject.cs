@@ -25,6 +25,7 @@ namespace XD
             currentHP = Mathf.Clamp(currentHP, 0.0f, maxHP);
             if (currentHP == 0.0f)
             {
+                Debug.LogFormat($"{name} has been broken");
                 brokeEvent.Invoke();
                 destroyed = true; 
             }
