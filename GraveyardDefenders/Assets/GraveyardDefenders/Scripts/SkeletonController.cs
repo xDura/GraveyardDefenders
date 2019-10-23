@@ -45,14 +45,22 @@ namespace XD
             }
 
 
-            if (agent.nextOffMeshLinkData.valid)
+            if (agent.nextOffMeshLinkData.valid && agent.nextOffMeshLinkData.offMeshLink)
             {
                 Debug.Log("Has offmeshLink: " + agent.nextOffMeshLinkData.offMeshLink.name);
                 currentTarget = agent.nextOffMeshLinkData.offMeshLink.gameObject.GetComponent<BreakableObject>();
             }
 
-            if(currentTarget && !currentTarget.destroyed && TimeSinceLastAttack >= attackVelocity)
-                Attack();
+            if (currentTarget)
+            {
+                if (!currentTarget.destroyed && TimeSinceLastAttack >= attackVelocity)
+                {
+                    Attack();
+                    DebugExtension.DebugArrow(transform.position, currentTarget.transform.position - transform.position, Color.red, 0.1f, false);
+                }
+                else if (currentTarget.destroyed)
+                    currentTarget = null;
+            }
         }
 
         void Attack()
