@@ -13,7 +13,7 @@ namespace XD
 
         void LateUpdate()
         {
-            transform.LookAt(cam.transform.position);
+            transform.LookAt(cam.transform.position, cam.transform.up);
         }
     }
 }
