@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-guid: 0187c7f08047641409dc0b66d9d51b6e
+guid: a9eb328490b7ee94a908ea8d33a13eb6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - characterController: {instanceID: 0}
-  - animator: {instanceID: 0}
-  - resources: {fileID: 11400000, guid: fd0a131579429884db5e641af3c87232, type: 2}
+  - healthBar: {instanceID: 0}
+  - set: {fileID: 11400000, guid: fd0a131579429884db5e641af3c87232, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
