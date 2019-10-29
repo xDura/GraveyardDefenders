@@ -4,24 +4,23 @@ using UnityEngine;
 
 namespace XD
 {
-    [System.Serializable]
     public class GathereableResource : BreakableObject
     {
-        public GathereableResourceSet set;
+        public GathereableSet set;
 
         public void OnEnable()
         {
-            set.AddGathereable(this.gameObject);    
+            set.Add(this);    
         }
 
         public void OnDisable()
         {
-            set.RemoveGathereable(this.gameObject);
+            set.Remove(this);
         }
 
         public void Gather(float dmg)
         {
-            Hit(dmg);
+            //Hit(dmg);
         }
     }
 }

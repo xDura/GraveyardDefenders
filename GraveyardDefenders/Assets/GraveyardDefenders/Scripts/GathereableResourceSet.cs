@@ -7,23 +7,23 @@ namespace XD
     [CreateAssetMenu(menuName = "XD/GathereableResourceSet", fileName = "GathereableResourceSet", order = 1)]
     public class GathereableResourceSet : ScriptableObject
     {
-        [SerializeField] public List<GameObject> gathereables;
+        public List<GathereableResource> items = new List<GathereableResource>();
 
-        public void AddGathereable(GameObject resource)
+        public void AddGathereable(GathereableResource resource)
         {
-            if(!gathereables.Contains(resource))
-                gathereables.Add(resource);
+            if(!items.Contains(resource))
+                items.Add(resource);
         }
 
-        public void RemoveGathereable(GameObject resource)
+        public void RemoveGathereable(GathereableResource resource)
         {
-            if (gathereables.Contains(resource))
-                gathereables.Remove(resource);
+            if (items.Contains(resource))
+                items.Remove(resource);
         }
 
         public void Clear()
         {
-            gathereables.Clear();
+            items.Clear();
         }
     }
 }

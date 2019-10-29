@@ -33,12 +33,12 @@ namespace XD
             currentGathereable = null;
 
             float nearestDistance = float.PositiveInfinity;
-            for (int i = 0; i < resources.gathereables.Count; i++)
+            for (int i = 0; i < resources.items.Count; i++)
             {
-                float currentDistance = Vector3.Distance(resources.gathereables[i].transform.position, transform.position);
+                float currentDistance = Vector3.Distance(resources.items[i].transform.position, transform.position);
                 if (currentDistance < nearestDistance && currentDistance < interactRadius)
                 {
-                    currentGathereable = resources.gathereables[i].GetComponent<GathereableResource>();
+                    currentGathereable = resources.items[i].GetComponent<GathereableResource>();
                     nearestDistance = currentDistance;
                 }
             }
