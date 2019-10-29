@@ -4281,11 +4281,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pine
       objectReference: {fileID: 0}
-    - target: {fileID: 5725621122984865162, guid: 9413291a12b8c4d48ad8f35fbb81c118,
-        type: 3}
-      propertyPath: brokeEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2122459220}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9413291a12b8c4d48ad8f35fbb81c118, type: 3}
 --- !u!1001 &1117954940
@@ -7995,63 +7990,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1370440570}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2122459218 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7131699285291367676, guid: b97cd4f8af3262349821274af970bdf6,
-    type: 3}
-  m_PrefabInstance: {fileID: 4803094660891190937}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &2122459220 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 3800627525775876135, guid: b97cd4f8af3262349821274af970bdf6,
-    type: 3}
-  m_PrefabInstance: {fileID: 4803094660891190937}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2122459223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122459218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9eb328490b7ee94a908ea8d33a13eb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 20
-  currentHP: 0
-  destroyed: 0
-  brokeEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2122459220}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  hitEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2122459223}
-        m_MethodName: Gather
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 10
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  healthBar: {fileID: 0}
-  set: {fileID: 11400000, guid: fd0a131579429884db5e641af3c87232, type: 2}
 --- !u!4 &2136580059 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7521399331261997167, guid: dfd64eb427335d84aaf5d83ddbe4df4a,
@@ -8313,12 +8251,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5948106498394154124, guid: 3c80d75c735b8bb42939c4a9f1c0023a,
-        type: 3}
-      propertyPath: resources
-      value: 
-      objectReference: {fileID: 11400000, guid: fd0a131579429884db5e641af3c87232,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c80d75c735b8bb42939c4a9f1c0023a, type: 3}
 --- !u!1001 &4803094660891190937
@@ -8332,11 +8264,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SmallForest
-      objectReference: {fileID: 0}
-    - target: {fileID: 7415153306756031735, guid: b97cd4f8af3262349821274af970bdf6,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 3636427534555238718, guid: b97cd4f8af3262349821274af970bdf6,
         type: 3}
@@ -8392,41 +8319,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6641930737602366403, guid: b97cd4f8af3262349821274af970bdf6,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 7131699285291367676, guid: b97cd4f8af3262349821274af970bdf6,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170841032275305692, guid: b97cd4f8af3262349821274af970bdf6,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 7073906082398040340, guid: b97cd4f8af3262349821274af970bdf6,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3122273001127556520, guid: b97cd4f8af3262349821274af970bdf6,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8974450674543039128, guid: b97cd4f8af3262349821274af970bdf6,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8938813633126955092, guid: b97cd4f8af3262349821274af970bdf6,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b97cd4f8af3262349821274af970bdf6, type: 3}

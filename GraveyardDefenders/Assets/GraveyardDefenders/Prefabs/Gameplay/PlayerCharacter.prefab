@@ -85,7 +85,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 5882644875818427611}
   animator: {fileID: 6393734529707143098}
+  resources: {fileID: 11400000, guid: 0073100238e512b4ab4c18817d29c843, type: 2}
+  currentGathereable: {fileID: 0}
   moveSpeed: 3
+  interactRadius: 1
 --- !u!1001 &9093266673455576443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93,11 +96,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6475599998120823246}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: e2ee99c6940cc2d439a9e92849693a2c,
-        type: 3}
-      propertyPath: m_Name
-      value: vampire
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e2ee99c6940cc2d439a9e92849693a2c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -152,6 +150,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e2ee99c6940cc2d439a9e92849693a2c,
+        type: 3}
+      propertyPath: m_Name
+      value: vampire
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2ee99c6940cc2d439a9e92849693a2c, type: 3}

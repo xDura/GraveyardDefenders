@@ -20,7 +20,8 @@ namespace XD
 
         public void Gather(float dmg)
         {
-            //Hit(dmg);
+            Debug.Log("Gather");
+            Hit(dmg);
         }
     }
 }

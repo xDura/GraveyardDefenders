@@ -10,15 +10,19 @@ namespace XD
         public CharacterController characterController;
         public Animator animator;
 
-        public GathereableResourceSet resources;
+        public GathereableSet resources;
 
         [Header("Runtime")]
         Camera cam;
         public GathereableResource currentGathereable;
+        public bool gathering = false;
 
         [Header("Variables")]
         public float moveSpeed;
         public float interactRadius;
+        public float gatheringTime = 0.5f;
+        public float lastGatherTime = float.NegativeInfinity;
+        public float TimeSinceLastGather { get { return Time.timeSinceLevelLoad - lastGatherTime; } }
 
         void Start()
         {
@@ -27,7 +31,7 @@ namespace XD
             if (!characterController) characterController = GetComponent<CharacterController>();
         }
 
-        void UpdateResources()
+        void UpdateCurrentResource()
         {
             DebugExtension.DebugCircle(transform.position, interactRadius, 0.0f, false);
             currentGathereable = null;
@@ -47,9 +51,31 @@ namespace XD
                 DebugExtension.DebugPoint(currentGathereable.transform.position, 1.0f, 0.0f, false);
         }
 
+        private void StartGathering()
+        {
+            gathering = true;
+            lastGatherTime = Time.timeSinceLevelLoad;
+        }
+
+        private void StopGathering()
+        {
+            gathering = false;
+        }
+
+        private void UpdateGathering()
+        {
+            if (!gathering) return;
+
+            if (TimeSinceLastGather >= gatheringTime)
+            {
+                currentGathereable.Gather(1.0f);
+                lastGatherTime = Time.timeSinceLevelLoad;
+            }
+        }
+
         void Update()
         {
-            UpdateResources();
+            UpdateCurrentResource();
 
             Vector3 right = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
             Vector3 forward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
@@ -58,12 +84,14 @@ namespace XD
 
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
+            if (!gathering && currentGathereable && Input.GetKey(KeyCode.Space)) StartGathering();
 
             Vector3 movement = (horizontal * right) + (vertical * forward);
             movement = movement.normalized * moveSpeed * Time.deltaTime;
 
             if (movement != Vector3.zero)
             {
+                if(gathering) StopGathering();
                 animator.SetBool("Walk", true);
                 transform.rotation = Quaternion.LookRotation(movement, Vector3.up);
                 characterController.Move(movement);
@@ -72,6 +100,9 @@ namespace XD
             {
                 animator.SetBool("Walk", false);
             }
+
+            animator.SetBool("Gathering", gathering);
+            if (gathering) UpdateGathering();
         }
     }
 }
