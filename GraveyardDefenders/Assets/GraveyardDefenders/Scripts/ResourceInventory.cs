@@ -25,5 +25,11 @@ namespace XD
             Debug.LogFormat($" AddingResource: {resourceType.ToString()}, ammount: {ammount}");
             resources[(int)resourceType] += ammount;
         }
+
+        public void Reset()
+        {
+            for (int i = 0; i < resources.Length; i++)
+                resources[i] = 0.0f;
+        }
     }
 }

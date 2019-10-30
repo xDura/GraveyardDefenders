@@ -26,6 +26,7 @@ namespace XD
 
         void Start()
         {
+            inventory.Reset();
             if (!cam) cam = Camera.main;
             if (!animator) animator = GetComponent<Animator>();
             if (!characterController) characterController = GetComponent<CharacterController>();
@@ -49,6 +50,8 @@ namespace XD
 
             if (currentGathereable != null)
                 DebugExtension.DebugPoint(currentGathereable.transform.position, 1.0f, 0.0f, false);
+            else if (gathering)
+                StopGathering();
         }
 
         private void StartGathering()
