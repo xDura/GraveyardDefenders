@@ -30,8 +30,9 @@ namespace XD
             destroyed = false;
         }
 
-        public void Hit(float dmg)
+        public float Hit(float dmg)
         {
+            float oldHP = currentHP;
             currentHP -= dmg;
             currentHP = Mathf.Clamp(currentHP, 0.0f, maxHP);
             hitEvent.Invoke();
@@ -44,6 +45,7 @@ namespace XD
             }
 
             UpdateHealthBar();
+            return oldHP - currentHP;
         }
 
         public void UpdateHealthBar()

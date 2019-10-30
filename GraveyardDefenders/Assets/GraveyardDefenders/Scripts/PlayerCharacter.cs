@@ -9,8 +9,8 @@ namespace XD
         [Header("Assignable")]
         public CharacterController characterController;
         public Animator animator;
-
         public GathereableSet resources;
+        public ResourceInventory inventory;
 
         [Header("Runtime")]
         Camera cam;
@@ -53,6 +53,7 @@ namespace XD
 
         private void StartGathering()
         {
+            transform.LookAt(currentGathereable.transform.position, Vector3.up);
             gathering = true;
             lastGatherTime = Time.timeSinceLevelLoad;
         }
@@ -68,7 +69,8 @@ namespace XD
 
             if (TimeSinceLastGather >= gatheringTime)
             {
-                currentGathereable.Gather(1.0f);
+                float gathered = currentGathereable.Gather(1.0f);
+                inventory.AddResource(currentGathereable.type, gathered);
                 lastGatherTime = Time.timeSinceLevelLoad;
             }
         }

@@ -86,9 +86,13 @@ MonoBehaviour:
   characterController: {fileID: 5882644875818427611}
   animator: {fileID: 6393734529707143098}
   resources: {fileID: 11400000, guid: 0073100238e512b4ab4c18817d29c843, type: 2}
+  inventory: {fileID: 11400000, guid: 3ca397700407f8e499cd0de51b6d586b, type: 2}
   currentGathereable: {fileID: 0}
+  gathering: 0
   moveSpeed: 3
   interactRadius: 1
+  gatheringTime: 0.5
+  lastGatherTime: -Infinity
 --- !u!1001 &9093266673455576443
 PrefabInstance:
   m_ObjectHideFlags: 0

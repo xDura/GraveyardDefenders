@@ -7,6 +7,7 @@ namespace XD
     public class GathereableResource : BreakableObject
     {
         public GathereableSet set;
+        public RESOURCE_TYPE type;
 
         public void OnEnable()
         {
@@ -18,10 +19,10 @@ namespace XD
             set.Remove(this);
         }
 
-        public void Gather(float dmg)
+        public float Gather(float dmg)
         {
-            Debug.Log("Gather");
-            Hit(dmg);
+            float gathered = Hit(dmg);
+            return gathered;
         }
     }
 }
