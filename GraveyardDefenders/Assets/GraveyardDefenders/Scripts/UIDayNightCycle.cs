@@ -17,6 +17,7 @@ namespace XD
         void Update()
         {
             if (cycle == null) FindDayNightCycle();
+            if (cycle == null) return;
 
             currentCycleTimeImage.fillAmount = 1.0f - cycle.CycleRemainingTimeNormalized;
             if(cycle.currentPhase == DAY_NIGHT_PHASE.DAY)

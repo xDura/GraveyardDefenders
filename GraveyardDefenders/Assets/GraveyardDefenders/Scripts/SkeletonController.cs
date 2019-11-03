@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 namespace XD
 {
@@ -10,6 +11,7 @@ namespace XD
         [Header("Assignables")]
         public NavMeshAgent agent;
         public Animator animator;
+        public Image healthBar;
 
         [Header("Runtime")]
         public float maxRayDistance = 100.0f;
@@ -19,15 +21,24 @@ namespace XD
         Objective currentObjective = default;
         NavMeshPath path_helper = default;
         public Vector3 currentClosestObjectivePoint = Vector3.zero;
+        public float currentHP;
 
         [Header("Variables")]
         public float attackDamage = 1.0f;
         public float attackVelocity = 1.0f;
         public float lastAttackTime = float.NegativeInfinity;
         public float attackRange = 0.05f;
+        public float dayDamagePerSecond;
+        public float maxHP;
         public float TimeSinceLastAttack
         {
             get { return Time.timeSinceLevelLoad - lastAttackTime; }
+        }
+
+        public DayNightCycle cycle;
+        public float CurrentHPPercent
+        {
+            get { return currentHP / maxHP; }
         }
 
         void Start()
@@ -35,6 +46,7 @@ namespace XD
             if (!agent) agent = GetComponent<NavMeshAgent>();
             if (!animator) animator = GetComponent<Animator>();
 
+            currentHP = maxHP;
             currentObjective = FindObjectOfType<Objective>();
             agent.autoTraverseOffMeshLink = false;
             path_helper = new NavMeshPath();
@@ -45,6 +57,28 @@ namespace XD
             UpdateNavigation();
             UpdateCombat();
             UpdateAnimation();
+
+            if(cycle == null)
+                cycle = FindObjectOfType<DayNightCycle>();
+            if (cycle)
+            {
+                if (cycle.currentPhase == DAY_NIGHT_PHASE.DAY)
+                {
+                    currentHP -= dayDamagePerSecond * Time.deltaTime;
+                    UpdateHealthBar();
+                    if (currentHP <= 0) Die();
+                }
+            }
+        }
+
+        public void UpdateHealthBar()
+        {
+            if (healthBar != null) healthBar.fillAmount = CurrentHPPercent;
+        }
+
+        public void Die()
+        {
+            Destroy(this.gameObject);
         }
 
         private void UpdateNavigation()
