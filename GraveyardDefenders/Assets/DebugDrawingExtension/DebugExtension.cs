@@ -33,12 +33,14 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugPoint(Vector3 position, Color color, float scale = 1.0f, float duration = 0, bool depthTest = true)
 	{
-		color = (color == default(Color)) ? Color.white : color;
+#if UNITY_EDITOR && _DEBUG
+        color = (color == default(Color)) ? Color.white : color;
 		
 		Debug.DrawRay(position+(Vector3.up*(scale*0.5f)), -Vector3.up*scale, color, duration, depthTest);
 		Debug.DrawRay(position+(Vector3.right*(scale*0.5f)), -Vector3.right*scale, color, duration, depthTest);
 		Debug.DrawRay(position+(Vector3.forward*(scale*0.5f)), -Vector3.forward*scale, color, duration, depthTest);
-	}
+#endif
+    }
 	
 	/// <summary>
 	/// 	- Debugs a point.
@@ -57,7 +59,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugPoint(Vector3 position, float scale = 1.0f, float duration = 0, bool depthTest = true)
 	{
-		DebugPoint(position, Color.white, scale, duration, depthTest);
+#if UNITY_EDITOR && _DEBUG
+        DebugPoint(position, Color.white, scale, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -77,7 +81,8 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugBounds(Bounds bounds, Color color, float duration = 0, bool depthTest = true)
 	{
-		Vector3 center = bounds.center;
+#if UNITY_EDITOR && _DEBUG
+        Vector3 center = bounds.center;
 		
 		float x = bounds.extents.x;
 		float y = bounds.extents.y;
@@ -107,6 +112,7 @@ public static class DebugExtension
 		Debug.DrawLine(rdf, rdb, color, duration, depthTest);
 		Debug.DrawLine(lfd, lbd, color, duration, depthTest);
 		Debug.DrawLine(lbd, rdb, color, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -123,7 +129,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugBounds(Bounds bounds, float duration = 0, bool depthTest = true)
 	{
-		DebugBounds(bounds, Color.white, duration, depthTest);
+#if UNITY_EDITOR && _DEBUG
+        DebugBounds(bounds, Color.white, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -148,8 +156,9 @@ public static class DebugExtension
 	/// 	- Whether or not the cube should be faded when behind other objects.
 	/// </param>
 	public static void DebugLocalCube(Transform transform, Vector3 size, Color color, Vector3 center = default(Vector3), float duration = 0, bool depthTest = true)
-	{
-		Vector3 lbb = transform.TransformPoint(center+((-size)*0.5f));
+    {
+#if UNITY_EDITOR && _DEBUG
+        Vector3 lbb = transform.TransformPoint(center+((-size)*0.5f));
 		Vector3 rbb = transform.TransformPoint(center+(new Vector3(size.x, -size.y, -size.z)*0.5f));
 		
 		Vector3 lbf = transform.TransformPoint(center+(new Vector3(size.x, -size.y, size.z)*0.5f));
@@ -175,6 +184,7 @@ public static class DebugExtension
 		Debug.DrawLine(rbb, rub, color, duration, depthTest);
 		Debug.DrawLine(lbf, luf, color, duration, depthTest);
 		Debug.DrawLine(rbf, ruf, color, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -197,7 +207,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugLocalCube(Transform transform, Vector3 size, Vector3 center = default(Vector3), float duration = 0, bool depthTest = true)
 	{
-		DebugLocalCube(transform, size, Color.white, center, duration, depthTest);
+#if UNITY_EDITOR && _DEBUG
+        DebugLocalCube(transform, size, Color.white, center, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -222,8 +234,9 @@ public static class DebugExtension
 	/// 	- Whether or not the cube should be faded when behind other objects.
 	/// </param>
 	public static void DebugLocalCube(Matrix4x4 space, Vector3 size, Color color, Vector3 center = default(Vector3), float duration = 0, bool depthTest = true)
-	{	
-		color = (color == default(Color)) ? Color.white : color;
+	{
+#if UNITY_EDITOR && _DEBUG
+        color = (color == default(Color)) ? Color.white : color;
 		
 		Vector3 lbb = space.MultiplyPoint3x4(center+((-size)*0.5f));
 		Vector3 rbb = space.MultiplyPoint3x4(center+(new Vector3(size.x, -size.y, -size.z)*0.5f));
@@ -251,6 +264,7 @@ public static class DebugExtension
 		Debug.DrawLine(rbb, rub, color, duration, depthTest);
 		Debug.DrawLine(lbf, luf, color, duration, depthTest);
 		Debug.DrawLine(rbf, ruf, color, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -273,7 +287,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugLocalCube(Matrix4x4 space, Vector3 size, Vector3 center = default(Vector3), float duration = 0, bool depthTest = true)
 	{
-		DebugLocalCube(space, size, Color.white, center, duration, depthTest);
+#if UNITY_EDITOR && _DEBUG
+        DebugLocalCube(space, size, Color.white, center, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -299,7 +315,8 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCircle(Vector3 position, Vector3 up, Color color, float radius = 1.0f, float duration = 0, bool depthTest = true)
 	{
-		Vector3 _up = up.normalized * radius;
+#if UNITY_EDITOR && _DEBUG
+        Vector3 _up = up.normalized * radius;
 		Vector3 _forward = Vector3.Slerp(_up, -_up, 0.5f);
 		Vector3 _right = Vector3.Cross(_up, _forward).normalized*radius;
 		
@@ -332,6 +349,7 @@ public static class DebugExtension
 			Debug.DrawLine(_lastPoint, _nextPoint, color, duration, depthTest);
 			_lastPoint = _nextPoint;
 		}
+#endif
 	}
 	
 	/// <summary>
@@ -354,7 +372,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCircle(Vector3 position, Color color, float radius = 1.0f, float duration = 0, bool depthTest = true)
 	{
-		DebugCircle(position, Vector3.up, color, radius, duration, depthTest);
+#if UNITY_EDITOR && _DEBUG
+        DebugCircle(position, Vector3.up, color, radius, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -377,7 +397,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCircle(Vector3 position, Vector3 up, float radius = 1.0f, float duration = 0, bool depthTest = true)
 	{
-		DebugCircle(position, up, Color.white, radius, duration, depthTest);
+#if UNITY_EDITOR && _DEBUG
+        DebugCircle(position, up, Color.white, radius, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -396,8 +418,10 @@ public static class DebugExtension
 	/// 	- Whether or not the circle should be faded when behind other objects.
 	/// </param>
 	public static void DebugCircle(Vector3 position, float radius = 1.0f, float duration = 0, bool depthTest = true)
-	{
-		DebugCircle(position, Vector3.up, Color.white, radius, duration, depthTest);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DebugCircle(position, Vector3.up, Color.white, radius, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -419,8 +443,9 @@ public static class DebugExtension
 	/// 	- Whether or not the sphere should be faded when behind other objects.
 	/// </param>
 	public static void DebugWireSphere(Vector3 position, Color color, float radius = 1.0f, float duration = 0, bool depthTest = true)
-	{
-		float angle = 10.0f;
+    {
+#if UNITY_EDITOR && _DEBUG
+        float angle = 10.0f;
 		
 		Vector3 x = new Vector3(position.x, position.y + radius * Mathf.Sin(0), position.z + radius * Mathf.Cos(0));
 		Vector3 y = new Vector3(position.x + radius * Mathf.Cos(0), position.y, position.z + radius * Mathf.Sin(0));
@@ -444,6 +469,7 @@ public static class DebugExtension
 			y = new_y;
 			z = new_z;
 		}
+#endif
 	}
 	
 	/// <summary>
@@ -462,8 +488,10 @@ public static class DebugExtension
 	/// 	- Whether or not the sphere should be faded when behind other objects.
 	/// </param>
 	public static void DebugWireSphere(Vector3 position, float radius = 1.0f, float duration = 0, bool depthTest = true)
-	{
-		DebugWireSphere(position, Color.white, radius, duration, depthTest);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DebugWireSphere(position, Color.white, radius, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -488,8 +516,9 @@ public static class DebugExtension
 	/// 	- Whether or not the cylinder should be faded when behind other objects.
 	/// </param>
 	public static void DebugCylinder(Vector3 start, Vector3 end, Color color, float radius = 1, float duration = 0, bool depthTest = true)
-	{
-		Vector3 up = (end-start).normalized*radius;
+    {
+#if UNITY_EDITOR && _DEBUG
+        Vector3 up = (end-start).normalized*radius;
 		Vector3 forward = Vector3.Slerp(up, -up, 0.5f);
 		Vector3 right = Vector3.Cross(up, forward).normalized*radius;
 		
@@ -512,6 +541,7 @@ public static class DebugExtension
 		//End endcap
 		Debug.DrawLine(end-right, end+right, color, duration, depthTest);
 		Debug.DrawLine(end-forward, end+forward, color, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -534,7 +564,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCylinder(Vector3 start, Vector3 end, float radius = 1, float duration = 0, bool depthTest = true)
 	{
-		DebugCylinder(start, end, Color.white, radius, duration, depthTest);
+#if UNITY_EDITOR && _DEBUG
+        DebugCylinder(start, end, Color.white, radius, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -559,8 +591,9 @@ public static class DebugExtension
 	/// 	- Whether or not the cone should be faded when behind other objects.
 	/// </param>
 	public static void DebugCone(Vector3 position, Vector3 direction, Color color, float angle = 45, float duration = 0, bool depthTest = true)
-	{
-		float length = direction.magnitude;
+    {
+#if UNITY_EDITOR && _DEBUG
+        float length = direction.magnitude;
 		
 		Vector3 _forward = direction;
 		Vector3 _up = Vector3.Slerp(_forward, -_forward, 0.5f);
@@ -583,6 +616,7 @@ public static class DebugExtension
 		
 		DebugExtension.DebugCircle(position+_forward, direction, color, (_forward-(slerpedVector.normalized*dist)).magnitude, duration, depthTest);
 		DebugExtension.DebugCircle(position+(_forward*0.5f), direction, color, ((_forward*0.5f)-(slerpedVector.normalized*(dist*0.5f))).magnitude, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -604,8 +638,10 @@ public static class DebugExtension
 	/// 	- Whether or not the cone should be faded when behind other objects.
 	/// </param>
 	public static void DebugCone(Vector3 position, Vector3 direction, float angle = 45, float duration = 0, bool depthTest = true)
-	{
-		DebugCone(position, direction, Color.white, angle, duration, depthTest);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DebugCone(position, direction, Color.white, angle, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -627,8 +663,10 @@ public static class DebugExtension
 	/// 	- Whether or not the cone should be faded when behind other objects.
 	/// </param>
 	public static void DebugCone(Vector3 position, Color color, float angle = 45, float duration = 0, bool depthTest = true)
-	{
-		DebugCone(position, Vector3.up, color, angle, duration, depthTest);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DebugCone(position, Vector3.up, color, angle, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -647,8 +685,10 @@ public static class DebugExtension
 	/// 	- Whether or not the cone should be faded when behind other objects.
 	/// </param>
 	public static void DebugCone(Vector3 position, float angle = 45, float duration = 0, bool depthTest = true)
-	{
-		DebugCone(position, Vector3.up, Color.white, angle, duration, depthTest);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DebugCone(position, Vector3.up, Color.white, angle, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -670,9 +710,11 @@ public static class DebugExtension
 	/// 	- Whether or not the arrow should be faded when behind other objects. 
 	/// </param>
 	public static void DebugArrow(Vector3 position, Vector3 direction, Color color, float duration = 0, bool depthTest = true)
-	{
-		Debug.DrawRay(position, direction, color, duration, depthTest);
+    {
+#if UNITY_EDITOR && _DEBUG
+        Debug.DrawRay(position, direction, color, duration, depthTest);
 		DebugExtension.DebugCone(position+direction, -direction*0.333f, color, 15, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -691,8 +733,10 @@ public static class DebugExtension
 	/// 	- Whether or not the arrow should be faded when behind other objects. 
 	/// </param>
 	public static void DebugArrow(Vector3 position, Vector3 direction, float duration = 0, bool depthTest = true)
-	{
-		DebugArrow(position, direction, Color.white, duration, depthTest);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DebugArrow(position, direction, Color.white, duration, depthTest);
+#endif
 	}
 	
 	/// <summary>
@@ -717,8 +761,9 @@ public static class DebugExtension
 	/// 	- Whether or not the capsule should be faded when behind other objects.
 	/// </param>
 	public static void DebugCapsule(Vector3 start, Vector3 end, Color color, float radius = 1, float duration = 0, bool depthTest = true)
-	{
-		Vector3 up = (end-start).normalized*radius;
+    {
+#if UNITY_EDITOR && _DEBUG
+        Vector3 up = (end-start).normalized*radius;
 		Vector3 forward = Vector3.Slerp(up, -up, 0.5f);
 		Vector3 right = Vector3.Cross(up, forward).normalized*radius;
 		
@@ -754,6 +799,7 @@ public static class DebugExtension
 			Debug.DrawLine(Vector3.Slerp(forward, up, i/25.0f)+end, Vector3.Slerp(forward, up, (i-1)/25.0f)+end, color, duration, depthTest);
 			Debug.DrawLine(Vector3.Slerp(-forward, up, i/25.0f)+end, Vector3.Slerp(-forward, up, (i-1)/25.0f)+end, color, duration, depthTest);
 		}
+#endif
 	}
 	
 	/// <summary>
@@ -775,8 +821,10 @@ public static class DebugExtension
 	/// 	- Whether or not the capsule should be faded when behind other objects.
 	/// </param>
 	public static void DebugCapsule(Vector3 start, Vector3 end, float radius = 1, float duration = 0, bool depthTest = true)
-	{
-		DebugCapsule(start, end, Color.white, radius, duration, depthTest);	
+    {
+#if UNITY_EDITOR && _DEBUG
+        DebugCapsule(start, end, Color.white, radius, duration, depthTest);	
+#endif
 	}
 	
 	#endregion
@@ -797,7 +845,8 @@ public static class DebugExtension
 	/// </param>
 	public static void DrawPoint(Vector3 position, Color color, float scale = 1.0f)
 	{
-		Color oldColor = Gizmos.color;
+#if UNITY_EDITOR && _DEBUG
+        Color oldColor = Gizmos.color;
 		
 		Gizmos.color = color;		
 		Gizmos.DrawRay(position+(Vector3.up*(scale*0.5f)), -Vector3.up*scale);
@@ -805,6 +854,7 @@ public static class DebugExtension
 		Gizmos.DrawRay(position+(Vector3.forward*(scale*0.5f)), -Vector3.forward*scale);
 		
 		Gizmos.color = oldColor;
+#endif
 	}
 	
 	/// <summary>
@@ -817,8 +867,10 @@ public static class DebugExtension
 	/// 	- The size of the drawn point.
 	/// </param>
 	public static void DrawPoint(Vector3 position, float scale = 1.0f)
-	{
-		DrawPoint(position, Color.white, scale);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DrawPoint(position, Color.white, scale);
+#endif
 	}
 	
 	/// <summary>
@@ -832,7 +884,8 @@ public static class DebugExtension
 	/// </param>
 	public static void DrawBounds(Bounds bounds, Color color)
 	{
-		Vector3 center = bounds.center;
+#if UNITY_EDITOR && _DEBUG
+        Vector3 center = bounds.center;
 		
 		float x = bounds.extents.x;
 		float y = bounds.extents.y;
@@ -867,6 +920,7 @@ public static class DebugExtension
 		Gizmos.DrawLine(lbd, rdb);
 		
 		Gizmos.color = oldColor;
+#endif
 	}
 	
 	/// <summary>
@@ -876,8 +930,10 @@ public static class DebugExtension
 	/// 	- The bounds to draw.
 	/// </param>
 	public static void DrawBounds(Bounds bounds)
-	{
-		DrawBounds(bounds, Color.white);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DrawBounds(bounds, Color.white);
+#endif
 	}
 	
 	/// <summary>
@@ -896,8 +952,9 @@ public static class DebugExtension
 	/// 	- The color of the cube.
 	/// </param>
 	public static void DrawLocalCube(Transform transform, Vector3 size, Color color, Vector3 center = default(Vector3))
-	{
-		Color oldColor = Gizmos.color;
+    {
+#if UNITY_EDITOR && _DEBUG
+        Color oldColor = Gizmos.color;
 		Gizmos.color = color;
 		
 		Vector3 lbb = transform.TransformPoint(center+((-size)*0.5f));
@@ -928,6 +985,7 @@ public static class DebugExtension
 		Gizmos.DrawLine(rbf, ruf);
 		
 		Gizmos.color = oldColor;
+#endif
 	}
 	
 	/// <summary>
@@ -944,7 +1002,9 @@ public static class DebugExtension
 	/// </param>	
 	public static void DrawLocalCube(Transform transform, Vector3 size, Vector3 center = default(Vector3))
 	{
-		DrawLocalCube(transform, size, Color.white, center);
+#if UNITY_EDITOR && _DEBUG
+        DrawLocalCube(transform, size, Color.white, center);
+#endif
 	}
 	
 	/// <summary>
@@ -963,8 +1023,9 @@ public static class DebugExtension
 	/// 	- The color of the cube.
 	/// </param>
 	public static void DrawLocalCube(Matrix4x4 space, Vector3 size, Color color, Vector3 center = default(Vector3))
-	{
-		Color oldColor = Gizmos.color;
+    {
+#if UNITY_EDITOR && _DEBUG
+        Color oldColor = Gizmos.color;
 		Gizmos.color = color;
 		
 		Vector3 lbb = space.MultiplyPoint3x4(center+((-size)*0.5f));
@@ -995,6 +1056,7 @@ public static class DebugExtension
 		Gizmos.DrawLine(rbf, ruf);
 		
 		Gizmos.color = oldColor;
+#endif
 	}
 	
 	/// <summary>
@@ -1010,8 +1072,10 @@ public static class DebugExtension
 	/// 	- The local position of the cube.
 	/// </param>
 	public static void DrawLocalCube(Matrix4x4 space, Vector3 size, Vector3 center = default(Vector3))
-	{
-		DrawLocalCube(space, size, Color.white, center);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DrawLocalCube(space, size, Color.white, center);
+#endif
 	}
 	
 	/// <summary>
@@ -1030,8 +1094,9 @@ public static class DebugExtension
 	/// 	- The radius of the circle.
 	/// </param>
 	public static void DrawCircle(Vector3 position, Vector3 up, Color color, float radius = 1.0f)
-	{
-		up = ((up == Vector3.zero) ? Vector3.up : up).normalized * radius;
+    {
+#if UNITY_EDITOR && _DEBUG
+        up = ((up == Vector3.zero) ? Vector3.up : up).normalized * radius;
 		Vector3 _forward = Vector3.Slerp(up, -up, 0.5f);
 		Vector3 _right = Vector3.Cross(up, _forward).normalized*radius;
 		
@@ -1067,6 +1132,7 @@ public static class DebugExtension
 		}
 		
 		Gizmos.color = oldColor;
+#endif
 	}
 	
 	/// <summary>
@@ -1082,8 +1148,10 @@ public static class DebugExtension
 	/// 	- The radius of the circle.
 	/// </param>
 	public static void DrawCircle(Vector3 position, Color color, float radius = 1.0f)
-	{
-		DrawCircle(position, Vector3.up, color, radius);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DrawCircle(position, Vector3.up, color, radius);
+#endif
 	}
 	
 	/// <summary>
@@ -1099,8 +1167,10 @@ public static class DebugExtension
 	/// 	- The radius of the circle.
 	/// </param>
 	public static void DrawCircle(Vector3 position, Vector3 up, float radius = 1.0f)
-	{
-		DrawCircle(position, position, Color.white, radius);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DrawCircle(position, position, Color.white, radius);
+#endif
 	}
 	
 	/// <summary>
@@ -1113,8 +1183,10 @@ public static class DebugExtension
 	/// 	- The radius of the circle.
 	/// </param>
 	public static void DrawCircle(Vector3 position, float radius = 1.0f)
-	{
-		DrawCircle(position, Vector3.up, Color.white, radius);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DrawCircle(position, Vector3.up, Color.white, radius);
+#endif
 	}
 	
 	//Wiresphere already exists
@@ -1135,7 +1207,8 @@ public static class DebugExtension
 	/// 	- The radius of the cylinder.
 	/// </param>
 	public static void DrawCylinder(Vector3 start, Vector3 end, Color color, float radius = 1.0f){
-		Vector3 up = (end-start).normalized*radius;
+#if UNITY_EDITOR && _DEBUG
+        Vector3 up = (end-start).normalized*radius;
 		Vector3 forward = Vector3.Slerp(up, -up, 0.5f);
 		Vector3 right = Vector3.Cross(up, forward).normalized*radius;
 		
@@ -1163,6 +1236,7 @@ public static class DebugExtension
 		Gizmos.DrawLine(end-forward, end+forward);
 		
 		Gizmos.color = oldColor;
+#endif
 	}
 	
 	/// <summary>
@@ -1179,7 +1253,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DrawCylinder(Vector3 start, Vector3 end, float radius = 1.0f)
 	{
-		DrawCylinder(start, end, Color.white, radius);
+#if UNITY_EDITOR && _DEBUG
+        DrawCylinder(start, end, Color.white, radius);
+#endif
 	}
 	
 	/// <summary>
@@ -1198,8 +1274,9 @@ public static class DebugExtension
 	/// 	- The angle of the cone.
 	/// </param>
 	public static void DrawCone(Vector3 position, Vector3 direction, Color color, float angle = 45)
-	{
-		float length = direction.magnitude;
+    {
+#if UNITY_EDITOR && _DEBUG
+        float length = direction.magnitude;
 		
 		Vector3 _forward = direction;
 		Vector3 _up = Vector3.Slerp(_forward, -_forward, 0.5f);
@@ -1227,6 +1304,7 @@ public static class DebugExtension
 		DebugExtension.DrawCircle(position+(_forward*0.5f), direction, color, ((_forward*0.5f)-(slerpedVector.normalized*(dist*0.5f))).magnitude);
 		
 		Gizmos.color = oldColor;
+#endif
 	}
 	
 	/// <summary>
@@ -1243,7 +1321,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DrawCone(Vector3 position, Vector3 direction, float angle = 45)
 	{
-		DrawCone(position, direction, Color.white, angle);
+#if UNITY_EDITOR && _DEBUG
+        DrawCone(position, direction, Color.white, angle);
+#endif
 	}
 	
 	/// <summary>
@@ -1260,7 +1340,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DrawCone(Vector3 position, Color color, float angle = 45)
 	{
-		DrawCone(position, Vector3.up, color, angle);
+#if UNITY_EDITOR && _DEBUG
+        DrawCone(position, Vector3.up, color, angle);
+#endif
 	}
 	
 	/// <summary>
@@ -1274,8 +1356,10 @@ public static class DebugExtension
 	/// </param>
 	public static void DrawCone(Vector3 position, float angle = 45)
 	{
-		DrawCone(position, Vector3.up, Color.white, angle);
-	}
+#if UNITY_EDITOR && _DEBUG
+        DrawCone(position, Vector3.up, Color.white, angle);
+#endif
+    }
 	
 	/// <summary>
 	/// 	- Draws an arrow.
@@ -1290,14 +1374,16 @@ public static class DebugExtension
 	/// 	- The color of the arrow.
 	/// </param>
 	public static void DrawArrow(Vector3 position, Vector3 direction, Color color)
-	{	
-		Color oldColor = Gizmos.color;
+    {
+#if UNITY_EDITOR && _DEBUG
+        Color oldColor = Gizmos.color;
 		Gizmos.color = color;
 		
 		Gizmos.DrawRay(position, direction);
 		DebugExtension.DrawCone(position+direction, -direction*0.333f, color, 15);
 		
 		Gizmos.color = oldColor;
+#endif
 	}
 	
 	/// <summary>
@@ -1310,8 +1396,10 @@ public static class DebugExtension
 	/// 	- The direction the arrow will point in.
 	/// </param>
 	public static void DrawArrow(Vector3 position, Vector3 direction)
-	{
-		DrawArrow(position, direction, Color.white);
+    {
+#if UNITY_EDITOR && _DEBUG
+        DrawArrow(position, direction, Color.white);
+#endif
 	}
 	
 	/// <summary>
@@ -1331,7 +1419,8 @@ public static class DebugExtension
 	/// </param>
 	public static void DrawCapsule(Vector3 start, Vector3 end, Color color, float radius = 1)
 	{
-		Vector3 up = (end-start).normalized*radius;
+#if UNITY_EDITOR && _DEBUG
+        Vector3 up = (end-start).normalized*radius;
 		Vector3 forward = Vector3.Slerp(up, -up, 0.5f);
 		Vector3 right = Vector3.Cross(up, forward).normalized*radius;
 		
@@ -1372,6 +1461,7 @@ public static class DebugExtension
 		}
 		
 		Gizmos.color = oldColor;
+#endif
 	}
 	
 	/// <summary>
@@ -1388,7 +1478,9 @@ public static class DebugExtension
 	/// </param>
 	public static void DrawCapsule(Vector3 start, Vector3 end, float radius = 1)
 	{
-		DrawCapsule(start, end, Color.white, radius);
+#if UNITY_EDITOR && _DEBUG
+        DrawCapsule(start, end, Color.white, radius);
+#endif
 	}
 	
 	#endregion

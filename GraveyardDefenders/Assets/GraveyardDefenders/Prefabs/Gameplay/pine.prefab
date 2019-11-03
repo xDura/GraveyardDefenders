@@ -108,7 +108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9eb328490b7ee94a908ea8d33a13eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  breakableSet: {fileID: 11400000, guid: e43bbe8a14d055c4397bdf92a15c0dc3, type: 2}
+  col: {fileID: 2669719251889547499}
   maxHP: 10
+  isRepairable: 0
   currentHP: 0
   destroyed: 0
   brokeEvent:
@@ -128,5 +132,11 @@ MonoBehaviour:
   hitEvent:
     m_PersistentCalls:
       m_Calls: []
-  healthBar: {fileID: 0}
+  onRepairEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onRepairHitEvent:
+    m_PersistentCalls:
+      m_Calls: []
   set: {fileID: 11400000, guid: 0073100238e512b4ab4c18817d29c843, type: 2}
+  type: 0

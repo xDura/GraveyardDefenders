@@ -7,7 +7,7 @@ namespace XD
     public enum RESOURCE_TYPE
     {
         WOOD,
-        METAL,
+        STONE,
     }
 
     [CreateAssetMenu(menuName = "XD/Resources")]
@@ -24,6 +24,17 @@ namespace XD
         {
             Debug.LogFormat($" AddingResource: {resourceType.ToString()}, ammount: {ammount}");
             resources[(int)resourceType] += ammount;
+        }
+
+        public void SubstractResource(RESOURCE_TYPE resourceType, float ammount)
+        {
+            Debug.LogFormat($" Substracting resource: {resourceType.ToString()}, ammount: {ammount}");
+            resources[(int)resourceType] -= ammount;
+        }
+
+        public bool HasResource(RESOURCE_TYPE resourceType)
+        {
+            return resources[(int)resourceType] > 0.0f;
         }
 
         public void Reset()

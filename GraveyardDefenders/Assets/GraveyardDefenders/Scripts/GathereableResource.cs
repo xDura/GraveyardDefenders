@@ -9,15 +9,15 @@ namespace XD
         public GathereableSet set;
         public RESOURCE_TYPE type;
 
-        public void OnEnable()
-        {
-            set.Add(this);    
-        }
+        //public void OnEnable()
+        //{
+        //    set.Add(this);    
+        //}
 
-        public void OnDisable()
-        {
-            set.Remove(this);
-        }
+        //public void OnDisable()
+        //{
+        //    set.Remove(this);
+        //}
 
         public float Gather(float dmg)
         {

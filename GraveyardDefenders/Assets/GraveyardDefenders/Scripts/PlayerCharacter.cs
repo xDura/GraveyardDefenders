@@ -4,99 +4,156 @@ using UnityEngine;
 
 namespace XD
 {
+    public enum PLAYER_ACTIONS
+    {
+        NONE,
+        GATHER,
+        REPAIR,
+        BREAK,
+    }
+
     public class PlayerCharacter : MonoBehaviour
     {
         [Header("Assignable")]
         public CharacterController characterController;
         public Animator animator;
-        public GathereableSet resources;
+        public BreakableSet resources;
         public ResourceInventory inventory;
 
         [Header("Runtime")]
         Camera cam;
-        public GathereableResource currentGathereable;
-        public bool gathering = false;
+        public BreakableObject currentBreakable;
+        public bool doingAction = false;
+        public PLAYER_ACTIONS current_action = PLAYER_ACTIONS.NONE;
 
         [Header("Variables")]
         public float moveSpeed;
         public float interactRadius;
-        public float gatheringTime = 0.5f;
-        public float lastGatherTime = float.NegativeInfinity;
-        public float TimeSinceLastGather { get { return Time.timeSinceLevelLoad - lastGatherTime; } }
+        public float interactHitTime = 0.5f;
+        public float lastInteractHitTime = float.NegativeInfinity;
+        public float TimeSinceLastInteractHit { get { return Time.timeSinceLevelLoad - lastInteractHitTime; } }
+
+        [Header("Input")]
+        public string HorizontalAxisName = "Horizontal";
+        public string VerticalAxisName = "Vertical";
+        public KeyCode interactKey = KeyCode.F;
 
         void Start()
         {
+            current_action = PLAYER_ACTIONS.NONE;
+            doingAction = false;
+            currentBreakable = null;
             inventory.Reset();
             if (!cam) cam = Camera.main;
             if (!animator) animator = GetComponent<Animator>();
             if (!characterController) characterController = GetComponent<CharacterController>();
         }
 
-        void UpdateCurrentResource()
+        void UpdateCurrentBreakable()
         {
             DebugExtension.DebugCircle(transform.position, interactRadius, 0.0f, false);
-            currentGathereable = null;
+            currentBreakable = null;
 
             float nearestDistance = float.PositiveInfinity;
             for (int i = 0; i < resources.items.Count; i++)
             {
-                float currentDistance = Vector3.Distance(resources.items[i].transform.position, transform.position);
-                if (currentDistance < nearestDistance && currentDistance < interactRadius)
+                BreakableObject breakable = resources.items[i];
+                Vector3 pos = breakable.GetClosestPoint(transform.position);
+                float currentDistance = Vector3.Distance(pos, transform.position);
+                DebugExtension.DebugPoint(pos, Color.white, 1.0f, 0.0f, false);
+                if ((currentDistance < interactRadius) && (currentDistance < nearestDistance) && (breakable is GathereableResource || breakable.CanRepair))
                 {
-                    currentGathereable = resources.items[i].GetComponent<GathereableResource>();
+                    DebugExtension.DebugArrow(transform.position, pos - transform.position, Color.white, 0.0f, false);
+                    currentBreakable = breakable;
                     nearestDistance = currentDistance;
                 }
             }
 
-            if (currentGathereable != null)
-                DebugExtension.DebugPoint(currentGathereable.transform.position, 1.0f, 0.0f, false);
-            else if (gathering)
-                StopGathering();
+            if (currentBreakable != null)
+                DebugExtension.DebugPoint(currentBreakable.GetCenter(), Color.blue, 1.0f, 0.0f, false);
+            else if (doingAction)
+                StopInteracting();
         }
 
-        private void StartGathering()
+        private void AttemptInteraction()
         {
-            transform.LookAt(currentGathereable.transform.position, Vector3.up);
-            gathering = true;
-            lastGatherTime = Time.timeSinceLevelLoad;
-        }
-
-        private void StopGathering()
-        {
-            gathering = false;
-        }
-
-        private void UpdateGathering()
-        {
-            if (!gathering) return;
-
-            if (TimeSinceLastGather >= gatheringTime)
+            if (currentBreakable is GathereableResource) current_action = PLAYER_ACTIONS.GATHER;
+            else if (currentBreakable.isRepairable && inventory.HasResource(RESOURCE_TYPE.WOOD)) current_action = PLAYER_ACTIONS.REPAIR;
+            else
             {
-                float gathered = currentGathereable.Gather(1.0f);
-                inventory.AddResource(currentGathereable.type, gathered);
-                lastGatherTime = Time.timeSinceLevelLoad;
+                current_action = PLAYER_ACTIONS.NONE;
+                return;
+            }
+
+            StartInteraction();
+        }
+
+        private void StartInteraction()
+        {
+            Vector3 center = currentBreakable.GetCenter();
+            center.y = transform.position.y;
+            transform.LookAt(center, Vector3.up);
+            doingAction = true;
+            lastInteractHitTime = Time.timeSinceLevelLoad;
+        }
+
+        private void StopInteracting()
+        {
+            doingAction = false;
+            current_action = PLAYER_ACTIONS.NONE;
+        }
+
+        private void UpdateAction()
+        {
+            if (!doingAction) return;
+
+            if (TimeSinceLastInteractHit >= interactHitTime)
+            {
+                switch (current_action)
+                {
+                    case PLAYER_ACTIONS.GATHER:
+                        GathereableResource gathereable = currentBreakable as GathereableResource;
+                        float gathered = gathereable.Gather(1.0f);
+                        inventory.AddResource(gathereable.type, gathered);
+                        lastInteractHitTime = Time.timeSinceLevelLoad;
+                        break;
+                    case PLAYER_ACTIONS.REPAIR:
+                        float repairedAmmount = currentBreakable.Repair(2.0f);
+                        inventory.SubstractResource(RESOURCE_TYPE.WOOD, 1.0f);
+                        lastInteractHitTime = Time.timeSinceLevelLoad;
+                        if (!inventory.HasResource(RESOURCE_TYPE.WOOD)) StopInteracting();
+                        break;
+                    case PLAYER_ACTIONS.BREAK:
+                        float hitAmmount = currentBreakable.Hit(1.0f);
+                        lastInteractHitTime = Time.timeSinceLevelLoad;
+                        break;
+                    case PLAYER_ACTIONS.NONE:
+                        break;
+                }
             }
         }
 
         void Update()
         {
-            UpdateCurrentResource();
+            UpdateCurrentBreakable();
 
             Vector3 right = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
             Vector3 forward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
             DebugExtension.DebugArrow(transform.position, right, Color.red, 0.0f, false);
             DebugExtension.DebugArrow(transform.position, forward, Color.blue, 0.0f, false);
 
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-            if (!gathering && currentGathereable && Input.GetKey(KeyCode.Space)) StartGathering();
+            float horizontal = Input.GetAxis(HorizontalAxisName);
+            float vertical = Input.GetAxis(VerticalAxisName);
+            if (!doingAction && currentBreakable && Input.GetKey(interactKey))
+                AttemptInteraction();
+
 
             Vector3 movement = (horizontal * right) + (vertical * forward);
             movement = movement.normalized * moveSpeed * Time.deltaTime;
 
             if (movement != Vector3.zero)
             {
-                if(gathering) StopGathering();
+                if(doingAction) StopInteracting();
                 animator.SetBool("Walk", true);
                 transform.rotation = Quaternion.LookRotation(movement, Vector3.up);
                 characterController.Move(movement);
@@ -106,8 +163,8 @@ namespace XD
                 animator.SetBool("Walk", false);
             }
 
-            animator.SetBool("Gathering", gathering);
-            if (gathering) UpdateGathering();
+            animator.SetBool("Gathering", doingAction);
+            if (doingAction) UpdateAction();
         }
     }
 }

@@ -235,7 +235,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.26
-  m_Speed: 5
+  m_Speed: 1
   m_Acceleration: 300
   avoidancePriority: 50
   m_AngularSpeed: 800
@@ -266,7 +266,7 @@ MonoBehaviour:
   attackDamage: 1
   attackVelocity: 1
   lastAttackTime: -Infinity
-  attackRange: 0.4
+  attackRange: 0.9
 --- !u!1 &3100610515140076164
 GameObject:
   m_ObjectHideFlags: 0

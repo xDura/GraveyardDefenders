@@ -15,7 +15,7 @@ namespace XD
         public float maxRayDistance = 100.0f;
         public NavMeshHit navmesh_hit_helper;
         public RaycastHit hit_helper;
-        BreakableObject currentTarget = default;
+        public BreakableObject currentTarget = default;
         Objective currentObjective = default;
         NavMeshPath path_helper = default;
         public Vector3 currentClosestObjectivePoint = Vector3.zero;
@@ -86,8 +86,15 @@ namespace XD
             //attack obstacles found in the way
             if (agent.nextOffMeshLinkData.valid && agent.nextOffMeshLinkData.offMeshLink)
             {
-                Debug.Log("Has offmeshLink: " + agent.nextOffMeshLinkData.offMeshLink.name);
-                currentTarget = agent.nextOffMeshLinkData.offMeshLink.gameObject.GetComponent<BreakableObject>();
+                BreakableObject obj = agent.nextOffMeshLinkData.offMeshLink.gameObject.GetComponent<BreakableObject>();
+                if (obj && (Vector3.Distance(obj.GetClosestPoint(transform.position), transform.position) <= attackRange))
+                    currentTarget = obj;
+            }
+            else if (agent.isOnOffMeshLink && agent.currentOffMeshLinkData.valid && currentTarget == null)
+            {
+                BreakableObject obj = agent.currentOffMeshLinkData.offMeshLink.gameObject.GetComponent<BreakableObject>();
+                if (obj && (Vector3.Distance(obj.GetClosestPoint(transform.position), transform.position) <= attackRange))
+                    currentTarget = obj;
             }
 
             currentClosestObjectivePoint = currentObjective.GetClosestPointFrom(transform.position);

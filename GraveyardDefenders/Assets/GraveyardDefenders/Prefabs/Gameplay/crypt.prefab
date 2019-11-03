@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7476088489891162666}
   - component: {fileID: 1917232032003805212}
   - component: {fileID: 5307466920530652389}
-  - component: {fileID: 4799390337664283193}
   - component: {fileID: -33040639287192068}
+  - component: {fileID: 220250595135253092}
   - component: {fileID: 5737894199888979578}
   m_Layer: 0
   m_Name: crypt
@@ -83,19 +83,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4799390337664283193
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5880363041833326649}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.75039995, y: 0.532, z: 1.1312}
-  m_Center: {x: 0, y: 0.266, z: 0}
 --- !u!114 &-33040639287192068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,13 +95,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65bedcbfafdb0f46984d17732feca40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectiveCollider: {fileID: 4799390337664283193}
+  objectiveCollider: {fileID: 220250595135253092}
   onObjectiveFailed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onObjectiveCompleted:
     m_PersistentCalls:
       m_Calls: []
+--- !u!65 &220250595135253092
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880363041833326649}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.75039995, y: 0.532, z: 1.1312}
+  m_Center: {x: 0, y: 0.266, z: 0}
 --- !u!114 &5737894199888979578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +138,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76b10a221b82da42a7f8cec2ca42fde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 8990048599497929907}
+  breakableSet: {fileID: 11400000, guid: e43bbe8a14d055c4397bdf92a15c0dc3, type: 2}
+  col: {fileID: 220250595135253092}
   maxHP: 100
+  isRepairable: 1
   currentHP: 0
   destroyed: 0
   brokeEvent:
@@ -144,7 +159,15 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  healthBar: {fileID: 8990048599497929907}
+  hitEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onRepairEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onRepairHitEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &4066350056340518350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,11 +175,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7476088489891162666}
     m_Modifications:
-    - target: {fileID: 4948754799323807117, guid: 85d1c9b004b639941bea2e96809b7c1b,
-        type: 3}
-      propertyPath: m_Name
-      value: lifeBar
-      objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -175,22 +193,22 @@ PrefabInstance:
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.09723488
+      value: -0.3247576
       objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.8843816
+      value: 0.27904922
       objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.40394914
+      value: -0.14413308
       objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.21269618
+      value: 0.8921265
       objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
@@ -261,6 +279,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948754799323807117, guid: 85d1c9b004b639941bea2e96809b7c1b,
+        type: 3}
+      propertyPath: m_Name
+      value: lifeBar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85d1c9b004b639941bea2e96809b7c1b, type: 3}
