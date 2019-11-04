@@ -137,14 +137,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directionalLight: {fileID: 2501659508470828904}
-  cycleTime: 5
+  fog: {fileID: 0}
+  cycleTime: 60
   transitionTime: 2
   dayNightCycleLightAttributes:
   - rotation: {x: 46.09, y: -163.4, z: 0}
     color: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
     intensity: 1.17
+    fogColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 0}
   - rotation: {x: 46.09, y: -36, z: 0}
     color: {r: 0.0073424703, g: 0.11923636, b: 0.31132078, a: 1}
     intensity: 2.1
+    fogColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 0.40392157}
   currentPhase: 1
   lastPhaseStartTime: -Infinity
+  daysSurvived: 0

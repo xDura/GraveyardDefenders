@@ -17,12 +17,14 @@ namespace XD
         public Vector3 rotation;
         public Color color;
         public float intensity;
+        public Color fogColor;
     }
 
     public class DayNightCycle : MonoBehaviour
     {
         [Header("Assignable")]
         public Light directionalLight;
+        public Fog fog;
 
         [Header("Variables")]
         public float cycleTime = 120.0f;
@@ -65,6 +67,7 @@ namespace XD
             directionalLight.DOColor(nextPhaseAttribs.color, transitionTime);
             directionalLight.transform.DORotate(nextPhaseAttribs.rotation, transitionTime);
             currentPhase = nextPhase;
+            fog.meshRenderer.material.DOColor(nextPhaseAttribs.fogColor, transitionTime);
             lastPhaseStartTime = Time.timeSinceLevelLoad;
         }
     }

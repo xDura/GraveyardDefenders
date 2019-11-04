@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 952601995247978511}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: linkStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7471995349744664}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 5901162507738296731}
   - component: {fileID: 2648682799335731351}
   - component: {fileID: 3155170900093298579}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5515497998649990936}
   - component: {fileID: 8660403232021579836}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: doorCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5668437352610068887}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: linkEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,6 +384,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ironFenceBorder
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f32b184a899350044b8de958d8fcedc7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f32b184a899350044b8de958d8fcedc7,
         type: 3}
@@ -560,6 +565,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4948754798783660411, guid: 85d1c9b004b639941bea2e96809b7c1b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807117, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_Name
@@ -569,6 +579,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948754799323807117, guid: 85d1c9b004b639941bea2e96809b7c1b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948754800454306512, guid: 85d1c9b004b639941bea2e96809b7c1b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85d1c9b004b639941bea2e96809b7c1b, type: 3}
