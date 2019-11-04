@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace XD
 {
@@ -11,6 +12,7 @@ namespace XD
         public GameObject moonImage;
         public GameObject sunImage;
         public Image currentCycleTimeImage;
+        public TextMeshProUGUI currentDayText;
 
         public DayNightCycle cycle;
 
@@ -20,6 +22,7 @@ namespace XD
             if (cycle == null) return;
 
             currentCycleTimeImage.fillAmount = 1.0f - cycle.CycleRemainingTimeNormalized;
+            currentDayText.text = (cycle.daysSurvived + 1).ToString();
             if(cycle.currentPhase == DAY_NIGHT_PHASE.DAY)
             {
                 moonImage.SetActive(false);

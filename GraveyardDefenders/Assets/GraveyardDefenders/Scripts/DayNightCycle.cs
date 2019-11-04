@@ -60,7 +60,7 @@ namespace XD
         public void DoTransitionCycle()
         {
             DAY_NIGHT_PHASE nextPhase = (DAY_NIGHT_PHASE)((int)(currentPhase + 1) % dayNightCycleLightAttributes.Count);
-            if (nextPhase == DAY_NIGHT_PHASE.NIGHT) daysSurvived++;
+            if (currentPhase == DAY_NIGHT_PHASE.NIGHT) daysSurvived++;
             Debug.LogFormat($"DayNightCycle: Transition from {currentPhase.ToString()} to: {nextPhase.ToString()}");
             DayNightCycleLightAttributes nextPhaseAttribs = dayNightCycleLightAttributes[(int)nextPhase];
             directionalLight.DOIntensity(nextPhaseAttribs.intensity, transitionTime);
