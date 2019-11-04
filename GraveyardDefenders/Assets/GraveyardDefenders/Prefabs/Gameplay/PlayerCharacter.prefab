@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6393734529707143098}
   - component: {fileID: 5882644875818427611}
   - component: {fileID: 5948106498394154124}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ CharacterController:
   m_StepOffset: 0.1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.45, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &5948106498394154124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +94,9 @@ MonoBehaviour:
   interactRadius: 1
   interactHitTime: 0.5
   lastInteractHitTime: -Infinity
+  HorizontalAxisName: Horizontal
+  VerticalAxisName: Vertical
+  interactKey: 102
 --- !u!1001 &9093266673455576443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -160,6 +163,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: vampire
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e2ee99c6940cc2d439a9e92849693a2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199902334543741925, guid: e2ee99c6940cc2d439a9e92849693a2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -2455037184384259855, guid: e2ee99c6940cc2d439a9e92849693a2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816165253726488962, guid: e2ee99c6940cc2d439a9e92849693a2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4256304248581541362, guid: e2ee99c6940cc2d439a9e92849693a2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3067058299448526936, guid: e2ee99c6940cc2d439a9e92849693a2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8194188057557798164, guid: e2ee99c6940cc2d439a9e92849693a2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 156747145930054512, guid: e2ee99c6940cc2d439a9e92849693a2c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2ee99c6940cc2d439a9e92849693a2c, type: 3}
