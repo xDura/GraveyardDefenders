@@ -61,7 +61,7 @@ namespace XD
                 Vector3 pos = breakable.GetClosestPoint(transform.position);
                 float currentDistance = Vector3.Distance(pos, transform.position);
                 DebugExtension.DebugPoint(pos, Color.white, 1.0f, 0.0f, false);
-                if ((currentDistance < interactRadius) && (currentDistance < nearestDistance) && (breakable is GathereableResource || breakable.CanRepair))
+                if ((currentDistance < interactRadius) && (currentDistance < nearestDistance) && (breakable is GathereableResource || (breakable.CanRepair && inventory.HasResource(breakable.repairResource))))
                 {
                     DebugExtension.DebugArrow(transform.position, pos - transform.position, Color.white, 0.0f, false);
                     currentBreakable = breakable;
@@ -78,7 +78,7 @@ namespace XD
         private void AttemptInteraction()
         {
             if (currentBreakable is GathereableResource) current_action = PLAYER_ACTIONS.GATHER;
-            else if (currentBreakable.isRepairable && inventory.HasResource(RESOURCE_TYPE.WOOD)) current_action = PLAYER_ACTIONS.REPAIR;
+            else if (currentBreakable.isRepairable && inventory.HasResource(currentBreakable.repairResource)) current_action = PLAYER_ACTIONS.REPAIR;
             else
             {
                 current_action = PLAYER_ACTIONS.NONE;
@@ -119,9 +119,9 @@ namespace XD
                         break;
                     case PLAYER_ACTIONS.REPAIR:
                         float repairedAmmount = currentBreakable.Repair(2.0f);
-                        inventory.SubstractResource(RESOURCE_TYPE.WOOD, 1.0f);
+                        inventory.SubstractResource(currentBreakable.repairResource, 1.0f);
                         lastInteractHitTime = Time.timeSinceLevelLoad;
-                        if (!inventory.HasResource(RESOURCE_TYPE.WOOD)) StopInteracting();
+                        if (!inventory.HasResource(currentBreakable.repairResource)) StopInteracting();
                         break;
                     case PLAYER_ACTIONS.BREAK:
                         float hitAmmount = currentBreakable.Hit(1.0f);

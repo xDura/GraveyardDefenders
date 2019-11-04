@@ -17,6 +17,7 @@ namespace XD
         [Header("Variables")]
         public float maxHP;
         public bool isRepairable = true;
+        public RESOURCE_TYPE repairResource;
 
         [Header("Runtime")]
         public float currentHP;

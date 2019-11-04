@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5880363041833326649}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.0805259, y: -1.7234598e-16, z: 7.761773}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_Children:
   - {fileID: 8990048598962243648}
   m_Father: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: 
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -124,8 +124,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75039995, y: 0.532, z: 1.1312}
-  m_Center: {x: 0, y: 0.266, z: 0}
+  m_Size: {x: 0.8, y: 1, z: 1.2}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!114 &5737894199888979578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,8 +143,10 @@ MonoBehaviour:
   col: {fileID: 220250595135253092}
   maxHP: 100
   isRepairable: 1
+  repairResource: 1
   currentHP: 0
   destroyed: 0
+  cached_center: {x: 0, y: 0, z: 0}
   brokeEvent:
     m_PersistentCalls:
       m_Calls:
@@ -193,22 +195,22 @@ PrefabInstance:
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.3247576
+      value: -0.30505773
       objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.27904922
+      value: 0.08893073
       objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.14413308
+      value: -0.04875669
       objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8921265
+      value: 0.94691813
       objectReference: {fileID: 0}
     - target: {fileID: 4948754799323807118, guid: 85d1c9b004b639941bea2e96809b7c1b,
         type: 3}
