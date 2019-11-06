@@ -61,7 +61,7 @@ namespace XD
                 Vector3 pos = breakable.GetClosestPoint(transform.position);
                 float currentDistance = Vector3.Distance(pos, transform.position);
                 DebugExtension.DebugPoint(pos, Color.white, 1.0f, 0.0f, false);
-                if ((currentDistance < interactRadius) && (currentDistance < nearestDistance) && (breakable is GathereableResource || (breakable.CanRepair && inventory.HasResource(breakable.repairResource))))
+                if ((currentDistance < interactRadius) && (currentDistance < nearestDistance) && (breakable.CanGather || (breakable.CanRepair && inventory.HasResource(breakable.repairResource))))
                 {
                     DebugExtension.DebugArrow(transform.position, pos - transform.position, Color.white, 0.0f, false);
                     currentBreakable = breakable;
@@ -77,7 +77,7 @@ namespace XD
 
         private void AttemptInteraction()
         {
-            if (currentBreakable is GathereableResource) current_action = PLAYER_ACTIONS.GATHER;
+            if (currentBreakable.CanGather) current_action = PLAYER_ACTIONS.GATHER;
             else if (currentBreakable.isRepairable && inventory.HasResource(currentBreakable.repairResource)) current_action = PLAYER_ACTIONS.REPAIR;
             else
             {

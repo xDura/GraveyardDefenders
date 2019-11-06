@@ -24,6 +24,8 @@ namespace XD
         public bool destroyed = false;
         public bool CanHit { get { return !destroyed; } }
         public bool CanRepair { get { return isRepairable && currentHP < maxHP; } }
+        public virtual bool CanGather { get {return false; } }
+
         public Vector3 cached_center;
 
         [Header("Events")]
@@ -49,6 +51,11 @@ namespace XD
         }
 
         void Start()
+        {
+            Init();
+        }
+
+        protected virtual void Init()
         {
             currentHP = maxHP;
             destroyed = false;

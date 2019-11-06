@@ -113,13 +113,26 @@ MonoBehaviour:
   col: {fileID: 2664632795828196368}
   maxHP: 10
   isRepairable: 0
+  repairResource: 0
   currentHP: 0
   destroyed: 0
+  cached_center: {x: 0, y: 0, z: 0}
   brokeEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1086421333326588159}
-        m_MethodName: SetActive
+      - m_Target: {fileID: 2664632795828196368}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1670668880990985251}
+        m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -140,3 +153,35 @@ MonoBehaviour:
       m_Calls: []
   set: {fileID: 11400000, guid: 0073100238e512b4ab4c18817d29c843, type: 2}
   type: 0
+  grows: 1
+  growTime: 10
+  growYOffset: -2
+  growStartScale: {x: 0.1, y: 0.1, z: 0.1}
+  OnGrowDone:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2664632795828196368}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnGrowStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1670668880990985251}
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2

@@ -25,6 +25,7 @@ namespace XD
         [Header("Assignable")]
         public Light directionalLight;
         public Fog fog;
+        public BreakableSet breakables;
 
         [Header("Variables")]
         public float cycleTime = 120.0f;
@@ -61,6 +62,15 @@ namespace XD
         {
             DAY_NIGHT_PHASE nextPhase = (DAY_NIGHT_PHASE)((int)(currentPhase + 1) % dayNightCycleLightAttributes.Count);
             if (currentPhase == DAY_NIGHT_PHASE.NIGHT) daysSurvived++;
+            if(nextPhase == DAY_NIGHT_PHASE.DAY)
+            {
+                for (int i = 0; i < breakables.items.Count; i++)
+                {
+                    BreakableObject breakable = breakables.items[i];
+                    if (breakable is GathereableResource)
+                        ((GathereableResource)breakable).StartGrowing();                
+                }
+            }
             Debug.LogFormat($"DayNightCycle: Transition from {currentPhase.ToString()} to: {nextPhase.ToString()}");
             DayNightCycleLightAttributes nextPhaseAttribs = dayNightCycleLightAttributes[(int)nextPhase];
             directionalLight.DOIntensity(nextPhaseAttribs.intensity, transitionTime);
