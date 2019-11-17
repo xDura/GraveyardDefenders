@@ -19,6 +19,8 @@ namespace XD
         public Animator animator;
         public BreakableSet resources;
         public ResourceInventory inventory;
+        public GameObject pickaxe;
+        public GameObject axe;
 
         [Header("Runtime")]
         Camera cam;
@@ -44,6 +46,8 @@ namespace XD
             doingAction = false;
             currentBreakable = null;
             inventory.Reset();
+            pickaxe.SetActive(false);
+            axe.SetActive(false);
             if (!cam) cam = Camera.main;
             if (!animator) animator = GetComponent<Animator>();
             if (!characterController) characterController = GetComponent<CharacterController>();
@@ -95,10 +99,23 @@ namespace XD
             transform.LookAt(center, Vector3.up);
             doingAction = true;
             lastInteractHitTime = Time.timeSinceLevelLoad;
+            if(current_action == PLAYER_ACTIONS.GATHER)
+            {
+                GathereableResource resource = currentBreakable as GathereableResource;
+                if (resource)
+                {
+                    if (resource.type == RESOURCE_TYPE.STONE)
+                        pickaxe.SetActive(true);
+                    else if (resource.type == RESOURCE_TYPE.WOOD)
+                        axe.SetActive(true);
+                }
+            }
         }
 
         private void StopInteracting()
         {
+            pickaxe.SetActive(false);
+            axe.SetActive(false);
             doingAction = false;
             current_action = PLAYER_ACTIONS.NONE;
         }
