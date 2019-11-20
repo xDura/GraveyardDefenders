@@ -2754,6 +2754,11 @@ PrefabInstance:
       propertyPath: onObjectiveFailed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 78899888}
+    - target: {fileID: 5307466920530652389, guid: b57c32dd7a6016c47a0ff57036663b7b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 376c4e797ca66dc47a8d645dc8c7ab6b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b57c32dd7a6016c47a0ff57036663b7b, type: 3}
 --- !u!1001 &463899754
