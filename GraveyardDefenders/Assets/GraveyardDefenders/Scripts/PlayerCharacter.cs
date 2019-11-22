@@ -21,6 +21,7 @@ namespace XD
         public ResourceInventory inventory;
         public GameObject pickaxe;
         public GameObject axe;
+        public GameObject hammer;
 
         [Header("Runtime")]
         Camera cam;
@@ -110,12 +111,17 @@ namespace XD
                         axe.SetActive(true);
                 }
             }
+            else if (current_action == PLAYER_ACTIONS.REPAIR)
+            {
+                hammer.SetActive(true);
+            }
         }
 
         private void StopInteracting()
         {
             pickaxe.SetActive(false);
             axe.SetActive(false);
+            hammer.SetActive(false);
             doingAction = false;
             current_action = PLAYER_ACTIONS.NONE;
         }

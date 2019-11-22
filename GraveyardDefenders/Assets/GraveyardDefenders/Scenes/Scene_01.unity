@@ -7216,6 +7216,71 @@ PrefabInstance:
       propertyPath: fog
       value: 
       objectReference: {fileID: 1964431470}
+    - target: {fileID: 2501659509088155794, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: dayNightCycleLightAttributes.Array.data[1].color.r
+      value: 0.42239228
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659509088155794, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: dayNightCycleLightAttributes.Array.data[1].color.g
+      value: 0.5557061
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659509088155794, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: dayNightCycleLightAttributes.Array.data[1].color.b
+      value: 0.7924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659509088155794, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: dayNightCycleLightAttributes.Array.data[0].color.g
+      value: 0.7264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659509088155794, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: dayNightCycleLightAttributes.Array.data[0].color.b
+      value: 0.7264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659509088155794, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: dayNightCycleLightAttributes.Array.data[0].color.r
+      value: 0.7264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659509088155794, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: dayNightCycleLightAttributes.Array.data[1].intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659509088155794, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: cycleTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659508470828904, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.42239228
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659508470828904, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.5557061
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659508470828904, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.7924528
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659508470828904, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501659508470828904, guid: 587e8c3f41a1f154a87d38802967bab3,
+        type: 3}
+      propertyPath: m_BounceIntensity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 587e8c3f41a1f154a87d38802967bab3, type: 3}
 --- !u!1001 &1133845567
@@ -10972,6 +11037,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 5262996557867419104, guid: 0c4c666953eec254491c9efbefa92e1e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c4c666953eec254491c9efbefa92e1e, type: 3}
