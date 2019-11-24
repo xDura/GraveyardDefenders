@@ -15,10 +15,13 @@ namespace XD
         public bool HasToSpawn { get { return Time.timeSinceLevelLoad - lastSpawnTime > timeToSpawn; } }
 
         [Header("Shake")]
-        public float maxShakeAmmount;
-        public float mediumShakeAmmount;
-        private Tweener shakeTween;
-        public Transform visualsToShake;
+        public Shaker shaker;
+        public Vector3 maxShakeAxis;
+        public Vector3 mediumShakeAxis;
+        public int maxShakeVibratio = 5;
+        public int mediumShakeVibratio = 15;
+        public float randomness = 90.0f;
+        public bool fadeout = false;
 
         public int lastShakeID = 0;
         public int CurrentShakeID
@@ -40,6 +43,7 @@ namespace XD
 
         public void Init()
         {
+            shaker.Kill();
             needsInit = false;
             lastShakeID = 0;
 
@@ -68,16 +72,16 @@ namespace XD
 
         void Shake(int shakeID)
         {
-            if(shakeTween != null) shakeTween.Complete();
+            shaker.Complete();
             switch (shakeID)
             {
                 case 0:
                     break;
                 case 1:
-                    shakeTween = visualsToShake.DOShakeRotation(10.0f, mediumShakeAmmount);
+                    shaker.Shake(timeToSpawn, mediumShakeAxis, mediumShakeVibratio, randomness, fadeout);
                     break;
                 case 2:
-                    shakeTween = visualsToShake.DOShakeRotation(10.0f, maxShakeAmmount);
+                    shaker.Shake(timeToSpawn, maxShakeAxis, maxShakeVibratio, randomness, fadeout);
                     break;
             }
             lastShakeID = shakeID;

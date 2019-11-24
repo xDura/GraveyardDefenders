@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0566e379ddd907640b5d42736c6dbfc2, type: 3}
+  m_Name: AudioDatabase
+  m_EditorClassIdentifier: 
+  ambiences:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 00000000
+    _keys: 00000000
+    _values:
+    - time: 0
+      outputAudioMixerGroup: {fileID: 0}
+      loop: 1
+      ignoreListenerVolume: 0
+      playOnAwake: 0
+      ignoreListenerPause: 0
+      velocityUpdateMode: 0
+      panStereo: 0
+      spatialBlend: 0
+      spatialize: 0
+      spatializePostEffects: 0
+      reverbZoneMix: 1
+      bypassEffects: 0
+      bypassListenerEffects: 0
+      bypassReverbZones: 0
+      dopplerLevel: 1
+      spread: 0
+      priority: 128
+      mute: 0
+      minDistance: 900
+      maxDistance: 1000
+      rolloffMode: 0
+      clip: {fileID: 0}
+      timeSamples: 0
+      pitch: 1
+      volume: 1
+  effects:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 
+    _keys: 
+    _values: []
+  musics:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 0100000000000000
+    _keys: 0100000000000000
+    _values:
+    - time: 0
+      outputAudioMixerGroup: {fileID: 0}
+      loop: 0
+      ignoreListenerVolume: 0
+      playOnAwake: 0
+      ignoreListenerPause: 0
+      velocityUpdateMode: 0
+      panStereo: 0
+      spatialBlend: 0
+      spatialize: 0
+      spatializePostEffects: 0
+      reverbZoneMix: 0
+      bypassEffects: 0
+      bypassListenerEffects: 0
+      bypassReverbZones: 0
+      dopplerLevel: 0
+      spread: 0
+      priority: 0
+      mute: 0
+      minDistance: 0
+      maxDistance: 0
+      rolloffMode: 0
+      clip: {fileID: 0}
+      timeSamples: 0
+      pitch: 0
+      volume: 0
+    - time: 0
+      outputAudioMixerGroup: {fileID: 0}
+      loop: 1
+      ignoreListenerVolume: 0
+      playOnAwake: 0
+      ignoreListenerPause: 0
+      velocityUpdateMode: 0
+      panStereo: 0
+      spatialBlend: 0
+      spatialize: 0
+      spatializePostEffects: 0
+      reverbZoneMix: 1
+      bypassEffects: 0
+      bypassListenerEffects: 0
+      bypassReverbZones: 0
+      dopplerLevel: 1
+      spread: 0
+      priority: 128
+      mute: 0
+      minDistance: 900
+      maxDistance: 1000
+      rolloffMode: 0
+      clip: {fileID: 8300000, guid: 2b4f7e183a4971b46a24e5964464589c, type: 3}
+      timeSamples: 0
+      pitch: 1
+      volume: 1

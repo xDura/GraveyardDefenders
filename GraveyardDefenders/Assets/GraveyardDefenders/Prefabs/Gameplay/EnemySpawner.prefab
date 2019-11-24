@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 263361001}
+  - component: {fileID: 6644427180569609860}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -31,6 +32,18 @@ Transform:
   m_Father: {fileID: 6374927430399958527}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6644427180569609860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263361000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e68acf3131c56d44ae05c6dc910a1c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3410187965395155618
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,14 +165,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToSpawn: 10
-  lastSpawnTime: 0
+  lastSpawnTime: 103.276596
   enemyPrefab: {fileID: 1941065752043778575, guid: 4a409809445b5c44a9f82cd67414a6b3,
     type: 3}
   spawnTransform: {fileID: 6078460902424381356}
-  maxShakeAmmount: 40
-  mediumShakeAmmount: 20
-  visualsToShake: {fileID: 263361001}
-  lastShakeID: 0
+  shaker: {fileID: 6644427180569609860}
+  maxShakeAxis: {x: 0, y: 30, z: 20}
+  mediumShakeAxis: {x: 0, y: 16, z: 12}
+  maxShakeVibratio: 8
+  mediumShakeVibratio: 4
+  randomness: 90
+  fadeout: 0
+  lastShakeID: 2
 --- !u!1001 &5326168872446707370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -237,6 +254,21 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1800487648879504058, guid: 2f7e27063ab6b5345b7c4c9eaf1f69a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a128cd4a933c90d44b46ab8b844093ba, type: 2}
+    - target: {fileID: 1800487648879504058, guid: 2f7e27063ab6b5345b7c4c9eaf1f69a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: a128cd4a933c90d44b46ab8b844093ba, type: 2}
+    - target: {fileID: 7005418631093283253, guid: 2f7e27063ab6b5345b7c4c9eaf1f69a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a128cd4a933c90d44b46ab8b844093ba, type: 2}
     - target: {fileID: 1751552109914411223, guid: 2f7e27063ab6b5345b7c4c9eaf1f69a2,
         type: 3}
       propertyPath: m_StaticEditorFlags
