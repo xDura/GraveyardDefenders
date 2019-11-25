@@ -22,6 +22,7 @@ namespace XD
         public GameObject pickaxe;
         public GameObject axe;
         public GameObject hammer;
+        public ParticleSystem walkDustParticles;
 
         [Header("Runtime")]
         Camera cam;
@@ -178,11 +179,13 @@ namespace XD
             {
                 if(doingAction) StopInteracting();
                 animator.SetBool("Walk", true);
+                if(!walkDustParticles.isPlaying) walkDustParticles.Play();
                 transform.rotation = Quaternion.LookRotation(movement, Vector3.up);
                 characterController.Move(movement);
             }
             else
             {
+                walkDustParticles.Stop();
                 animator.SetBool("Walk", false);
             }
 
