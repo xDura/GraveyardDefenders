@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XD.Audio;
 
 namespace XD
 {
@@ -138,6 +139,9 @@ namespace XD
                     case PLAYER_ACTIONS.GATHER:
                         GathereableResource gathereable = currentBreakable as GathereableResource;
                         float gathered = gathereable.Gather(1.0f);
+                        //TODO: remove audio from here: and remove using XD.Audio
+                        if (gathereable.type == RESOURCE_TYPE.STONE) AudioManager.Instance.PlayFX(AUDIO_FX.MINING_STONE, this.gameObject);
+                        else AudioManager.Instance.PlayFX(AUDIO_FX.CHOP_WOOD, this.gameObject);
                         inventory.AddResource(gathereable.type, gathered);
                         lastInteractHitTime = Time.timeSinceLevelLoad;
                         break;

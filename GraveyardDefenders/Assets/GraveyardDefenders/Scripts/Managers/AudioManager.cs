@@ -55,7 +55,12 @@ namespace XD.Audio
 
         public void PlayFX(AUDIO_FX id, GameObject go)
         {
-
+            AudioSourceData data = database.effects[id];
+            AudioSource audioSourceToPlay = availableEffectSources[0];
+            availableEffectSources.RemoveAt(0);
+            data.Populate(audioSourceToPlay);
+            audioSourceToPlay.transform.position = go.transform.position;
+            audioSourceToPlay.Play();
         }
 
         public void Terminate()

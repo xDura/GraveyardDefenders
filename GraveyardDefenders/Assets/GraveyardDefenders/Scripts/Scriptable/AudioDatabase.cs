@@ -55,6 +55,9 @@ namespace XD.Audio
         public int timeSamples;
         public float pitch;
         public float volume;
+        public bool useRandomPitch = false;
+        [Range(0.0f, 10.0f)] public float maxRandomPitch = 1.0f;
+        [Range(0.0f, 10.0f)] public float minRandomPitch = 1.0f;
 
         public void PopulateFrom(AudioSource sourceSource)
         {
@@ -114,6 +117,8 @@ namespace XD.Audio
             target.timeSamples = timeSamples;
             target.pitch = pitch;
             target.volume = volume;
+
+            if (useRandomPitch) { target.pitch = Random.Range(minRandomPitch, maxRandomPitch); }
         }
     }
     #endregion
