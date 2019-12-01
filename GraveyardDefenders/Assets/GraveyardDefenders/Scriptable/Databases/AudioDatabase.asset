@@ -35,8 +35,8 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 00000000
-    _keys: 00000000
+    _keyValues: 0000000001000000
+    _keys: 0000000001000000
     _values:
     - time: 0
       outputAudioMixerGroup: {fileID: 0}
@@ -67,6 +67,37 @@ MonoBehaviour:
       useRandomPitch: 0
       maxRandomPitch: 1
       minRandomPitch: 1
+      despawnOnEnd: 0
+    - time: 0
+      outputAudioMixerGroup: {fileID: 0}
+      loop: 1
+      ignoreListenerVolume: 0
+      playOnAwake: 0
+      ignoreListenerPause: 0
+      velocityUpdateMode: 0
+      panStereo: 0
+      spatialBlend: 0
+      spatialize: 0
+      spatializePostEffects: 0
+      reverbZoneMix: 1
+      bypassEffects: 0
+      bypassListenerEffects: 0
+      bypassReverbZones: 0
+      dopplerLevel: 1
+      spread: 0
+      priority: 128
+      mute: 0
+      minDistance: 900
+      maxDistance: 1000
+      rolloffMode: 0
+      clip: {fileID: 0}
+      timeSamples: 0
+      pitch: 1
+      volume: 1
+      useRandomPitch: 0
+      maxRandomPitch: 1
+      minRandomPitch: 1
+      despawnOnEnd: 0
   effects:
     reorderableList:
       canAdd: 1
@@ -90,8 +121,8 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 01000000000000000200000003000000
-    _keys: 01000000000000000200000003000000
+    _keyValues: 01000000000000000200000003000000040000000500000006000000
+    _keys: 01000000000000000200000003000000040000000500000006000000
     _values:
     - time: 0
       outputAudioMixerGroup: {fileID: 0}
@@ -122,6 +153,7 @@ MonoBehaviour:
       useRandomPitch: 1
       maxRandomPitch: 0.7
       minRandomPitch: 1.3
+      despawnOnEnd: 1
     - time: 0
       outputAudioMixerGroup: {fileID: 0}
       loop: 0
@@ -151,6 +183,7 @@ MonoBehaviour:
       useRandomPitch: 0
       maxRandomPitch: 0
       minRandomPitch: 0
+      despawnOnEnd: 1
     - time: 0
       outputAudioMixerGroup: {fileID: 0}
       loop: 0
@@ -180,6 +213,7 @@ MonoBehaviour:
       useRandomPitch: 0
       maxRandomPitch: 0
       minRandomPitch: 0
+      despawnOnEnd: 1
     - time: 0
       outputAudioMixerGroup: {fileID: 0}
       loop: 0
@@ -209,6 +243,97 @@ MonoBehaviour:
       useRandomPitch: 1
       maxRandomPitch: 0.7
       minRandomPitch: 1.3
+      despawnOnEnd: 1
+    - time: 0
+      outputAudioMixerGroup: {fileID: 0}
+      loop: 0
+      ignoreListenerVolume: 0
+      playOnAwake: 0
+      ignoreListenerPause: 0
+      velocityUpdateMode: 0
+      panStereo: 0
+      spatialBlend: 0.585
+      spatialize: 1
+      spatializePostEffects: 0
+      reverbZoneMix: 0
+      bypassEffects: 0
+      bypassListenerEffects: 0
+      bypassReverbZones: 0
+      dopplerLevel: 0.73
+      spread: 0
+      priority: 128
+      mute: 0
+      minDistance: 0
+      maxDistance: 100
+      rolloffMode: 0
+      clip: {fileID: 8300000, guid: 4ead35b7f5b14b041b0bc62f55004a73, type: 3}
+      timeSamples: 0
+      pitch: 1
+      volume: 1
+      useRandomPitch: 1
+      maxRandomPitch: 0.7
+      minRandomPitch: 1.3
+      despawnOnEnd: 1
+    - time: 0
+      outputAudioMixerGroup: {fileID: 0}
+      loop: 0
+      ignoreListenerVolume: 0
+      playOnAwake: 0
+      ignoreListenerPause: 0
+      velocityUpdateMode: 0
+      panStereo: 0
+      spatialBlend: 0.585
+      spatialize: 1
+      spatializePostEffects: 0
+      reverbZoneMix: 0
+      bypassEffects: 0
+      bypassListenerEffects: 0
+      bypassReverbZones: 0
+      dopplerLevel: 0.73
+      spread: 0
+      priority: 128
+      mute: 0
+      minDistance: 0
+      maxDistance: 100
+      rolloffMode: 0
+      clip: {fileID: 8300000, guid: 53be40a752812ad4ca5be486f7d13266, type: 3}
+      timeSamples: 0
+      pitch: 1
+      volume: 1
+      useRandomPitch: 1
+      maxRandomPitch: 0.7
+      minRandomPitch: 1.3
+      despawnOnEnd: 1
+    - time: 0
+      outputAudioMixerGroup: {fileID: 0}
+      loop: 0
+      ignoreListenerVolume: 0
+      playOnAwake: 0
+      ignoreListenerPause: 0
+      velocityUpdateMode: 0
+      panStereo: 0
+      spatialBlend: 0.585
+      spatialize: 1
+      spatializePostEffects: 0
+      reverbZoneMix: 0
+      bypassEffects: 0
+      bypassListenerEffects: 0
+      bypassReverbZones: 0
+      dopplerLevel: 0.73
+      spread: 0
+      priority: 128
+      mute: 0
+      minDistance: 0
+      maxDistance: 100
+      rolloffMode: 0
+      clip: {fileID: 8300000, guid: 5af25912692c2304c9c26315601ffddb, type: 3}
+      timeSamples: 0
+      pitch: 1
+      volume: 1
+      useRandomPitch: 1
+      maxRandomPitch: 0.7
+      minRandomPitch: 1.3
+      despawnOnEnd: 1
   musics:
     reorderableList:
       canAdd: 1
@@ -264,6 +389,7 @@ MonoBehaviour:
       useRandomPitch: 0
       maxRandomPitch: 1
       minRandomPitch: 1
+      despawnOnEnd: 0
     - time: 0
       outputAudioMixerGroup: {fileID: 0}
       loop: 1
@@ -293,3 +419,4 @@ MonoBehaviour:
       useRandomPitch: 0
       maxRandomPitch: 1
       minRandomPitch: 1
+      despawnOnEnd: 0

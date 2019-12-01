@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using XD.Audio;
 
 namespace XD
 {
@@ -68,6 +69,7 @@ namespace XD
             Instantiate(enemyPrefab, spawnTransform.position, spawnTransform.rotation);
             lastSpawnTime = Time.timeSinceLevelLoad;
             Shake(0);
+            AudioManager.Instance.PlayFX(AUDIO_FX.SKELETON_SPAWN, this.gameObject);
         }
 
         void Shake(int shakeID)

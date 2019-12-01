@@ -7,7 +7,8 @@ namespace XD.Audio
     #region AUDIO_DATA
     public enum AUDIO_AMBIENCES
     {
-        LEVEL_01_AMBIENCE,
+        LEVEL_01_AMBIENCE_DAY,
+        LEVEL_01_AMBIENCE_NIGHT,
     }
 
     public enum AUDIO_FX
@@ -18,6 +19,7 @@ namespace XD.Audio
         MINING_STONE,
         SKELETON_SPAWN,
         SKELETON_DIE,
+        REPAIR_WOOD,
     }
 
     public enum AUDIO_MUSICS
@@ -58,68 +60,7 @@ namespace XD.Audio
         public bool useRandomPitch = false;
         [Range(0.0f, 10.0f)] public float maxRandomPitch = 1.0f;
         [Range(0.0f, 10.0f)] public float minRandomPitch = 1.0f;
-
-        public void PopulateFrom(AudioSource sourceSource)
-        {
-            time = sourceSource.time;
-            outputAudioMixerGroup = sourceSource.outputAudioMixerGroup;
-            loop = sourceSource.loop;
-            ignoreListenerVolume = sourceSource.ignoreListenerVolume;
-            playOnAwake = sourceSource.playOnAwake;
-            ignoreListenerPause = sourceSource.ignoreListenerPause;
-            velocityUpdateMode = sourceSource.velocityUpdateMode;
-            panStereo = sourceSource.panStereo;
-            spatialBlend = sourceSource.spatialBlend;
-            spatialize = sourceSource.spatialize;
-            spatializePostEffects = sourceSource.spatializePostEffects;
-            reverbZoneMix = sourceSource.reverbZoneMix;
-            bypassEffects = sourceSource.bypassEffects;
-            bypassListenerEffects = sourceSource.bypassListenerEffects;
-            bypassReverbZones = sourceSource.bypassReverbZones;
-            dopplerLevel = sourceSource.dopplerLevel;
-            spread = sourceSource.spread;
-            priority = sourceSource.priority;
-            mute = sourceSource.mute;
-            minDistance = sourceSource.minDistance;
-            maxDistance = sourceSource.maxDistance;
-            rolloffMode = sourceSource.rolloffMode;
-            clip = sourceSource.clip;
-            timeSamples = sourceSource.timeSamples;
-            pitch = sourceSource.pitch;
-            volume = sourceSource.volume;
-        }
-
-        public void Populate(AudioSource target)
-        {
-            target.time = time;
-            target.outputAudioMixerGroup = outputAudioMixerGroup;
-            target.loop = loop;
-            target.ignoreListenerVolume = ignoreListenerVolume;
-            target.playOnAwake = playOnAwake;
-            target.ignoreListenerPause = ignoreListenerPause;
-            target.velocityUpdateMode = velocityUpdateMode;
-            target.panStereo = panStereo;
-            target.spatialBlend = spatialBlend;
-            target.spatialize = spatialize;
-            target.spatializePostEffects = spatializePostEffects;
-            target.reverbZoneMix = reverbZoneMix;
-            target.bypassEffects = bypassEffects;
-            target.bypassListenerEffects = bypassListenerEffects;
-            target.bypassReverbZones = bypassReverbZones;
-            target.dopplerLevel = dopplerLevel;
-            target.spread = spread;
-            target.priority = priority;
-            target.mute = mute;
-            target.minDistance = minDistance;
-            target.maxDistance = maxDistance;
-            target.rolloffMode = rolloffMode;
-            target.clip = clip;
-            target.timeSamples = timeSamples;
-            target.pitch = pitch;
-            target.volume = volume;
-
-            if (useRandomPitch) { target.pitch = Random.Range(minRandomPitch, maxRandomPitch); }
-        }
+        public bool despawnOnEnd = false;
     }
     #endregion
 

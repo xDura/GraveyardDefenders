@@ -148,6 +148,7 @@ namespace XD
                     case PLAYER_ACTIONS.REPAIR:
                         float repairedAmmount = currentBreakable.Repair(2.0f);
                         inventory.SubstractResource(currentBreakable.repairResource, 1.0f);
+                        AudioManager.Instance.PlayFX(AUDIO_FX.REPAIR_WOOD, this.gameObject);
                         lastInteractHitTime = Time.timeSinceLevelLoad;
                         if (!inventory.HasResource(currentBreakable.repairResource)) StopInteracting();
                         break;
@@ -193,7 +194,19 @@ namespace XD
                 animator.SetBool("Walk", false);
             }
 
-            animator.SetBool("Gathering", doingAction);
+            if (doingAction)
+            {
+                if (current_action == PLAYER_ACTIONS.BREAK || current_action == PLAYER_ACTIONS.REPAIR || (current_action == PLAYER_ACTIONS.GATHER && (currentBreakable as GathereableResource).type == RESOURCE_TYPE.WOOD))
+                    animator.SetBool("ChopWood", doingAction);
+                else
+                    animator.SetBool("Minning", true);
+            }
+            else
+            {
+                animator.SetBool("Minning", false);
+                animator.SetBool("ChopWood", false);
+            }
+
             if (doingAction) UpdateAction();
         }
     }

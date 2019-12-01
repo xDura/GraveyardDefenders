@@ -14333,7 +14333,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   music: 0
-  ambience: 0
+  dayAmbience: 0
+  nightAmbience: 1
 --- !u!1001 &1981197952
 PrefabInstance:
   m_ObjectHideFlags: 0
