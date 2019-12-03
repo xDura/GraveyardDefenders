@@ -11,8 +11,6 @@ namespace XD.Audio
         public void Awake()
         {
             AudioManager.Instance.PlayMusic(music);
-            //TODO: check out the ambience we want to play?
-            AudioManager.Instance.PlayAmbience(nightAmbience);
         }
     }   
 }

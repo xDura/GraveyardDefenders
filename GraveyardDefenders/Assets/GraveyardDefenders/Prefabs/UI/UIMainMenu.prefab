@@ -596,6 +596,7 @@ MonoBehaviour:
   canvas: {fileID: 8757437564592379956}
   group: {fileID: 7171441505344838457}
   fadeTime: 0.2
+  sceneToLoadName: Level_01
 --- !u!114 &1428936533
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using XD.Audio;
 
 namespace XD
 {
@@ -50,6 +51,7 @@ namespace XD
         {
             daysSurvived = 0;
             lastPhaseStartTime = Time.timeSinceLevelLoad;
+            AudioManager.Instance.PlayAmbience(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
         }
 
         void Update()
@@ -70,7 +72,16 @@ namespace XD
                     if (breakable is GathereableResource)
                         ((GathereableResource)breakable).StartGrowing();                
                 }
+
+                AudioManager.Instance.PlayFX(AUDIO_FX.START_DAY, gameObject);
+                AudioManager.Instance.PlayAmbience(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_DAY);
             }
+            else
+            {
+                AudioManager.Instance.PlayAmbience(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
+                AudioManager.Instance.PlayFX(AUDIO_FX.START_NIGHT, gameObject);
+            }
+
             Debug.LogFormat($"DayNightCycle: Transition from {currentPhase.ToString()} to: {nextPhase.ToString()}");
             DayNightCycleLightAttributes nextPhaseAttribs = dayNightCycleLightAttributes[(int)nextPhase];
             directionalLight.DOIntensity(nextPhaseAttribs.intensity, transitionTime);

@@ -1,10 +1,11 @@
 ﻿#if UNITY_EDITOR
 using UnityEngine;
 
-namespace XD
+namespace XD.Audio
 {
     public class AudioSourcePlayerEditor : MonoBehaviour
     {
+        public AUDIO_FX fxToPlay;
         public AudioSource source;
 
         [ContextMenu("PlayAudioSource")]
@@ -15,7 +16,7 @@ namespace XD
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) source.Play();
+            if (Input.GetKeyDown(KeyCode.Space)) AudioManager.Instance.PlayFX(fxToPlay, gameObject);
         }
     }   
 }

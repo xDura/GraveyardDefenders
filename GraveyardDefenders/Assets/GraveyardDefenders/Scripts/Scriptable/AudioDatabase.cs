@@ -20,6 +20,9 @@ namespace XD.Audio
         SKELETON_SPAWN,
         SKELETON_DIE,
         REPAIR_WOOD,
+        FENCE_OPEN_CLOSE,
+        START_DAY,
+        START_NIGHT,
     }
 
     public enum AUDIO_MUSICS

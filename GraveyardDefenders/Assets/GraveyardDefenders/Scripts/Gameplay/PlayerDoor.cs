@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using XD.Audio;
 
 namespace XD
 {
@@ -51,6 +52,7 @@ namespace XD
         {
             if (opened) return;
 
+            AudioManager.Instance.PlayFX(AUDIO_FX.FENCE_OPEN_CLOSE, gameObject);
             opened = true;
             doorCollider.enabled = false;
             helper_rotation = Vector3.zero;
@@ -62,6 +64,7 @@ namespace XD
         {
             if (!opened) return;
 
+            AudioManager.Instance.PlayFX(AUDIO_FX.FENCE_OPEN_CLOSE, gameObject);
             opened = false;
             doorCollider.enabled = true;
             helper_rotation = Vector3.zero;
