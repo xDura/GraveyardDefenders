@@ -47,7 +47,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209472812064365628}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e6f8c6b4cd0c5d24fbefebd224edfdb5, type: 3}
+  m_Avatar: {fileID: 9000000, guid: bf514ebc9e7a4ae4889bc2185e5caa49, type: 3}
   m_Controller: {fileID: 9100000, guid: 58dbb3d3c649e51439520ed353b20388, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -376,11 +376,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6475599998120823246}
     m_Modifications:
-    - target: {fileID: 3687844508876688254, guid: 9c04721f23f2ade498faca6a6728f6a1,
-        type: 3}
-      propertyPath: m_Name
-      value: knight
-      objectReference: {fileID: 0}
     - target: {fileID: 393645857472166253, guid: 9c04721f23f2ade498faca6a6728f6a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -450,6 +445,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3687844508876688254, guid: 9c04721f23f2ade498faca6a6728f6a1,
+        type: 3}
+      propertyPath: m_Name
+      value: knight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c04721f23f2ade498faca6a6728f6a1, type: 3}
