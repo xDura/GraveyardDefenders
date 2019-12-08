@@ -80,7 +80,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ChopWood
-  m_Speed: 3.5
+  m_Speed: 4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5232849347117881933}
@@ -164,7 +164,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Minning
-  m_Speed: 3.5
+  m_Speed: 4
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -402105278209346148}

@@ -105,7 +105,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 1
+      isExpanded: 0
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -120,7 +120,7 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 1
+    isExpanded: 0
     _keyValues: 01000000000000000200000003000000040000000500000006000000070000000800000009000000
     _keys: 01000000000000000200000003000000040000000500000006000000070000000800000009000000
     _values:
@@ -388,9 +388,9 @@ MonoBehaviour:
       rolloffMode: 0
       clip: {fileID: 8300000, guid: 3e62d9cc238673a46ac835c78d42d40c, type: 3}
       timeSamples: 0
-      pitch: 0.5
+      pitch: 0.95
       volume: 1
-      useRandomPitch: 1
+      useRandomPitch: 0
       maxRandomPitch: 1
       minRandomPitch: 0.7
       despawnOnEnd: 1
@@ -418,9 +418,9 @@ MonoBehaviour:
       rolloffMode: 0
       clip: {fileID: 8300000, guid: 1e6d3dc5cd9b60245afc2dec4c244517, type: 3}
       timeSamples: 0
-      pitch: 0.5
+      pitch: 1
       volume: 1
-      useRandomPitch: 1
+      useRandomPitch: 0
       maxRandomPitch: 1
       minRandomPitch: 0.7
       despawnOnEnd: 1
@@ -431,7 +431,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 1
+      isExpanded: 0
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -446,7 +446,7 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 1
+    isExpanded: 0
     _keyValues: 0100000000000000
     _keys: 0100000000000000
     _values:

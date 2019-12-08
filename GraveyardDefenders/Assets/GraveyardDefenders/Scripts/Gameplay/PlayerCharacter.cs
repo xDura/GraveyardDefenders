@@ -35,8 +35,11 @@ namespace XD
         public float moveSpeed;
         public float interactRadius;
         public float interactHitTime = 0.5f;
+        [Tooltip("Time it takes at the start of interaction to start it usefull to match animation")]
+        public float interactStartHitTimeOffset = 0.25f;
         public float lastInteractHitTime = float.NegativeInfinity;
         public float TimeSinceLastInteractHit { get { return Time.timeSinceLevelLoad - lastInteractHitTime; } }
+        public bool IsHitReady { get { return TimeSinceLastInteractHit >= interactHitTime; } }
 
         [Header("Input")]
         public string HorizontalAxisName = "Horizontal";
@@ -101,7 +104,7 @@ namespace XD
             center.y = transform.position.y;
             transform.LookAt(center, Vector3.up);
             doingAction = true;
-            lastInteractHitTime = Time.timeSinceLevelLoad;
+            lastInteractHitTime = Time.timeSinceLevelLoad - interactStartHitTimeOffset;
             if(current_action == PLAYER_ACTIONS.GATHER)
             {
                 GathereableResource resource = currentBreakable as GathereableResource;
@@ -132,7 +135,7 @@ namespace XD
         {
             if (!doingAction) return;
 
-            if (TimeSinceLastInteractHit >= interactHitTime)
+            if (IsHitReady)
             {
                 switch (current_action)
                 {
