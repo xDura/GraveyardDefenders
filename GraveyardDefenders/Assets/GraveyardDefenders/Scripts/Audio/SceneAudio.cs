@@ -10,7 +10,7 @@ namespace XD.Audio
 
         public void Awake()
         {
-            AudioManager.Instance.PlayMusic(music);
+            GlobalEvents.audioMusic.Invoke(music);
         }
     }   
 }

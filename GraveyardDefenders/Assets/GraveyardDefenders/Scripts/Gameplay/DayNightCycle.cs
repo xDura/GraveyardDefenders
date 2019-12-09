@@ -51,7 +51,7 @@ namespace XD
         {
             daysSurvived = 0;
             lastPhaseStartTime = Time.timeSinceLevelLoad;
-            AudioManager.Instance.PlayAmbience(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
+            GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
         }
 
         void Update()
@@ -73,13 +73,13 @@ namespace XD
                         ((GathereableResource)breakable).StartGrowing();                
                 }
 
-                AudioManager.Instance.PlayFX(AUDIO_FX.START_DAY, gameObject);
-                AudioManager.Instance.PlayAmbience(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_DAY);
+                GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.START_DAY, gameObject);
+                GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_DAY);
             }
             else
             {
-                AudioManager.Instance.PlayAmbience(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
-                AudioManager.Instance.PlayFX(AUDIO_FX.START_NIGHT, gameObject);
+                GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.START_NIGHT, gameObject);
+                GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
             }
 
             Debug.LogFormat($"DayNightCycle: Transition from {currentPhase.ToString()} to: {nextPhase.ToString()}");

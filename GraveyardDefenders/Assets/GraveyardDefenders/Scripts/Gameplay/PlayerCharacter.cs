@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using XD.Audio;
 
 namespace XD
 {
@@ -57,6 +56,11 @@ namespace XD
             if (!cam) cam = Camera.main;
             if (!animator) animator = GetComponent<Animator>();
             if (!characterController) characterController = GetComponent<CharacterController>();
+        }
+
+        public void IntListener(int a)
+        {
+            Debug.Log(a);
         }
 
         void UpdateCurrentBreakable()
@@ -143,15 +147,15 @@ namespace XD
                         GathereableResource gathereable = currentBreakable as GathereableResource;
                         float gathered = gathereable.Gather(1.0f);
                         //TODO: remove audio from here: and remove using XD.Audio
-                        if (gathereable.type == RESOURCE_TYPE.STONE) AudioManager.Instance.PlayFX(AUDIO_FX.MINING_STONE, this.gameObject);
-                        else AudioManager.Instance.PlayFX(AUDIO_FX.CHOP_WOOD, this.gameObject);
+                        if (gathereable.type == RESOURCE_TYPE.STONE) GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
+                        else GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.CHOP_WOOD, this.gameObject);
                         inventory.AddResource(gathereable.type, gathered);
                         lastInteractHitTime = Time.timeSinceLevelLoad;
                         break;
                     case PLAYER_ACTIONS.REPAIR:
                         float repairedAmmount = currentBreakable.Repair(2.0f);
                         inventory.SubstractResource(currentBreakable.repairResource, 1.0f);
-                        AudioManager.Instance.PlayFX(AUDIO_FX.REPAIR_WOOD, this.gameObject);
+                        GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.REPAIR_WOOD, this.gameObject);
                         lastInteractHitTime = Time.timeSinceLevelLoad;
                         if (!inventory.HasResource(currentBreakable.repairResource)) StopInteracting();
                         break;

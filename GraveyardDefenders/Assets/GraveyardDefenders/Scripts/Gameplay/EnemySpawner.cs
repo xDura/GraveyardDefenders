@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DG.Tweening;
-using XD.Audio;
+﻿using UnityEngine;
 
 namespace XD
 {
@@ -50,7 +46,7 @@ namespace XD
 
             //TODO Remove this random
             lastSpawnTime = Time.timeSinceLevelLoad + Random.Range(0.0f, timeToSpawn / 2.0f);
-            Debug.LogFormat($"lastSpawnTime {lastSpawnTime}");
+            //Debug.LogFormat($"lastSpawnTime {lastSpawnTime}");
         }
 
         void Update()
@@ -69,7 +65,7 @@ namespace XD
             Instantiate(enemyPrefab, spawnTransform.position, spawnTransform.rotation);
             lastSpawnTime = Time.timeSinceLevelLoad;
             Shake(0);
-            AudioManager.Instance.PlayFX(AUDIO_FX.SKELETON_SPAWN, this.gameObject);
+            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.SKELETON_SPAWN, this.gameObject);
         }
 
         void Shake(int shakeID)

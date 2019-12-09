@@ -18,13 +18,19 @@ namespace XD.Audio
         public override void OnSingletonAwake()
         {
             base.OnSingletonAwake();
-            Debug.Log($"OnSingletonAwake");
+            //Debug.Log($"OnSingletonAwake");GlobalEvents.playAmbienceEvent
+            GlobalEvents.audioAmbienceEvent.AddListener(PlayAmbience);
+            GlobalEvents.audioFXEvent.AddListener(PlayFX);
+            GlobalEvents.audioMusic.AddListener(PlayMusic);
         }
 
         public override void OnSingletonDestroy(bool isMainInstance)
         {
             base.OnSingletonDestroy(isMainInstance);
-            Debug.Log($"OnSingletonDestroy {isMainInstance}");
+            //Debug.Log($"OnSingletonDestroy {isMainInstance}");
+            GlobalEvents.audioAmbienceEvent.RemoveListener(PlayAmbience);
+            GlobalEvents.audioFXEvent.RemoveListener(PlayFX);
+            GlobalEvents.audioMusic.RemoveListener(PlayMusic);
         }
 
         public void Terminate()

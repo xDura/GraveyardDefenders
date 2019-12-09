@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
@@ -163,7 +161,7 @@ namespace XD
 
         private void Attack()
         {
-            Debug.Log(name + " is Attacking: " + currentTarget.name);
+            //Debug.Log(name + " is Attacking: " + currentTarget.name);
             currentTarget.Hit(attackDamage);
             animator.SetTrigger("Attack");
             if (currentTarget.destroyed) agent.CompleteOffMeshLink();

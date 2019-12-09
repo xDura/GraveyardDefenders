@@ -2,34 +2,35 @@
 using UnityEngine.Audio;
 using RotaryHeart.Lib.SerializableDictionary;
 
+public enum AUDIO_AMBIENCES
+{
+    LEVEL_01_AMBIENCE_DAY,
+    LEVEL_01_AMBIENCE_NIGHT,
+}
+
+public enum AUDIO_FX
+{
+    DAMAGE_WOOD,
+    CHOP_WOOD,
+    DAMAGE_STONE,
+    MINING_STONE,
+    SKELETON_SPAWN,
+    SKELETON_DIE,
+    REPAIR_WOOD,
+    FENCE_OPEN_CLOSE,
+    START_DAY,
+    START_NIGHT,
+}
+
+public enum AUDIO_MUSICS
+{
+    LEVEL_01_MUSIC,
+    MAINMENU_MUSIC,
+}
+
 namespace XD.Audio
 {
     #region AUDIO_DATA
-    public enum AUDIO_AMBIENCES
-    {
-        LEVEL_01_AMBIENCE_DAY,
-        LEVEL_01_AMBIENCE_NIGHT,
-    }
-
-    public enum AUDIO_FX
-    {
-        DAMAGE_WOOD,
-        CHOP_WOOD,
-        DAMAGE_STONE,
-        MINING_STONE,
-        SKELETON_SPAWN,
-        SKELETON_DIE,
-        REPAIR_WOOD,
-        FENCE_OPEN_CLOSE,
-        START_DAY,
-        START_NIGHT,
-    }
-
-    public enum AUDIO_MUSICS
-    {
-        LEVEL_01_MUSIC,
-        MAINMENU_MUSIC,
-    }
 
     [System.Serializable]
     public class AudioSourceData
