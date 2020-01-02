@@ -18,6 +18,7 @@ namespace XD
         public float maxHP;
         public bool isRepairable = true;
         public RESOURCE_TYPE repairResource;
+        public bool isInfinite = false;
 
         [Header("Runtime")]
         public float currentHP;
@@ -76,7 +77,9 @@ namespace XD
             }
 
             UpdateHealthBar();
-            return oldHP - currentHP;
+            float totalDamageDone = oldHP - currentHP;
+            if (isInfinite) currentHP = oldHP;
+            return totalDamageDone;
         }
 
         public float Repair(float ammount)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace XD
 {
@@ -26,9 +27,9 @@ namespace XD
 
         [Header("Runtime")]
         Camera cam;
-        public BreakableObject currentBreakable;
-        public bool doingAction = false;
-        public PLAYER_ACTIONS current_action = PLAYER_ACTIONS.NONE;
+        [NonSerialized] public BreakableObject currentBreakable;
+        [NonSerialized] public bool doingAction = false;
+        [NonSerialized] public PLAYER_ACTIONS current_action = PLAYER_ACTIONS.NONE;
 
         [Header("Variables")]
         public float moveSpeed;
@@ -40,10 +41,9 @@ namespace XD
         public float TimeSinceLastInteractHit { get { return Time.timeSinceLevelLoad - lastInteractHitTime; } }
         public bool IsHitReady { get { return TimeSinceLastInteractHit >= interactHitTime; } }
 
-        [Header("Input")]
-        public string HorizontalAxisName = "Horizontal";
-        public string VerticalAxisName = "Vertical";
-        public KeyCode interactKey = KeyCode.F;
+        [NonSerialized] public Vector2 moveVector;
+        [NonSerialized] public bool interactPressedThisFrame = false;
+        [NonSerialized] public bool interactReleasedThisFrame = false;
 
         void Start()
         {
@@ -56,11 +56,6 @@ namespace XD
             if (!cam) cam = Camera.main;
             if (!animator) animator = GetComponent<Animator>();
             if (!characterController) characterController = GetComponent<CharacterController>();
-        }
-
-        public void IntListener(int a)
-        {
-            Debug.Log(a);
         }
 
         void UpdateCurrentBreakable()
@@ -169,7 +164,7 @@ namespace XD
             }
         }
 
-        void Update()
+        public void ManualUpdate()
         {
             UpdateCurrentBreakable();
 
@@ -178,9 +173,9 @@ namespace XD
             DebugExtension.DebugArrow(transform.position, right, Color.red, 0.0f, false);
             DebugExtension.DebugArrow(transform.position, forward, Color.blue, 0.0f, false);
 
-            float horizontal = Input.GetAxis(HorizontalAxisName);
-            float vertical = Input.GetAxis(VerticalAxisName);
-            if (!doingAction && currentBreakable && Input.GetKey(interactKey))
+            float horizontal = moveVector.x;
+            float vertical = moveVector.y;
+            if (!doingAction && currentBreakable && interactPressedThisFrame)
                 AttemptInteraction();
 
 

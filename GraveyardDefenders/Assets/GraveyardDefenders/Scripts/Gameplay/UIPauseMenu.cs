@@ -20,7 +20,7 @@ namespace XD
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetButtonDown("Cancel"))
             {
                 if (isOpen) Close();
                 else Open();

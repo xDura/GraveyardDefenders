@@ -5,6 +5,8 @@ namespace XD
     [CreateAssetMenu(menuName = "XD/Constants")]
     public class Constants : ScriptableObject
     {
+        public const int maxPlayers = 4;
+
         [System.Flags]
         public enum DEBUG_FLAGS
         {

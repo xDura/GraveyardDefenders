@@ -472,7 +472,7 @@ MonoBehaviour:
       minDistance: 0
       maxDistance: 100
       rolloffMode: 0
-      clip: {fileID: 8300000, guid: 2b4f7e183a4971b46a24e5964464589c, type: 3}
+      clip: {fileID: 8300000, guid: d501db175f1c46e42b98e22f7c1d42cf, type: 3}
       timeSamples: 0
       pitch: 1
       volume: 0.7
@@ -502,7 +502,7 @@ MonoBehaviour:
       minDistance: 900
       maxDistance: 1000
       rolloffMode: 0
-      clip: {fileID: 8300000, guid: 2b4f7e183a4971b46a24e5964464589c, type: 3}
+      clip: {fileID: 8300000, guid: f0607ce36ea28c447ab0bce6683c8f0b, type: 3}
       timeSamples: 0
       pitch: 1
       volume: 0.5
