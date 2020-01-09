@@ -56,21 +56,38 @@ namespace XD
         }
 
         [System.Serializable]
+        public class WallData
+        {
+            public Vector3 position;
+            public RotationData rotation;
+            public int index;
+        }
+
+        [System.Serializable]
+        public class BreakableWallData
+        {
+            public Vector3 position;
+            public RotationData rotation;
+            public int index;
+        }
+
+        [System.Serializable]
+        public class DoorData
+        {
+            public Vector3 position;
+            public RotationData rotation;
+            public int index;
+        }
+
+        [System.Serializable]
         public class LevelData
         {
             public CamData cam;
             public TreeData[] trees;
             public MineData[] mines;
-        }
-
-        [ContextMenu("Check Vectors")]
-        public void CheckVectors()
-        {
-            Debug.Log(transform.forward);
-            Debug.Log(transform.up);
-            Debug.Log(transform.rotation);
-            Debug.Log(transform.position);
-            Matrix4x4 mat = Matrix4x4.TRS(Vector3.zero, transform.rotation, Vector3.one);
+            public WallData[] walls;
+            public BreakableWallData[] breakableWalls;
+            public DoorData[] doors;
         }
 
         [ContextMenu("Export")]
@@ -83,6 +100,7 @@ namespace XD
                 fov = Camera.main.fieldOfView
             };
 
+            #region TREES_&_MINES
             int mineCount = 0;
             int treeCount = 0;
             GathereableResource[] resources = FindObjectsOfType<GathereableResource>();
@@ -122,6 +140,11 @@ namespace XD
                     nextMineIndex++;
                 }
             }
+            #endregion
+
+            #region WALLS
+
+            #endregion
 
             level.cam = cam;
             level.mines = mines;
@@ -131,6 +154,8 @@ namespace XD
             if(File.Exists(exportPath)) File.Delete(exportPath);
             FileStream stream = new FileStream(exportPath, FileMode.CreateNew);
             serializer.Serialize(stream, level);
+
+
         }
     }   
 }
