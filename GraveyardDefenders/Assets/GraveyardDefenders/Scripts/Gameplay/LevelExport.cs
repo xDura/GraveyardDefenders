@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace XD
 {
@@ -11,6 +12,10 @@ namespace XD
     {
         public GameObject originalTree;
         public GameObject originalMine;
+
+        public GameObject originalWall;
+        public GameObject originalBreakableWall;
+        public GameObject originalDoor;
 
         public LevelData level = new LevelData();
         public string exportPath;
@@ -142,13 +147,54 @@ namespace XD
             }
             #endregion
 
-            #region WALLS
+            #region WALLS & DOORS
+            int numDoors;
+            PlayerDoor[] doors = FindObjectsOfType<PlayerDoor>();
+            numDoors = doors.Length;
+            DoorData[] doorDatas = new DoorData[numDoors];
+            for (int i = 0; i < doors.Length; i++)
+            {
+                doorDatas[i] = new DoorData
+                {
+                    index = 0,
+                    position = doors[i].transform.position,
+                    rotation = new RotationData(doors[i].transform.rotation)
+                };
+            }
+
+            BreakableObject[] breakables = FindObjectsOfType<BreakableObject>();
+            List<BreakableWallData> breakableWallDatas = new List<BreakableWallData>();
+            for (int i = 0; i < breakables.Length; i++)
+            {
+                if (breakables[i].name.Contains("Fence"))
+                    breakableWallDatas.Add(new BreakableWallData {
+                                            position = breakables[i].transform.position,
+                                            rotation = new RotationData(breakables[i].transform.rotation),
+                                            index = 0,
+                                            });
+            }
+
+
+            GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
+            WallData[] wallDatas = new WallData[walls.Length];
+            for (int i = 0; i < wallDatas.Length; i++)
+            {
+                wallDatas[i] = new WallData
+                {
+                    position = walls[i].transform.position,
+                    rotation = new RotationData(walls[i].transform.rotation),
+                    index = 0
+                };
+            }
 
             #endregion
 
             level.cam = cam;
             level.mines = mines;
             level.trees = trees;
+            level.doors = doorDatas;
+            level.walls = wallDatas;
+            level.breakableWalls = breakableWallDatas.ToArray();
 
             XmlSerializer serializer = new XmlSerializer(typeof(LevelData));
             if(File.Exists(exportPath)) File.Delete(exportPath);

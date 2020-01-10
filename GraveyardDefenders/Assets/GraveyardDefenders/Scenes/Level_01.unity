@@ -13052,6 +13052,7 @@ GameObject:
   - component: {fileID: 1903251198}
   - component: {fileID: 1903251197}
   - component: {fileID: 1903251200}
+  - component: {fileID: 1903251201}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -13134,6 +13135,39 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1903251201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903251196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748dcdb2587564241b75323b07e8fdc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalTree: {fileID: 0}
+  originalMine: {fileID: 0}
+  originalWall: {fileID: 0}
+  originalBreakableWall: {fileID: 8377418141207711615, guid: 933d714f34973d5448bafc7e3fe81d8d,
+    type: 3}
+  originalDoor: {fileID: 0}
+  level:
+    cam:
+      position: {x: 0, y: 0, z: 0}
+      rotation:
+        x: 0
+        y: 0
+        z: 0
+        w: 0
+      fov: 0
+    trees: []
+    mines: []
+    walls: []
+    breakableWalls: []
+    doors: []
+  exportPath: C:\Users\hawky\Desktop
 --- !u!1001 &1904797704
 PrefabInstance:
   m_ObjectHideFlags: 0
