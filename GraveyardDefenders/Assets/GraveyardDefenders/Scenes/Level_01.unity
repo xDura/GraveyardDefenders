@@ -7722,11 +7722,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GravestonesGroup
       objectReference: {fileID: 0}
-    - target: {fileID: 8434730470097691457, guid: 3da0258acc19ffe43ad30610d67b3f42,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8434730470097691456, guid: 3da0258acc19ffe43ad30610d67b3f42,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7781,11 +7776,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6917449015926811209, guid: 3da0258acc19ffe43ad30610d67b3f42,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.52
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3da0258acc19ffe43ad30610d67b3f42, type: 3}

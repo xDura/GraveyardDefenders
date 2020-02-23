@@ -19,6 +19,8 @@ namespace XD
         public Sprite keyabord2Sprite;
         public Sprite keyabord3Sprite;
 
+        public GameObject startGamePanel;
+
         public List<Image> selectedPlayerImages = new List<Image>(Constants.maxPlayers);
         public List<Image> inputImages = new List<Image>(Constants.maxPlayers);
 
@@ -84,9 +86,21 @@ namespace XD
                 {
                     selectedPlayerImages[realindex].sprite = noneSprite;
                     inputImages[realindex].sprite = GetActionSprite(Keyboard.current, keyboardIndex);
-                    //Debug.Log("Draw as has to be added");
                 }
             }
+
+            if (PlayerInput.Instance.CurrentPlayerCount >= 1)
+            {
+                startGamePanel.SetActive(true);
+                if (Keyboard.current.spaceKey.isPressed)
+                {
+                    FindObjectOfType<UIMainMenu>().StartGame();
+                    gameObject.SetActive(false);
+                    return;
+                }
+            }
+            else
+                startGamePanel.SetActive(false);
         }
 
         public bool HasKeyboardPlayer(int index)
