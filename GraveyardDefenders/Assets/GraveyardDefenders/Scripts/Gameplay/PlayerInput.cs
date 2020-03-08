@@ -95,7 +95,9 @@ namespace XD
                         devices.Add(Keyboard.current);
                         deviceIndices.Add(i);
                         GameObject p = Instantiate(playerPrefab, spawn.position, spawn.rotation);
-                        local_players.Add(p.GetComponent<PlayerCharacter>());
+                        PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
+                        local_players.Add(pc);
+                        PlayerEvents.playerAddedEvnt.Invoke(pc);
                     }
                 }
                 else
@@ -104,7 +106,9 @@ namespace XD
                     {
                         Transform spawn = spawnPoints.spawns[i].transform;
                         GameObject p = Instantiate(playerPrefab, spawn.position, spawn.rotation);
-                        local_players.Add(p.GetComponent<PlayerCharacter>());
+                        PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
+                        local_players.Add(pc);
+                        PlayerEvents.playerAddedEvnt.Invoke(pc);
                     }
                 }
             }

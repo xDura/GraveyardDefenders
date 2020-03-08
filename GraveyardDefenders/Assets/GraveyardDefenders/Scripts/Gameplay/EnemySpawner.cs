@@ -21,13 +21,7 @@ namespace XD
         public bool fadeout = false;
 
         public int lastShakeID = 0;
-        public int CurrentShakeID
-        {
-            get
-            {
-                return Mathf.FloorToInt(((Time.timeSinceLevelLoad - lastSpawnTime) * 3.0f )/ (timeToSpawn));
-            }
-        }
+        public int CurrentShakeID { get { return Mathf.FloorToInt(((Time.timeSinceLevelLoad - lastSpawnTime) * 3.0f )/ (timeToSpawn)); } }
 
         public const int randomSeed = 200;
 
@@ -46,18 +40,25 @@ namespace XD
 
             //TODO Remove this random
             lastSpawnTime = Time.timeSinceLevelLoad + Random.Range(0.0f, timeToSpawn / 2.0f);
-            //Debug.LogFormat($"lastSpawnTime {lastSpawnTime}");
         }
 
         void Update()
         {
             if (needsInit) Init();
 
-            if (HasToSpawn)
-                SpawnEnemy();
+            if(DayNightCycle.currentPhase_s == DAY_NIGHT_PHASE.DAY)
+            {
+                lastSpawnTime += Time.deltaTime;
+                Shake(0);
+            }
+            else
+            {
+                if (HasToSpawn)
+                    SpawnEnemy();
 
-            if(CurrentShakeID != lastShakeID)
-                Shake(CurrentShakeID);
+                if(CurrentShakeID != lastShakeID)
+                    Shake(CurrentShakeID);
+            }
         }
 
         void SpawnEnemy()

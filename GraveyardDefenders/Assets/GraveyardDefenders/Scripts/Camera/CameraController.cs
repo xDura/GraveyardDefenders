@@ -14,6 +14,26 @@ namespace XD
 
         private Vector3 helperVector = new Vector3();
 
+        public void Awake()
+        {
+            PlayerEvents.playerAddedEvnt.AddListener(AddPlayer);
+        }
+
+        public void OnDestroy()
+        {
+            PlayerEvents.playerAddedEvnt.RemoveListener(AddPlayer);
+        }
+
+        public void AddPlayer(PlayerCharacter pc)
+        {
+            AddTransform(pc?.transform);
+        }
+
+        public void RemovePlayer(PlayerCharacter pc)
+        {
+            RemoveTransform(pc?.transform);
+        }
+
         public void AddTransform(Transform t)
         {
             if (!activeTransforms.Contains(t)) activeTransforms.Add(t);
@@ -26,9 +46,10 @@ namespace XD
 
         void UpdateBounds()
         {
-            bounds.size = Vector3.zero;
-            bounds.center = Vector3.zero;
+            if (activeTransforms.Count == 0) return;
 
+            bounds.center = activeTransforms[0].position;
+            bounds.size = Vector3.zero;
             for (int i = 0; i < activeTransforms.Count; i++)
                 bounds.Encapsulate(activeTransforms[i].position);
         }
@@ -42,7 +63,6 @@ namespace XD
             helperVector.y = transform.position.y;
 
             transform.position = helperVector;
-
         }
     }   
 }

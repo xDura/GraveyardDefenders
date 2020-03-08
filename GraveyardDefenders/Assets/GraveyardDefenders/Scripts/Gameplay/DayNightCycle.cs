@@ -23,6 +23,9 @@ namespace XD
 
     public class DayNightCycle : MonoBehaviour
     {
+        public static DAY_NIGHT_PHASE currentPhase_s = DAY_NIGHT_PHASE.NIGHT;
+        public static float lastPhaseStartTime_s = float.NegativeInfinity;
+
         [Header("Assignable")]
         public Light directionalLight;
         public Fog fog;
@@ -87,9 +90,12 @@ namespace XD
             directionalLight.DOIntensity(nextPhaseAttribs.intensity, transitionTime);
             directionalLight.DOColor(nextPhaseAttribs.color, transitionTime);
             directionalLight.transform.DORotate(nextPhaseAttribs.rotation, transitionTime);
-            currentPhase = nextPhase;
             fog.meshRenderer.material.DOColor(nextPhaseAttribs.fogColor, transitionTime);
+
+            currentPhase = nextPhase;
+            currentPhase_s = nextPhase;
             lastPhaseStartTime = Time.timeSinceLevelLoad;
+            lastPhaseStartTime_s = Time.timeSinceLevelLoad;
         }
     }
 }

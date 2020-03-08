@@ -33,7 +33,6 @@ namespace XD
             get { return Time.timeSinceLevelLoad - lastAttackTime; }
         }
 
-        public DayNightCycle cycle;
         public float CurrentHPPercent
         {
             get { return currentHP / maxHP; }
@@ -56,16 +55,11 @@ namespace XD
             UpdateCombat();
             UpdateAnimation();
 
-            if(cycle == null)
-                cycle = FindObjectOfType<DayNightCycle>();
-            if (cycle)
+            if (DayNightCycle.currentPhase_s== DAY_NIGHT_PHASE.DAY)
             {
-                if (cycle.currentPhase == DAY_NIGHT_PHASE.DAY)
-                {
-                    currentHP -= dayDamagePerSecond * Time.deltaTime;
-                    UpdateHealthBar();
-                    if (currentHP <= 0) Die();
-                }
+                currentHP -= dayDamagePerSecond * Time.deltaTime;
+                UpdateHealthBar();
+                if (currentHP <= 0) Die();
             }
         }
 
