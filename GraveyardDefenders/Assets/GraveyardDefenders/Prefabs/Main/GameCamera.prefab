@@ -104,7 +104,8 @@ MonoBehaviour:
     m_Extent: {x: 0, y: 0, z: 0}
   zOffset: 10
   xOffset: 0
-  debugBounds: 1
+  lerpSpeed: 1
+  debugBounds: 0
 --- !u!114 &1994110646
 MonoBehaviour:
   m_ObjectHideFlags: 0

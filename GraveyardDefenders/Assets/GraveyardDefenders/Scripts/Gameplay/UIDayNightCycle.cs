@@ -16,14 +16,23 @@ namespace XD
 
         public DayNightCycle cycle;
 
+        private int lastDaysSurvived = 0;
+
+        public bool HasToUpdateDaysSurvived { get { return lastDaysSurvived != cycle.daysSurvived; } }
+
         void Update()
         {
             if (cycle == null) FindDayNightCycle();
             if (cycle == null) return;
 
             currentCycleTimeImage.fillAmount = 1.0f - cycle.CycleRemainingTimeNormalized;
-            currentDayText.text = (cycle.daysSurvived + 1).ToString();
-            if(cycle.currentPhase == DAY_NIGHT_PHASE.DAY)
+            if (HasToUpdateDaysSurvived)
+            {
+                currentDayText.text = (cycle.daysSurvived + 1).ToString();
+                lastDaysSurvived = cycle.daysSurvived + 1;
+            }
+
+            if (cycle.currentPhase == DAY_NIGHT_PHASE.DAY)
             {
                 moonImage.SetActive(false);
                 sunImage.SetActive(true);

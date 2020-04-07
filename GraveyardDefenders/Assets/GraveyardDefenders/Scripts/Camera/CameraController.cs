@@ -9,6 +9,7 @@ namespace XD
         public Bounds bounds = new Bounds();
         public float zOffset;
         public float xOffset;
+        public float lerpSpeed;
 
         public bool debugBounds = false;
 
@@ -62,7 +63,7 @@ namespace XD
             helperVector.z = (bounds.center.z + zOffset);
             helperVector.y = transform.position.y;
 
-            transform.position = helperVector;
+            transform.position = Vector3.Lerp(transform.position, helperVector, Time.deltaTime * lerpSpeed);
         }
     }   
 }
