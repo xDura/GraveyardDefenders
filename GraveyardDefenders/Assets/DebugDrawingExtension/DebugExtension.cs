@@ -33,7 +33,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugPoint(Vector3 position, Color color, float scale = 1.0f, float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         color = (color == default(Color)) ? Color.white : color;
 		
 		Debug.DrawRay(position+(Vector3.up*(scale*0.5f)), -Vector3.up*scale, color, duration, depthTest);
@@ -59,11 +59,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugPoint(Vector3 position, float scale = 1.0f, float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugPoint(position, Color.white, scale, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs an axis-aligned bounding box.
 	/// </summary>
@@ -81,7 +81,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugBounds(Bounds bounds, Color color, float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         Vector3 center = bounds.center;
 		
 		float x = bounds.extents.x;
@@ -114,7 +114,7 @@ public static class DebugExtension
 		Debug.DrawLine(lbd, rdb, color, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs an axis-aligned bounding box.
 	/// </summary>
@@ -129,11 +129,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugBounds(Bounds bounds, float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugBounds(bounds, Color.white, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a local cube.
 	/// </summary>
@@ -157,7 +157,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugLocalCube(Transform transform, Vector3 size, Color color, Vector3 center = default(Vector3), float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         Vector3 lbb = transform.TransformPoint(center+((-size)*0.5f));
 		Vector3 rbb = transform.TransformPoint(center+(new Vector3(size.x, -size.y, -size.z)*0.5f));
 		
@@ -186,7 +186,7 @@ public static class DebugExtension
 		Debug.DrawLine(rbf, ruf, color, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a local cube.
 	/// </summary>
@@ -207,11 +207,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugLocalCube(Transform transform, Vector3 size, Vector3 center = default(Vector3), float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugLocalCube(transform, size, Color.white, center, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a local cube.
 	/// </summary>
@@ -235,7 +235,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugLocalCube(Matrix4x4 space, Vector3 size, Color color, Vector3 center = default(Vector3), float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         color = (color == default(Color)) ? Color.white : color;
 		
 		Vector3 lbb = space.MultiplyPoint3x4(center+((-size)*0.5f));
@@ -266,7 +266,7 @@ public static class DebugExtension
 		Debug.DrawLine(rbf, ruf, color, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a local cube.
 	/// </summary>
@@ -287,11 +287,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugLocalCube(Matrix4x4 space, Vector3 size, Vector3 center = default(Vector3), float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugLocalCube(space, size, Color.white, center, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a circle.
 	/// </summary>
@@ -315,7 +315,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCircle(Vector3 position, Vector3 up, Color color, float radius = 1.0f, float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         Vector3 _up = up.normalized * radius;
 		Vector3 _forward = Vector3.Slerp(_up, -_up, 0.5f);
 		Vector3 _right = Vector3.Cross(_up, _forward).normalized*radius;
@@ -351,7 +351,7 @@ public static class DebugExtension
 		}
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a circle.
 	/// </summary>
@@ -372,11 +372,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCircle(Vector3 position, Color color, float radius = 1.0f, float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugCircle(position, Vector3.up, color, radius, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a circle.
 	/// </summary>
@@ -397,11 +397,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCircle(Vector3 position, Vector3 up, float radius = 1.0f, float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugCircle(position, up, Color.white, radius, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a circle.
 	/// </summary>
@@ -419,11 +419,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCircle(Vector3 position, float radius = 1.0f, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugCircle(position, Vector3.up, Color.white, radius, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a wire sphere.
 	/// </summary>
@@ -444,7 +444,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugWireSphere(Vector3 position, Color color, float radius = 1.0f, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         float angle = 10.0f;
 		
 		Vector3 x = new Vector3(position.x, position.y + radius * Mathf.Sin(0), position.z + radius * Mathf.Cos(0));
@@ -471,7 +471,7 @@ public static class DebugExtension
 		}
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a wire sphere.
 	/// </summary>
@@ -489,11 +489,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugWireSphere(Vector3 position, float radius = 1.0f, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugWireSphere(position, Color.white, radius, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a cylinder.
 	/// </summary>
@@ -517,7 +517,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCylinder(Vector3 start, Vector3 end, Color color, float radius = 1, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         Vector3 up = (end-start).normalized*radius;
 		Vector3 forward = Vector3.Slerp(up, -up, 0.5f);
 		Vector3 right = Vector3.Cross(up, forward).normalized*radius;
@@ -543,7 +543,7 @@ public static class DebugExtension
 		Debug.DrawLine(end-forward, end+forward, color, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a cylinder.
 	/// </summary>
@@ -564,11 +564,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCylinder(Vector3 start, Vector3 end, float radius = 1, float duration = 0, bool depthTest = true)
 	{
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugCylinder(start, end, Color.white, radius, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a cone.
 	/// </summary>
@@ -592,7 +592,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCone(Vector3 position, Vector3 direction, Color color, float angle = 45, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         float length = direction.magnitude;
 		
 		Vector3 _forward = direction;
@@ -618,7 +618,7 @@ public static class DebugExtension
 		DebugExtension.DebugCircle(position+(_forward*0.5f), direction, color, ((_forward*0.5f)-(slerpedVector.normalized*(dist*0.5f))).magnitude, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a cone.
 	/// </summary>
@@ -639,11 +639,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCone(Vector3 position, Vector3 direction, float angle = 45, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugCone(position, direction, Color.white, angle, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a cone.
 	/// </summary>
@@ -664,11 +664,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCone(Vector3 position, Color color, float angle = 45, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugCone(position, Vector3.up, color, angle, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a cone.
 	/// </summary>
@@ -686,11 +686,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCone(Vector3 position, float angle = 45, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugCone(position, Vector3.up, Color.white, angle, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs an arrow.
 	/// </summary>
@@ -711,12 +711,12 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugArrow(Vector3 position, Vector3 direction, Color color, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         Debug.DrawRay(position, direction, color, duration, depthTest);
 		DebugExtension.DebugCone(position+direction, -direction*0.333f, color, 15, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs an arrow.
 	/// </summary>
@@ -734,11 +734,11 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugArrow(Vector3 position, Vector3 direction, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugArrow(position, direction, Color.white, duration, depthTest);
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a capsule.
 	/// </summary>
@@ -762,7 +762,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCapsule(Vector3 start, Vector3 end, Color color, float radius = 1, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         Vector3 up = (end-start).normalized*radius;
 		Vector3 forward = Vector3.Slerp(up, -up, 0.5f);
 		Vector3 right = Vector3.Cross(up, forward).normalized*radius;
@@ -801,7 +801,7 @@ public static class DebugExtension
 		}
 #endif
 	}
-	
+
 	/// <summary>
 	/// 	- Debugs a capsule.
 	/// </summary>
@@ -822,15 +822,15 @@ public static class DebugExtension
 	/// </param>
 	public static void DebugCapsule(Vector3 start, Vector3 end, float radius = 1, float duration = 0, bool depthTest = true)
     {
-#if UNITY_EDITOR && _DEBUG
+#if UNITY_EDITOR && _DEBUG && _DEBUG_DRAW
         DebugCapsule(start, end, Color.white, radius, duration, depthTest);	
 #endif
 	}
-	
+
 	#endregion
-	
+
 	#region GizmoDrawFunctions
-	
+
 	/// <summary>
 	/// 	- Draws a point.
 	/// </summary>

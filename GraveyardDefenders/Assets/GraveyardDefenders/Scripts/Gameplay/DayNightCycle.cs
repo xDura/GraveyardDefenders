@@ -85,7 +85,7 @@ namespace XD
                 GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
             }
 
-            Debug.LogFormat($"DayNightCycle: Transition from {currentPhase.ToString()} to: {nextPhase.ToString()}");
+            //Debug.LogFormat($"DayNightCycle: Transition from {currentPhase.ToString()} to: {nextPhase.ToString()}");
             DayNightCycleLightAttributes nextPhaseAttribs = dayNightCycleLightAttributes[(int)nextPhase];
             directionalLight.DOIntensity(nextPhaseAttribs.intensity, transitionTime);
             directionalLight.DOColor(nextPhaseAttribs.color, transitionTime);

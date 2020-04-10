@@ -197,11 +197,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7861452959286343083}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: e7b054ac74342c547b8de953b81c02ed,
-        type: 3}
-      propertyPath: m_Name
-      value: gate
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: e7b054ac74342c547b8de953b81c02ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -257,6 +252,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: e7b054ac74342c547b8de953b81c02ed,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b47be93bc40c7a4ab0df4a3d2e81333, type: 2}
+    - target: {fileID: -927199367670048503, guid: e7b054ac74342c547b8de953b81c02ed,
+        type: 3}
+      propertyPath: m_Name
+      value: gate
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7b054ac74342c547b8de953b81c02ed, type: 3}
 --- !u!4 &7760954287522358327 stripped
@@ -272,11 +277,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1571852402679847727}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: f09e6f9d7b544474ca2f782e0bb658b2,
-        type: 3}
-      propertyPath: m_Name
-      value: door
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f09e6f9d7b544474ca2f782e0bb658b2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -331,6 +331,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: f09e6f9d7b544474ca2f782e0bb658b2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b47be93bc40c7a4ab0df4a3d2e81333, type: 2}
+    - target: {fileID: -927199367670048503, guid: f09e6f9d7b544474ca2f782e0bb658b2,
+        type: 3}
+      propertyPath: m_Name
+      value: door
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f09e6f9d7b544474ca2f782e0bb658b2, type: 3}

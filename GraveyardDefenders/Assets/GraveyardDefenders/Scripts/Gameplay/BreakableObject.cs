@@ -71,7 +71,7 @@ namespace XD
 
             if (currentHP == 0.0f)
             {
-                Debug.LogFormat($"{name} has been broken");
+                //Debug.LogFormat($"{name} has been broken");
                 brokeEvent.Invoke();
                 destroyed = true; 
             }
