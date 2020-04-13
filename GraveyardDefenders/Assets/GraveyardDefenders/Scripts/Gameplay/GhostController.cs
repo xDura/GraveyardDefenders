@@ -17,6 +17,7 @@ namespace XD
         public float offset;
 
         private string fadeId;
+        bool despawning = false;
 
         void Awake()
         {
@@ -28,6 +29,7 @@ namespace XD
 
         public void Init(PlayerCharacter character)
         {
+            despawning = false;
             target = character;
             DisappearInstant();
             Appear();
@@ -54,10 +56,14 @@ namespace XD
 
         public void DisappearAndDespawn()
         {
+            if (despawning) return;
+            despawning = true;
             for (int i = 0; i < materials.Count; i++)
             {
                 if (i == 0)
                     materials[i].DOFade(0.0f, fadeTime).SetId(fadeId).OnComplete(Despawn);
+                else
+                    materials[i].DOFade(0.0f, fadeTime).SetId(fadeId);
             }
         }
 
@@ -80,6 +86,9 @@ namespace XD
 
         void Update()
         {
+            if (target.inSafeArea) DisappearAndDespawn();
+            if (despawning) return;
+
             Vector3 auxPos = transform.position;
             if (target)
             {

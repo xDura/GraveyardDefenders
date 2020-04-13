@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace XD
 {
-    [CreateAssetMenu(menuName = "XD/GathereableResourceSet", fileName = "GathereableResourceSet", order = 1)]
+    [CreateAssetMenu(menuName = "XD/Sets/GathereableResourceSet", fileName = "GathereableResourceSet", order = 1)]
     public class GathereableResourceSet : ScriptableObject
     {
         public List<GathereableResource> items = new List<GathereableResource>();

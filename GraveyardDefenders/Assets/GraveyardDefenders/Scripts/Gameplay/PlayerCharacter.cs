@@ -30,6 +30,7 @@ namespace XD
         [NonSerialized] public BreakableObject currentBreakable;
         [NonSerialized] public bool doingAction = false;
         [NonSerialized] public PLAYER_ACTIONS current_action = PLAYER_ACTIONS.NONE;
+        [NonSerialized] public bool inSafeArea = false;
 
         [Header("Variables")]
         public float moveSpeed;
@@ -170,8 +171,6 @@ namespace XD
 
             Vector3 right = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
             Vector3 forward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
-            DebugExtension.DebugArrow(transform.position, right, Color.red, 0.0f, false);
-            DebugExtension.DebugArrow(transform.position, forward, Color.blue, 0.0f, false);
 
             float horizontal = moveVector.x;
             float vertical = moveVector.y;

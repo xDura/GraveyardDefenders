@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using RotaryHeart.Lib.SerializableDictionary;
 
 namespace XD
 {
+    public class PlayerGhostDictionary : SerializableDictionaryBase<PlayerCharacter, GhostController> { };
+
     public class NPCManager : Singleton<NPCManager>
     {
         public Pool skeletonPool;
@@ -10,6 +13,13 @@ namespace XD
 
         public Pool ghostPool;
         public GhostSet ghosts;
+        PlayerGhostDictionary ghostForPlayer = new PlayerGhostDictionary();
+
+        public override void OnSingletonAwake()
+        {
+            base.OnSingletonAwake();
+            Clear();
+        }
 
         public void OnEnable() 
         {
@@ -23,8 +33,19 @@ namespace XD
             GlobalEvents.newDayStarted.RemoveListener(FadeGhosts);
         }
 
+        public void Update()
+        {
+            PlayerInput pi = PlayerInput.Instance;
+            for (int i = 0; i < pi.CurrentPlayerCount; i++)
+            {
+                PlayerCharacter pc = pi.local_players[i];
+                if (!ghostForPlayer.ContainsKey(pc) && !pc.inSafeArea) InstantiateGhost(pc.transform.position, pc.transform.rotation, pc);
+            }
+        }
+
         public void Clear()
         {
+            ghostForPlayer.Clear();
             skeletons.Clear();
             ghosts.Clear();
         }
@@ -58,11 +79,13 @@ namespace XD
             GhostController controller = newGhost.GetComponent<GhostController>();
             ghosts.Add(controller);
             controller.Init(characterToFollow);
+            ghostForPlayer.Add(characterToFollow, controller);
             return true;
         }
 
         public void RemoveGhost(GhostController controller)
         {
+            ghostForPlayer.Remove(controller.target);
             ghosts.Remove(controller);
             ghostPool.Despawn(controller.gameObject);
         }
