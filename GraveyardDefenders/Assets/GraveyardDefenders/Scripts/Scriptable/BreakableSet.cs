@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace XD
 {
-    [CreateAssetMenu(menuName = "XD/BreakableSet")]
+    [CreateAssetMenu(menuName = "XD/Sets/BreakableSet")]
     public class BreakableSet : RuntimeSet<BreakableObject>
     {}
 }

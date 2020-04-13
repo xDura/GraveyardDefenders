@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace XD
 {
-    [CreateAssetMenu(menuName = "XD/GathereableSet")]
+    [CreateAssetMenu(menuName = "XD/Sets/GathereableSet")]
     public class GathereableSet : RuntimeSet<GathereableResource>
     {
         [ContextMenu("LogNames")]

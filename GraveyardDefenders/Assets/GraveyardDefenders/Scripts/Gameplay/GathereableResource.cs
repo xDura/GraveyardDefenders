@@ -49,7 +49,7 @@ namespace XD
 
         public void OnGrowEnded()
         {
-            Debug.Log("OnGrowEnded");
+            //Debug.Log("OnGrowEnded");
             currentHP = maxHP;
             destroyed = false;
             //Vector3 localPos = transform.localPosition;

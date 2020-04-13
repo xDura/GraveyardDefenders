@@ -70,7 +70,7 @@ namespace XD
 
         public void Die()
         {
-            Destroy(this.gameObject);
+            NPCManager.Instance.RemoveSkeleton(this);
         }
 
         private void UpdateNavigation()

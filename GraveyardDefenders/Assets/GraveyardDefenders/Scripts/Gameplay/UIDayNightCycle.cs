@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 namespace XD
 {
@@ -17,6 +18,21 @@ namespace XD
         public DayNightCycle cycle;
 
         private int lastDaysSurvived = 0;
+
+        [Header("DayCounter")]
+        public CanvasGroup dayCountCanvasGroup;
+        public float showDayCounterDuration = 3.0f;
+        public float showDayCounterFadeDuration = 0.2f;
+
+        public void OnEnable()
+        {
+            GlobalEvents.newDayStarted.AddListener(ShowDayCount);
+        }
+
+        public void OnDisable()
+        {
+            GlobalEvents.newDayStarted.RemoveListener(ShowDayCount);
+        }
 
         public bool HasToUpdateDaysSurvived { get { return lastDaysSurvived != cycle.daysSurvived; } }
 
@@ -42,6 +58,16 @@ namespace XD
                 moonImage.SetActive(true);
                 sunImage.SetActive(false);
             }
+        }
+
+        public void ShowDayCount()
+        {
+            dayCountCanvasGroup.DOFade(1.0f, showDayCounterFadeDuration).OnComplete(HideDayCountDelayed);
+        }
+
+        public void HideDayCountDelayed()
+        {
+            dayCountCanvasGroup.DOFade(0.0f, showDayCounterFadeDuration).SetDelay(showDayCounterDuration);
         }
 
         private void FindDayNightCycle()

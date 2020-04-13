@@ -19,5 +19,10 @@ namespace XD
             if (items.Contains(thing))
                 items.Remove(thing);
         }
+
+        public void Clear()
+        {
+            items.Clear();
+        }
     }
 }

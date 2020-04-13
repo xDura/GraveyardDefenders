@@ -27,8 +27,8 @@ namespace CommandTerminal
         [SerializeField]
         float ToggleSpeed = 360;
 
-        [SerializeField] string ToggleHotkey      = "`";
-        [SerializeField] string ToggleFullHotkey  = "#`";
+        [SerializeField] KeyCode key1 = KeyCode.LeftBracket;
+        [SerializeField] KeyCode key2 = KeyCode.LeftControl;
         [SerializeField] int BufferSize           = 512;
 
         [Header("Input")]
@@ -149,7 +149,6 @@ namespace CommandTerminal
 
             command_text = "";
             cached_command_text = command_text;
-            Assert.AreNotEqual(ToggleHotkey.ToLower(), "return", "Return is not a valid ToggleHotkey");
 
             SetupWindow();
             SetupInput();
@@ -167,10 +166,7 @@ namespace CommandTerminal
         }
 
         void OnGUI() {
-            if (Event.current.Equals(Event.KeyboardEvent(ToggleHotkey))) {
-                SetState(TerminalState.OpenSmall);
-                initial_open = true;
-            } else if (Event.current.Equals(Event.KeyboardEvent(ToggleFullHotkey))) {
+            if (Input.GetKeyDown(key1) && Input.GetKey(key2)) {
                 SetState(TerminalState.OpenFull);
                 initial_open = true;
             }
@@ -251,9 +247,7 @@ namespace CommandTerminal
                 move_cursor = true;
             } else if (Event.current.Equals(Event.KeyboardEvent("down"))) {
                 command_text = History.Next();
-            } else if (Event.current.Equals(Event.KeyboardEvent(ToggleHotkey))) {
-                ToggleState(TerminalState.OpenSmall);
-            } else if (Event.current.Equals(Event.KeyboardEvent(ToggleFullHotkey))) {
+            } else if (Input.GetKeyDown(key1) && Input.GetKey(key2)) {
                 ToggleState(TerminalState.OpenFull);
             } else if (Event.current.Equals(Event.KeyboardEvent("tab"))) {
                 CompleteCommand();

@@ -9,6 +9,8 @@ namespace XD
         public static Evnt<AUDIO_AMBIENCES> audioAmbienceEvent = new Evnt<AUDIO_AMBIENCES>();
         public static Evnt<AUDIO_FX, GameObject> audioFXEvent = new Evnt<AUDIO_FX, GameObject>();
         public static Evnt<AUDIO_MUSICS> audioMusic = new Evnt<AUDIO_MUSICS>();
+
+        public static Evnt newDayStarted = new Evnt();
     }
 
     public static class PlayerEvents

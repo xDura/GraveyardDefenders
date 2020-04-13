@@ -28,7 +28,6 @@ namespace XD
 
         [Header("Assignable")]
         public Light directionalLight;
-        public Fog fog;
         public BreakableSet breakables;
 
         [Header("Variables")]
@@ -66,7 +65,9 @@ namespace XD
         public void DoTransitionCycle()
         {
             DAY_NIGHT_PHASE nextPhase = (DAY_NIGHT_PHASE)((int)(currentPhase + 1) % dayNightCycleLightAttributes.Count);
-            if (currentPhase == DAY_NIGHT_PHASE.NIGHT) daysSurvived++;
+            if (currentPhase == DAY_NIGHT_PHASE.NIGHT)
+                daysSurvived++;
+
             if(nextPhase == DAY_NIGHT_PHASE.DAY)
             {
                 for (int i = 0; i < breakables.items.Count; i++)
@@ -78,6 +79,7 @@ namespace XD
 
                 GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.START_DAY, gameObject);
                 GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_DAY);
+                GlobalEvents.newDayStarted.Invoke();
             }
             else
             {
@@ -85,12 +87,10 @@ namespace XD
                 GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
             }
 
-            //Debug.LogFormat($"DayNightCycle: Transition from {currentPhase.ToString()} to: {nextPhase.ToString()}");
             DayNightCycleLightAttributes nextPhaseAttribs = dayNightCycleLightAttributes[(int)nextPhase];
             directionalLight.DOIntensity(nextPhaseAttribs.intensity, transitionTime);
             directionalLight.DOColor(nextPhaseAttribs.color, transitionTime);
             directionalLight.transform.DORotate(nextPhaseAttribs.rotation, transitionTime);
-            fog.meshRenderer.material.DOColor(nextPhaseAttribs.fogColor, transitionTime);
 
             currentPhase = nextPhase;
             currentPhase_s = nextPhase;

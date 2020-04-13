@@ -7,7 +7,6 @@ namespace XD
         [Header("Spawn")]
         public float timeToSpawn;
         public float lastSpawnTime;
-        public GameObject enemyPrefab;
         public Transform spawnTransform;
         public bool HasToSpawn { get { return Time.timeSinceLevelLoad - lastSpawnTime > timeToSpawn; } }
 
@@ -63,7 +62,7 @@ namespace XD
 
         void SpawnEnemy()
         {
-            Instantiate(enemyPrefab, spawnTransform.position, spawnTransform.rotation);
+            NPCManager.Instance.InstantiateSkeleton(spawnTransform.position, spawnTransform.rotation);
             lastSpawnTime = Time.timeSinceLevelLoad;
             Shake(0);
             GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.SKELETON_SPAWN, this.gameObject);
