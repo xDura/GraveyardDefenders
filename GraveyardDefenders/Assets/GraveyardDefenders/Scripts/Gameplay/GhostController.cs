@@ -19,6 +19,12 @@ namespace XD
         private string fadeId;
         bool despawning = false;
 
+        [Header("Hit")]
+        float timeEnteredHitRange = Mathf.NegativeInfinity;
+        public float hitRange = 1.0f;
+        public float timeToHit = 1.5f;
+        bool playerInHitRange = false;
+
         void Awake()
         {
             fadeId = GetInstanceID() + "Appear";
@@ -86,7 +92,7 @@ namespace XD
 
         void Update()
         {
-            if (target.inSafeArea) DisappearAndDespawn();
+            if (target.TimeInSafeArea >= 0.5f) DisappearAndDespawn();
             if (despawning) return;
 
             Vector3 auxPos = transform.position;
@@ -104,6 +110,59 @@ namespace XD
 
             auxPos.y = (Mathf.Sin(Time.time * sineYFreq) * sineYAmplitude) + offset;
             transform.position = auxPos;
+
+            UpdateChaseHit();
         }
-    }   
+
+        #region HITS
+
+        float TimePlayerHasBeenInsideHitRange
+        {
+            get
+            {
+                if (!playerInHitRange) return 0f;
+                else return Time.timeSinceLevelLoad - timeEnteredHitRange;
+            }
+        }
+
+        void UpdateChaseHit()
+        {
+            //check if we are in rangeXZ
+            Vector3 positionOnXZ = transform.position;
+            positionOnXZ.y = target.transform.position.y;
+            float distanceToPlayer = Vector3.Distance(positionOnXZ, target.transform.position);
+            if (distanceToPlayer <= hitRange)
+            {
+                if (!playerInHitRange) PlayerEnteredHitRange();
+                if (TimePlayerHasBeenInsideHitRange >= timeToHit) HitPlayer();
+            }
+            else
+            {
+                if (playerInHitRange) PlayerExitHitRange();
+            }
+        }
+
+        void PlayerEnteredHitRange()
+        {
+            playerInHitRange = true;
+            timeEnteredHitRange = Time.timeSinceLevelLoad;
+            //TODO: particles? feedback?   
+        }
+
+        void PlayerExitHitRange()
+        {
+            playerInHitRange = false;
+            //TODO: particles? feedback?
+        }
+
+        void HitPlayer()
+        {
+            playerInHitRange = false;
+            target.Respawn();
+            //target.respawn
+            //TODO: particles? feedback?
+        }
+
+        #endregion
+    }
 }

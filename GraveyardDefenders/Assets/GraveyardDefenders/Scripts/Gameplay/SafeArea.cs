@@ -10,14 +10,14 @@ namespace XD
         {
             if ((layer.value & (1 << other.gameObject.layer)) == 0) return;
 
-            other.GetComponent<PlayerCharacter>().inSafeArea = true;
+            other.GetComponent<PlayerCharacter>().SetSafeArea(true);
         }
 
         public void OnTriggerExit(Collider other)
         {
             if ((layer.value & (1 << other.gameObject.layer)) == 0) return;
 
-            other.GetComponent<PlayerCharacter>().inSafeArea = false;
+            other.GetComponent<PlayerCharacter>().SetSafeArea(false);
         }
     }   
 }

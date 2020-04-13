@@ -30,7 +30,42 @@ namespace XD
         [NonSerialized] public BreakableObject currentBreakable;
         [NonSerialized] public bool doingAction = false;
         [NonSerialized] public PLAYER_ACTIONS current_action = PLAYER_ACTIONS.NONE;
-        [NonSerialized] public bool inSafeArea = false;
+        [NonSerialized] public int id;
+
+        #region SAFE_AREA
+        public Vector3 lastSafeAreaExitPosition = Vector3.zero;
+        private bool inSafeArea = false;
+        private float lastTimeSafeAreaEnter = float.NegativeInfinity;
+        private float lastTimeSafeAreaExit = float.NegativeInfinity;
+
+        public float TimeInSafeArea
+        {
+            get 
+            {
+                if (inSafeArea) return Time.timeSinceLevelLoad - lastTimeSafeAreaEnter;
+                else return 0f;
+            } 
+        }
+        public float TImeOutsideSafeArea 
+        {
+            get
+            {
+                if (!inSafeArea) return Time.timeSinceLevelLoad - lastTimeSafeAreaExit;
+                else return 0;
+            }
+        }
+
+        public void SetSafeArea(bool isInSafeArea)
+        {
+            if (isInSafeArea) lastTimeSafeAreaEnter = Time.timeSinceLevelLoad;
+            else
+            {
+                lastSafeAreaExitPosition = transform.position;
+                lastTimeSafeAreaExit = Time.timeSinceLevelLoad;
+            }
+            inSafeArea = isInSafeArea;
+        }
+        #endregion
 
         [Header("Variables")]
         public float moveSpeed;
@@ -57,6 +92,14 @@ namespace XD
             if (!cam) cam = Camera.main;
             if (!animator) animator = GetComponent<Animator>();
             if (!characterController) characterController = GetComponent<CharacterController>();
+        }
+
+        public void Respawn()
+        {
+            PlayerSpawnPoints sp = FindObjectOfType<PlayerSpawnPoints>();
+            Transform n = sp.spawns[id];
+            transform.position = n.position;
+            transform.rotation = n.rotation;
         }
 
         void UpdateCurrentBreakable()

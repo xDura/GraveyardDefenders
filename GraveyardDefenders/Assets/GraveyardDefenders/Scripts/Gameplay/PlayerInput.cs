@@ -96,6 +96,7 @@ namespace XD
                         deviceIndices.Add(i);
                         GameObject p = Instantiate(playerPrefab, spawn.position, spawn.rotation);
                         PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
+                        pc.id = i;
                         local_players.Add(pc);
                         PlayerEvents.playerAddedEvnt.Invoke(pc);
                     }
@@ -107,6 +108,7 @@ namespace XD
                         Transform spawn = spawnPoints.spawns[i].transform;
                         GameObject p = Instantiate(playerPrefab, spawn.position, spawn.rotation);
                         PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
+                        pc.id = i;
                         local_players.Add(pc);
                         PlayerEvents.playerAddedEvnt.Invoke(pc);
                     }
