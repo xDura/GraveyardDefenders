@@ -39,7 +39,7 @@ namespace XD
             for (int i = 0; i < pi.CurrentPlayerCount; i++)
             {
                 PlayerCharacter pc = pi.local_players[i];
-                if (!ghostForPlayer.ContainsKey(pc) && (pc.TImeOutsideSafeArea >= 2.0f)) InstantiateGhost(pc.lastSafeAreaExitPosition, pc.transform.rotation, pc);
+                if (!ghostForPlayer.ContainsKey(pc) && (pc.TImeOutsideSafeArea >= 2.0f) && DayNightCycle.currentPhase_s == DAY_NIGHT_PHASE.NIGHT) InstantiateGhost(pc.lastSafeAreaExitPosition, pc.transform.rotation, pc);
             }
         }
 
