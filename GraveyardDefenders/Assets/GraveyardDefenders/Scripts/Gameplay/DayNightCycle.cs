@@ -85,6 +85,7 @@ namespace XD
             {
                 GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.START_NIGHT, gameObject);
                 GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
+                GlobalEvents.newNightStared.Invoke();
             }
 
             DayNightCycleLightAttributes nextPhaseAttribs = dayNightCycleLightAttributes[(int)nextPhase];

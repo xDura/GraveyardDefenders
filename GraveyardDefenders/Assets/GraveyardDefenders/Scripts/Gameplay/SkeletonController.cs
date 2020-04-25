@@ -43,10 +43,15 @@ namespace XD
             if (!agent) agent = GetComponent<NavMeshAgent>();
             if (!animator) animator = GetComponent<Animator>();
 
+            Init();
+        }
+
+        public void Init()
+        {
+            if(path_helper == null) path_helper = new NavMeshPath();
+            if(!currentObjective) currentObjective = FindObjectOfType<Objective>();
             currentHP = maxHP;
-            currentObjective = FindObjectOfType<Objective>();
             agent.autoTraverseOffMeshLink = false;
-            path_helper = new NavMeshPath();
         }
 
         void Update()
@@ -54,11 +59,11 @@ namespace XD
             UpdateNavigation();
             UpdateCombat();
             UpdateAnimation();
+            UpdateHealthBar();
 
             if (DayNightCycle.currentPhase_s== DAY_NIGHT_PHASE.DAY)
             {
                 currentHP -= dayDamagePerSecond * Time.deltaTime;
-                UpdateHealthBar();
                 if (currentHP <= 0) Die();
             }
         }

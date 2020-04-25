@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace XD
 {
@@ -16,8 +19,8 @@ namespace XD
             for (int i = 0; i < size; i++) InstantiateElement();
         }
 
-        [ContextMenu("Destroy")]
-        public void Destroy()
+        [ContextMenu("Clear")]
+        public void Clear()
         {
             for (int i = 0; i < available.Count; i++)
             {
@@ -29,8 +32,14 @@ namespace XD
 
         private GameObject InstantiateElement()
         {
+#if UNITY_EDITOR
+            GameObject go = null;
+            if (Application.isEditor && !Application.isPlaying) go = PrefabUtility.InstantiatePrefab(prefab, transform) as GameObject;
+            else go = Instantiate(prefab, Vector3.zero, Quaternion.identity, transform);
+#else
             GameObject go = Instantiate(prefab, Vector3.zero, Quaternion.identity, transform);
-            go.SetActive(false);
+#endif
+                go.SetActive(false);
             available.Add(go);
             return go;
         }

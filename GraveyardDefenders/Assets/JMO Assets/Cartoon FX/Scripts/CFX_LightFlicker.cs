@@ -13,6 +13,7 @@ public class CFX_LightFlicker : MonoBehaviour
 	
 	// Perlin scale: makes the flicker more or less smooth
 	public float smoothFactor = 1f;
+	public float offset = 1.0f;
 	
 	/// Max intensity will be: baseIntensity + addIntensity
 	public float addIntensity = 1.0f;
@@ -34,6 +35,6 @@ public class CFX_LightFlicker : MonoBehaviour
 	
 	void Update ()
 	{
-		GetComponent<Light>().intensity = Mathf.Lerp(minIntensity, maxIntensity, Mathf.PerlinNoise(Time.time * smoothFactor, 0f));
+		GetComponent<Light>().intensity = Mathf.Lerp(minIntensity, maxIntensity, Mathf.PerlinNoise((Time.time * smoothFactor) + offset, 0f));
 	}
 }

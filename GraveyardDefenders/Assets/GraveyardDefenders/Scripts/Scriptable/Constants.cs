@@ -20,6 +20,8 @@ namespace XD
             EVENTS,
         }
 
+        public bool noEnemiesMode = false;
+
         public static Constants Instance
         {
             get { return ConstantsManager.Instance.constants; }

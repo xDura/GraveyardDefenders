@@ -57,10 +57,13 @@ namespace XD
 
         public bool InstantiateSkeleton(Vector3 position, Quaternion rotation)
         {
+            if(Constants.Instance.noEnemiesMode) return false;
+
             GameObject newSkeleton = skeletonPool.Spawn(position, rotation);
             if (!newSkeleton) return false;
 
             SkeletonController controller = newSkeleton.GetComponent<SkeletonController>();
+            controller.Init();
             skeletons.Add(controller);
             return true;
         }
@@ -73,6 +76,8 @@ namespace XD
 
         public bool InstantiateGhost(Vector3 position, Quaternion rotation, PlayerCharacter characterToFollow)
         {
+            if (Constants.Instance.noEnemiesMode) return false;
+
             GameObject newGhost = ghostPool.Spawn(position, rotation);
             if (!newGhost) return false;
 

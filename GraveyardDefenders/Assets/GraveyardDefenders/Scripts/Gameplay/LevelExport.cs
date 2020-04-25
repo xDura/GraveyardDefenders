@@ -10,13 +10,6 @@ namespace XD
 {
     public class LevelExport : MonoBehaviour
     {
-        public GameObject originalTree;
-        public GameObject originalMine;
-
-        public GameObject originalWall;
-        public GameObject originalBreakableWall;
-        public GameObject originalDoor;
-
         public LevelData level = new LevelData();
         public string exportPath;
 
@@ -200,8 +193,6 @@ namespace XD
             if(File.Exists(exportPath)) File.Delete(exportPath);
             FileStream stream = new FileStream(exportPath, FileMode.CreateNew);
             serializer.Serialize(stream, level);
-
-
         }
     }   
 }

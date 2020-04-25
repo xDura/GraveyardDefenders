@@ -11,6 +11,7 @@ namespace XD
         public static Evnt<AUDIO_MUSICS> audioMusic = new Evnt<AUDIO_MUSICS>();
 
         public static Evnt newDayStarted = new Evnt();
+        public static Evnt newNightStared = new Evnt();
     }
 
     public static class PlayerEvents

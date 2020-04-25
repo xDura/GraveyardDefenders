@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6098306f068e40d4193800a730ac02f7, type: 3}
   m_Name: Constants
   m_EditorClassIdentifier: 
+  noEnemiesMode: 1
