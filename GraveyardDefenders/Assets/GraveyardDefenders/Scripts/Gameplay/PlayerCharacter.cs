@@ -153,7 +153,6 @@ namespace XD
         {
             Vector3 center = currentBreakable.GetCenter();
             center.y = transform.position.y;
-            transform.LookAt(center, Vector3.up);
             doingAction = true;
             lastInteractHitTime = TimeUtils.GetTime() - interactStartHitTimeOffset;
             if(current_action == PLAYER_ACTIONS.GATHER)
@@ -191,33 +190,58 @@ namespace XD
                 switch (current_action)
                 {
                     case PLAYER_ACTIONS.GATHER:
-                        GathereableResource gathereable = currentBreakable as GathereableResource;
-                        float gathered = gathereable.Gather(1.0f);
-                        if (gathereable.type == RESOURCE_TYPE.STONE)
                         {
-                            Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
-                            ParticleSystemEvents.SpawnParticleEvent.Invoke(rockHitParticles, pos, Quaternion.identity);
-                            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
+                            //TODO: Unify this blocks somwhere
+                            Vector3 center = currentBreakable.GetCenter();
+                            center.y = transform.position.y;
+                            transform.LookAt(center, Vector3.up);
+                            //**
+
+                            GathereableResource gathereable = currentBreakable as GathereableResource;
+                            float gathered = gathereable.Gather(1.0f);
+                            if (gathereable.type == RESOURCE_TYPE.STONE)
+                            {
+                                Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
+                                ParticleSystemEvents.SpawnParticleEvent.Invoke(rockHitParticles, pos, Quaternion.identity);
+                                GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
+                            }
+                            else
+                            {
+                                Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
+                                ParticleSystemEvents.SpawnParticleEvent.Invoke(woodHitParticles, pos, Quaternion.identity);
+                                GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.CHOP_WOOD, this.gameObject);
+                            }
+                            inventory.AddResource(gathereable.type, gathered);
+                            lastInteractHitTime = TimeUtils.GetTime();
                         }
-                        else
-                        {
-                            Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
-                            ParticleSystemEvents.SpawnParticleEvent.Invoke(woodHitParticles, pos, Quaternion.identity);
-                            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.CHOP_WOOD, this.gameObject);
-                        }
-                        inventory.AddResource(gathereable.type, gathered);
-                        lastInteractHitTime = TimeUtils.GetTime();
                         break;
                     case PLAYER_ACTIONS.REPAIR:
-                        float repairedAmmount = currentBreakable.Repair(2.0f);
-                        inventory.SubstractResource(currentBreakable.repairResource, 1.0f);
-                        GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.REPAIR_WOOD, this.gameObject);
-                        lastInteractHitTime = TimeUtils.GetTime();
-                        if (!inventory.HasResource(currentBreakable.repairResource)) StopInteracting();
+                        {
+                            //TODO: Unify this blocks somwhere
+                            Vector3 center = currentBreakable.GetCenter();
+                            center.y = transform.position.y;
+                            transform.LookAt(center, Vector3.up);
+                            //**
+
+                            float repairedAmmount = currentBreakable.Repair(2.0f);
+                            inventory.SubstractResource(currentBreakable.repairResource, 1.0f);
+                            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.REPAIR_WOOD, this.gameObject);
+                            lastInteractHitTime = TimeUtils.GetTime();
+                            if (!inventory.HasResource(currentBreakable.repairResource)) StopInteracting();
+                        }
                         break;
                     case PLAYER_ACTIONS.BREAK:
-                        float hitAmmount = currentBreakable.Hit(1.0f);
-                        lastInteractHitTime = TimeUtils.GetTime();
+                        {
+                            //TODO: Unify this blocks somwhere
+                            Vector3 center = currentBreakable.GetCenter();
+                            center.y = transform.position.y;
+                            transform.LookAt(center, Vector3.up);
+                            //**
+
+                            float hitAmmount = currentBreakable.Hit(1.0f);
+                            lastInteractHitTime = TimeUtils.GetTime();
+                        }
+
                         break;
                     case PLAYER_ACTIONS.NONE:
                         break;
