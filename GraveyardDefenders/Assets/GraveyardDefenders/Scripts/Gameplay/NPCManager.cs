@@ -33,6 +33,7 @@ namespace XD
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             inMenus = (scene.name == "MainMenu");
+            if (inMenus) Clear();
         }
 
         public void OnEnable() 
@@ -61,6 +62,9 @@ namespace XD
 
         public void Clear()
         {
+            for (int i = skeletons.items.Count - 1; i >= 0; i--) RemoveSkeleton(skeletons.items[i]);
+            for (int i = ghosts.items.Count - 1; i >= 0; i--) RemoveGhost(ghosts.items[i]);
+
             ghostForPlayer.Clear();
             skeletons.Clear();
             ghosts.Clear();
@@ -86,6 +90,7 @@ namespace XD
 
         public void RemoveSkeleton(SkeletonController controller)
         {
+            if (controller == null) return;
             skeletons.Remove(controller);
             skeletonPool.Despawn(controller.gameObject);
         }
@@ -106,6 +111,7 @@ namespace XD
 
         public void RemoveGhost(GhostController controller)
         {
+            if (controller == null) return;
             ghostForPlayer.Remove(controller.target);
             ghosts.Remove(controller);
             ghostPool.Despawn(controller.gameObject);
