@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
+using XD.Utils;
 
 namespace XD
 {
@@ -14,7 +15,7 @@ namespace XD
 
         private bool currentEnabled;
         private float lastEnabledDesiredChangeTime = float.NegativeInfinity;
-        private bool HasToChangeEnabled => (currentEnabled != desiredEnabled) && ((Time.timeSinceLevelLoad - lastEnabledDesiredChangeTime) >= delay);
+        private bool HasToChangeEnabled => (currentEnabled != desiredEnabled) && (TimeUtils.TimeSince(lastEnabledDesiredChangeTime) >= delay);
         private bool desiredEnabled;
 
         public void Start()
@@ -32,13 +33,13 @@ namespace XD
         public void TransitionToEnabled()
         {
             desiredEnabled = true;
-            lastEnabledDesiredChangeTime = Time.timeSinceLevelLoad;
+            lastEnabledDesiredChangeTime = TimeUtils.GetTime();
         }
 
         public void TransitionToDisabled()
         {
             desiredEnabled = false;
-            lastEnabledDesiredChangeTime = Time.timeSinceLevelLoad;
+            lastEnabledDesiredChangeTime = TimeUtils.GetTime();
         }
 
         void Update()

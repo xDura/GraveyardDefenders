@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using RotaryHeart.Lib.SerializableDictionary;
+using UnityEngine.SceneManagement;
 
 namespace XD
 {
@@ -14,11 +15,24 @@ namespace XD
         public Pool ghostPool;
         public GhostSet ghosts;
         PlayerGhostDictionary ghostForPlayer = new PlayerGhostDictionary();
+        public bool inMenus = false;
 
         public override void OnSingletonAwake()
         {
             base.OnSingletonAwake();
             Clear();
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        public override void OnSingletonDestroy(bool isMainInstance)
+        {
+            base.OnSingletonDestroy(isMainInstance);
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            inMenus = (scene.name == "MainMenu");
         }
 
         public void OnEnable() 
@@ -35,6 +49,8 @@ namespace XD
 
         public void Update()
         {
+            if (inMenus) return;
+
             PlayerInput pi = PlayerInput.Instance;
             for (int i = 0; i < pi.CurrentPlayerCount; i++)
             {

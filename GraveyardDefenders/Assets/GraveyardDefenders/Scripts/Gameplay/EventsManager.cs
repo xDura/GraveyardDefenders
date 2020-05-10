@@ -18,5 +18,6 @@ namespace XD
     {
         public static Evnt<PlayerCharacter> playerAddedEvnt = new Evnt<PlayerCharacter>();
     }
+
     //public class EventsManager : Singleton<EventsManager> { }   
 }

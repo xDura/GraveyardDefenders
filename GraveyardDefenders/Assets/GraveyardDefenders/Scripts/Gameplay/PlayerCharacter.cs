@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using XD.Utils;
 
 namespace XD
 {
@@ -11,6 +12,7 @@ namespace XD
         GATHER,
         REPAIR,
         BREAK,
+        UPGRADE,
     }
 
     public class PlayerCharacter : MonoBehaviour
@@ -24,6 +26,9 @@ namespace XD
         public GameObject axe;
         public GameObject hammer;
         public ParticleSystem walkDustParticles;
+        public GameObject rockHitParticles;
+        public GameObject woodHitParticles;
+        public GameObject respawnParticles;
 
         [Header("Runtime")]
         Camera cam;
@@ -31,6 +36,8 @@ namespace XD
         [NonSerialized] public bool doingAction = false;
         [NonSerialized] public PLAYER_ACTIONS current_action = PLAYER_ACTIONS.NONE;
         [NonSerialized] public int id;
+        [NonSerialized] public List<Upgradeable> nearbyUpgradeables = new List<Upgradeable>();
+        [NonSerialized] public Upgradeable bestUpgradeable;
 
         #region SAFE_AREA
         public Vector3 lastSafeAreaExitPosition = Vector3.zero;
@@ -42,7 +49,7 @@ namespace XD
         {
             get 
             {
-                if (inSafeArea) return Time.timeSinceLevelLoad - lastTimeSafeAreaEnter;
+                if (inSafeArea) return TimeUtils.TimeSince(lastTimeSafeAreaEnter);
                 else return 0f;
             } 
         }
@@ -50,18 +57,18 @@ namespace XD
         {
             get
             {
-                if (!inSafeArea) return Time.timeSinceLevelLoad - lastTimeSafeAreaExit;
+                if (!inSafeArea) return TimeUtils.TimeSince(lastTimeSafeAreaExit);
                 else return 0;
             }
         }
 
         public void SetSafeArea(bool isInSafeArea)
         {
-            if (isInSafeArea) lastTimeSafeAreaEnter = Time.timeSinceLevelLoad;
+            if (isInSafeArea) lastTimeSafeAreaEnter = TimeUtils.GetTime();
             else
             {
                 lastSafeAreaExitPosition = transform.position;
-                lastTimeSafeAreaExit = Time.timeSinceLevelLoad;
+                lastTimeSafeAreaExit = TimeUtils.GetTime();
             }
             inSafeArea = isInSafeArea;
         }
@@ -74,7 +81,7 @@ namespace XD
         [Tooltip("Time it takes at the start of interaction to start it usefull to match animation")]
         public float interactStartHitTimeOffset = 0.25f;
         public float lastInteractHitTime = float.NegativeInfinity;
-        public float TimeSinceLastInteractHit { get { return Time.timeSinceLevelLoad - lastInteractHitTime; } }
+        public float TimeSinceLastInteractHit { get { return TimeUtils.TimeSince(lastInteractHitTime); } }
         public bool IsHitReady { get { return TimeSinceLastInteractHit >= interactHitTime; } }
 
         [NonSerialized] public Vector2 moveVector;
@@ -100,6 +107,7 @@ namespace XD
             Transform n = sp.spawns[id];
             transform.position = n.position;
             transform.rotation = n.rotation;
+            ParticleSystemEvents.SpawnParticleEvent.Invoke(respawnParticles, n.position, Quaternion.LookRotation(Vector3.up));
         }
 
         void UpdateCurrentBreakable()
@@ -147,7 +155,7 @@ namespace XD
             center.y = transform.position.y;
             transform.LookAt(center, Vector3.up);
             doingAction = true;
-            lastInteractHitTime = Time.timeSinceLevelLoad - interactStartHitTimeOffset;
+            lastInteractHitTime = TimeUtils.GetTime() - interactStartHitTimeOffset;
             if(current_action == PLAYER_ACTIONS.GATHER)
             {
                 GathereableResource resource = currentBreakable as GathereableResource;
@@ -185,22 +193,31 @@ namespace XD
                     case PLAYER_ACTIONS.GATHER:
                         GathereableResource gathereable = currentBreakable as GathereableResource;
                         float gathered = gathereable.Gather(1.0f);
-                        //TODO: remove audio from here: and remove using XD.Audio
-                        if (gathereable.type == RESOURCE_TYPE.STONE) GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
-                        else GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.CHOP_WOOD, this.gameObject);
+                        if (gathereable.type == RESOURCE_TYPE.STONE)
+                        {
+                            Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
+                            ParticleSystemEvents.SpawnParticleEvent.Invoke(rockHitParticles, pos, Quaternion.identity);
+                            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
+                        }
+                        else
+                        {
+                            Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
+                            ParticleSystemEvents.SpawnParticleEvent.Invoke(woodHitParticles, pos, Quaternion.identity);
+                            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.CHOP_WOOD, this.gameObject);
+                        }
                         inventory.AddResource(gathereable.type, gathered);
-                        lastInteractHitTime = Time.timeSinceLevelLoad;
+                        lastInteractHitTime = TimeUtils.GetTime();
                         break;
                     case PLAYER_ACTIONS.REPAIR:
                         float repairedAmmount = currentBreakable.Repair(2.0f);
                         inventory.SubstractResource(currentBreakable.repairResource, 1.0f);
                         GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.REPAIR_WOOD, this.gameObject);
-                        lastInteractHitTime = Time.timeSinceLevelLoad;
+                        lastInteractHitTime = TimeUtils.GetTime();
                         if (!inventory.HasResource(currentBreakable.repairResource)) StopInteracting();
                         break;
                     case PLAYER_ACTIONS.BREAK:
                         float hitAmmount = currentBreakable.Hit(1.0f);
-                        lastInteractHitTime = Time.timeSinceLevelLoad;
+                        lastInteractHitTime = TimeUtils.GetTime();
                         break;
                     case PLAYER_ACTIONS.NONE:
                         break;
@@ -208,17 +225,49 @@ namespace XD
             }
         }
 
+        public void UpdateCurrentUpgradeable()
+        {
+            float bestDist = float.PositiveInfinity;
+            if (bestUpgradeable) bestUpgradeable.HidePrompt();
+            bestUpgradeable = null;
+
+            for (int i = 0; i < nearbyUpgradeables.Count; i++)
+            {
+                Upgradeable u = nearbyUpgradeables[i];
+                float currentDist = Vector3.Distance(u.transform.position, transform.position);
+                if(currentDist < bestDist && !u.IsMaxLevel)
+                {
+                    bestDist = currentDist;
+                    bestUpgradeable = u;
+                }
+            }
+
+            if (bestUpgradeable != null) bestUpgradeable.ShowPrompt();
+        }
+
         public void ManualUpdate()
         {
             UpdateCurrentBreakable();
+            UpdateCurrentUpgradeable();
 
             Vector3 right = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
             Vector3 forward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
 
             float horizontal = moveVector.x;
             float vertical = moveVector.y;
-            if (!doingAction && currentBreakable && interactPressedThisFrame)
+            if (!doingAction && interactPressedThisFrame && (currentBreakable /*|| bestUpgradeable*/))
+            {
                 AttemptInteraction();
+            }
+            //TODO: refactor this and put upgradeables inside the action system
+            else if (!doingAction && interactPressedThisFrame)
+            {
+                if (bestUpgradeable && bestUpgradeable.CanBeUpgraded(inventory))
+                {
+                    bestUpgradeable.Upgrade();
+                    bestUpgradeable = null;
+                }
+            }
 
 
             Vector3 movement = (horizontal * right) + (vertical * forward);

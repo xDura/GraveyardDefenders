@@ -63,6 +63,7 @@ namespace XD
             spawned.SetActive(true);
             return spawned;
         }
+        //TODO: implement parented Spawn ones
 
         public void Despawn(GameObject go)
         {

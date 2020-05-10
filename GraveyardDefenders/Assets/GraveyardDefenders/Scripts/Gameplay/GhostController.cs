@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
+using XD.Utils;
 
 namespace XD
 {
@@ -121,7 +122,7 @@ namespace XD
             get
             {
                 if (!playerInHitRange) return 0f;
-                else return Time.timeSinceLevelLoad - timeEnteredHitRange;
+                else return TimeUtils.GetTime() - timeEnteredHitRange;
             }
         }
 
@@ -145,7 +146,7 @@ namespace XD
         void PlayerEnteredHitRange()
         {
             playerInHitRange = true;
-            timeEnteredHitRange = Time.timeSinceLevelLoad;
+            timeEnteredHitRange = TimeUtils.GetTime();
             //TODO: particles? feedback?   
         }
 

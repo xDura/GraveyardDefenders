@@ -70,8 +70,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 0.93
   m_Radius: 0.3
-  m_SlopeLimit: 10
-  m_StepOffset: 0.1
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.5, z: 0}
@@ -95,16 +95,17 @@ MonoBehaviour:
   axe: {fileID: 7449987174548016924}
   hammer: {fileID: 7507955260553180056}
   walkDustParticles: {fileID: 6186604796893244252}
-  currentBreakable: {fileID: 0}
-  doingAction: 0
-  current_action: 0
+  rockHitParticles: {fileID: 1040608886635896, guid: 801b5c210c3c1a3419170ac0b825747f,
+    type: 3}
+  woodHitParticles: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37,
+    type: 3}
+  respawnParticles: {fileID: 100000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
+  lastSafeAreaExitPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 3
   interactRadius: 1
   interactHitTime: 0.5
+  interactStartHitTimeOffset: 0.25
   lastInteractHitTime: -Infinity
-  HorizontalAxisName: Horizontal
-  VerticalAxisName: Vertical
-  interactKey: 102
 --- !u!1 &1134856105141445175
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +473,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 371376123857985419}
     m_Modifications:
+    - target: {fileID: 1315112156193088, guid: dfcac9fe819de4a48aa11c0ae20d93b4, type: 3}
+      propertyPath: m_Name
+      value: Prop_Hammer_01
+      objectReference: {fileID: 0}
     - target: {fileID: 4353198943154500, guid: dfcac9fe819de4a48aa11c0ae20d93b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.022
@@ -528,10 +533,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4
       objectReference: {fileID: 0}
-    - target: {fileID: 1315112156193088, guid: dfcac9fe819de4a48aa11c0ae20d93b4, type: 3}
-      propertyPath: m_Name
-      value: Prop_Hammer_01
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfcac9fe819de4a48aa11c0ae20d93b4, type: 3}
 --- !u!4 &2343013341979009910 stripped
@@ -547,6 +548,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6475599998120823246}
     m_Modifications:
+    - target: {fileID: 4556096112853669573, guid: c07f256e101da5f48a779b24906c8678,
+        type: 3}
+      propertyPath: m_Name
+      value: WalkDustParticles
+      objectReference: {fileID: 0}
     - target: {fileID: 4556096112853669594, guid: c07f256e101da5f48a779b24906c8678,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -601,11 +607,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4556096112853669573, guid: c07f256e101da5f48a779b24906c8678,
-        type: 3}
-      propertyPath: m_Name
-      value: WalkDustParticles
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c07f256e101da5f48a779b24906c8678, type: 3}

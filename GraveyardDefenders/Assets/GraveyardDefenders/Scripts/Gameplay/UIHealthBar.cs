@@ -8,12 +8,11 @@ namespace XD
     public class UIHealthBar : MonoBehaviour
     {
         Camera cam;
-
-        void Awake() { cam = Camera.main; }
+        Camera Cam { get { if (!cam) cam = Camera.main; return cam; } }
 
         void LateUpdate()
         {
-            transform.LookAt(cam.transform.position, cam.transform.up);
+            transform.LookAt(Cam.transform.position, Cam.transform.up);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using XD.Utils;
 
 namespace XD
 {
@@ -30,7 +31,7 @@ namespace XD
         public float maxHP;
         public float TimeSinceLastAttack
         {
-            get { return Time.timeSinceLevelLoad - lastAttackTime; }
+            get { return TimeUtils.TimeSince(lastAttackTime); }
         }
 
         public float CurrentHPPercent
@@ -164,7 +165,7 @@ namespace XD
             currentTarget.Hit(attackDamage);
             animator.SetTrigger("Attack");
             if (currentTarget.destroyed) agent.CompleteOffMeshLink();
-            lastAttackTime = Time.timeSinceLevelLoad;
+            lastAttackTime = TimeUtils.GetTime();
         }
     }
 }

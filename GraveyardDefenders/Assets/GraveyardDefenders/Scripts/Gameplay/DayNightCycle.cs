@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using XD.Audio;
+using XD.Utils;
 
 namespace XD
 {
@@ -31,6 +32,7 @@ namespace XD
         public BreakableSet breakables;
 
         [Header("Variables")]
+        public DAY_NIGHT_PHASE startingPhase;
         public float cycleTime = 120.0f;
         public float transitionTime = 2.0f;
         public List<DayNightCycleLightAttributes> dayNightCycleLightAttributes = new List<DayNightCycleLightAttributes>();
@@ -40,20 +42,27 @@ namespace XD
         public float lastPhaseStartTime = float.NegativeInfinity;
         public bool HasToSwapPhase
         {
-            get { return (Time.timeSinceLevelLoad - lastPhaseStartTime) > cycleTime; }
+            get { return TimeUtils.TimeSince(lastPhaseStartTime) > cycleTime; }
         }
         public int daysSurvived = 0;
 
         public float CycleRemainingTimeNormalized
         {
-            get { return (Time.timeSinceLevelLoad - lastPhaseStartTime) / cycleTime; }
+            get { return TimeUtils.TimeSince(lastPhaseStartTime) / cycleTime; }
         }
 
         void Start()
         {
+            currentPhase = startingPhase;
+            currentPhase_s = currentPhase;
             daysSurvived = 0;
-            lastPhaseStartTime = Time.timeSinceLevelLoad;
-            GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
+            lastPhaseStartTime = TimeUtils.GetTime();
+            lastPhaseStartTime_s = lastPhaseStartTime;
+
+            if(currentPhase == DAY_NIGHT_PHASE.DAY)
+                GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_DAY);
+            else
+                GlobalEvents.audioAmbienceEvent.Invoke(AUDIO_AMBIENCES.LEVEL_01_AMBIENCE_NIGHT);
         }
 
         void Update()
@@ -95,8 +104,8 @@ namespace XD
 
             currentPhase = nextPhase;
             currentPhase_s = nextPhase;
-            lastPhaseStartTime = Time.timeSinceLevelLoad;
-            lastPhaseStartTime_s = Time.timeSinceLevelLoad;
+            lastPhaseStartTime = TimeUtils.GetTime();
+            lastPhaseStartTime_s = TimeUtils.GetTime();
         }
     }
 }

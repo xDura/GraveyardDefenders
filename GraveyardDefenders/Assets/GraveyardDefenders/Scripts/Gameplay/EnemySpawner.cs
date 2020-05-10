@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using XD.Utils;
 
 namespace XD
 {
@@ -8,7 +9,7 @@ namespace XD
         public float timeToSpawn;
         public float lastSpawnTime;
         public Transform spawnTransform;
-        public bool HasToSpawn { get { return Time.timeSinceLevelLoad - lastSpawnTime > timeToSpawn; } }
+        public bool HasToSpawn { get { return TimeUtils.TimeSince(lastSpawnTime) > timeToSpawn; } }
 
         [Header("Shake")]
         public Shaker shaker;
@@ -20,7 +21,7 @@ namespace XD
         public bool fadeout = false;
 
         public int lastShakeID = 0;
-        public int CurrentShakeID { get { return Mathf.FloorToInt(((Time.timeSinceLevelLoad - lastSpawnTime) * 3.0f )/ (timeToSpawn)); } }
+        public int CurrentShakeID { get { return Mathf.FloorToInt(((TimeUtils.TimeSince(lastSpawnTime)) * 3.0f )/ (timeToSpawn)); } }
 
         public const int randomSeed = 200;
 
@@ -38,7 +39,7 @@ namespace XD
             lastShakeID = 0;
 
             //TODO Remove this random
-            lastSpawnTime = Time.timeSinceLevelLoad + Random.Range(0.0f, timeToSpawn / 2.0f);
+            lastSpawnTime = TimeUtils.GetTime() + Random.Range(0.0f, timeToSpawn / 2.0f);
         }
 
         void Update()
@@ -63,7 +64,7 @@ namespace XD
         void SpawnEnemy()
         {
             NPCManager.Instance.InstantiateSkeleton(spawnTransform.position, spawnTransform.rotation);
-            lastSpawnTime = Time.timeSinceLevelLoad;
+            lastSpawnTime = TimeUtils.GetTime();
             Shake(0);
             GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.SKELETON_SPAWN, this.gameObject);
         }

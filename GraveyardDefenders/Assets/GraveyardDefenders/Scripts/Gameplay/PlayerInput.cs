@@ -48,6 +48,12 @@ namespace XD
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
+        public override void OnSingletonDestroy(bool isMainInstance)
+        {
+            base.OnSingletonDestroy(isMainInstance);
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             Init();
@@ -82,7 +88,8 @@ namespace XD
         }
 
     public void Init()
-        {
+    {
+            local_players.Clear();
             PlayerSpawnPoints spawnPoints = FindObjectOfType<PlayerSpawnPoints>();
             bool gameplayScene = spawnPoints != null;
             if (gameplayScene)

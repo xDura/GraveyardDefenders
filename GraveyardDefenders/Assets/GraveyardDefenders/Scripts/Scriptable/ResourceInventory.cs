@@ -22,19 +22,17 @@ namespace XD
 
         public void AddResource(RESOURCE_TYPE resourceType, float ammount)
         {
-            //Debug.LogFormat($" AddingResource: {resourceType.ToString()}, ammount: {ammount}");
             resources[(int)resourceType] += ammount;
         }
 
         public void SubstractResource(RESOURCE_TYPE resourceType, float ammount)
         {
-            //Debug.LogFormat($" Substracting resource: {resourceType.ToString()}, ammount: {ammount}");
             resources[(int)resourceType] -= ammount;
         }
 
-        public bool HasResource(RESOURCE_TYPE resourceType)
+        public bool HasResource(RESOURCE_TYPE resourceType, float ammount = 1.0f)
         {
-            return resources[(int)resourceType] > 0.0f;
+            return resources[(int)resourceType] >= ammount;
         }
 
         public void Reset()

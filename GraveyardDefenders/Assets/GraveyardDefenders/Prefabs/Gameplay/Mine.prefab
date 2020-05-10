@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4280501753899867056}
   - component: {fileID: 2304085449074845326}
-  - component: {fileID: 7058939598850295161}
+  - component: {fileID: 8118223971729489548}
   m_Layer: 0
   m_Name: Mine
   m_TagString: Untagged
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 0}
   breakableSet: {fileID: 11400000, guid: e43bbe8a14d055c4397bdf92a15c0dc3, type: 2}
-  col: {fileID: 7058939598850295161}
+  col: {fileID: 8118223971729489548}
   maxHP: 200
   isRepairable: 0
   repairResource: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7058939598850295161}
+      - m_Target: {fileID: 0}
         m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
@@ -129,7 +129,7 @@ MonoBehaviour:
   OnGrowDone:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7058939598850295161}
+      - m_Target: {fileID: 0}
         m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
@@ -154,8 +154,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!65 &7058939598850295161
-BoxCollider:
+--- !u!136 &8118223971729489548
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -164,9 +164,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.5, z: 1}
-  m_Center: {x: -0.09, y: 0.2, z: 0}
+  m_Radius: 0.45
+  m_Height: 1.14
+  m_Direction: 1
+  m_Center: {x: -0.06, y: 0.13, z: -0.02}
 --- !u!1001 &8509333586110329549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -174,6 +175,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8258878564007935916}
     m_Modifications:
+    - target: {fileID: 1836286742895764, guid: 0dddc57938c3d3541a7b210224f98858, type: 3}
+      propertyPath: m_Name
+      value: ZLPP_Rock_A_1
+      objectReference: {fileID: 0}
     - target: {fileID: 4839846335136806, guid: 0dddc57938c3d3541a7b210224f98858, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.08
@@ -229,10 +234,6 @@ PrefabInstance:
     - target: {fileID: 4839846335136806, guid: 0dddc57938c3d3541a7b210224f98858, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1836286742895764, guid: 0dddc57938c3d3541a7b210224f98858, type: 3}
-      propertyPath: m_Name
-      value: ZLPP_Rock_A_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0dddc57938c3d3541a7b210224f98858, type: 3}

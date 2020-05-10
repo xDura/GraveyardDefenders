@@ -124,4 +124,44 @@ namespace XD.Events
         }
     }
 
+    public class Evnt<T, G, F>
+    {
+        public List<Action<T, G, F>> listeners;
+
+        public Evnt()
+        {
+            listeners = new List<Action<T, G, F>>();
+#if DEBUG_EVENTS
+            Debug.Log($"Events: Creating new event");
+#endif
+        }
+
+        public void AddListener(Action<T, G, F> func)
+        {
+            if (!listeners.Contains(func)) listeners.Add(func);
+#if DEBUG_EVENTS
+            Debug.Log($"Events: Adding Listener {func.Method.Name}");
+#endif
+        }
+
+        public void RemoveListener(Action<T, G, F> func)
+        {
+            if (listeners.Contains(func)) listeners.Remove(func);
+#if DEBUG_EVENTS
+            Debug.Log($"Events: Removing Listener {func.Method.Name}");
+#endif
+        }
+
+        public void Invoke(T arg, G arg2, F arg3)
+        {
+            for (int i = 0; i < listeners.Count; i++)
+            {
+                listeners[i].Invoke(arg, arg2, arg3);
+#if DEBUG_EVENTS
+                Debug.Log($"Events: invoking event {listeners[i].Method.Name}");
+#endif
+            }
+        }
+    }
+
 }
