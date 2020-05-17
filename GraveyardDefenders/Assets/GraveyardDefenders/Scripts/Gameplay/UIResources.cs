@@ -11,18 +11,27 @@ namespace XD
         public TextMeshProUGUI rockText;
         public ResourceInventory inventory;
 
-        private int lastWoodCount = 0;
-        private int lastRockCount = 0;
+        private float lastWoodCount = 0;
+        private float lastRockCount = 0;
 
         bool HasToUpdateWood { get { return lastWoodCount != inventory.GetResourceCount(RESOURCE_TYPE.WOOD); } }
         bool HasToUpdateRock { get { return lastRockCount != inventory.GetResourceCount(RESOURCE_TYPE.STONE); } }
 
         void Update()
         {
-            if(HasToUpdateWood)
-                woodText.text = inventory.GetResourceCount(RESOURCE_TYPE.WOOD).ToString();
-            if(HasToUpdateRock)
-                rockText.text = inventory.GetResourceCount(RESOURCE_TYPE.STONE).ToString();
+            if (HasToUpdateWood)
+            {
+                float count = inventory.GetResourceCount(RESOURCE_TYPE.WOOD);
+                woodText.text = count.ToString();
+                lastWoodCount = count;
+
+            }
+            if (HasToUpdateRock)
+            {
+                float count = inventory.GetResourceCount(RESOURCE_TYPE.STONE);
+                rockText.text = count.ToString();
+                lastRockCount = count;
+            }
         }
     }
 }

@@ -38,6 +38,7 @@ namespace XD
         [NonSerialized] public int id;
         [NonSerialized] public List<Upgradeable> nearbyUpgradeables = new List<Upgradeable>();
         [NonSerialized] public Upgradeable bestUpgradeable;
+        [NonSerialized] public int currentUpgradeableHitCount = 0;
 
         #region SAFE_AREA
         public Vector3 lastSafeAreaExitPosition = Vector3.zero;
@@ -83,6 +84,7 @@ namespace XD
         public float lastInteractHitTime = float.NegativeInfinity;
         public float TimeSinceLastInteractHit { get { return TimeUtils.TimeSince(lastInteractHitTime); } }
         public bool IsHitReady { get { return TimeSinceLastInteractHit >= interactHitTime; } }
+        public int numHitsToUpgrade = 4;
 
         [NonSerialized] public Vector2 moveVector;
         [NonSerialized] public bool interactPressedThisFrame = false;
@@ -91,6 +93,7 @@ namespace XD
         void Start()
         {
             current_action = PLAYER_ACTIONS.NONE;
+            currentUpgradeableHitCount = 0;
             doingAction = false;
             currentBreakable = null;
             inventory.Reset();
@@ -130,9 +133,14 @@ namespace XD
                 }
             }
 
-            if (currentBreakable != null)
-                DebugExtension.DebugPoint(currentBreakable.GetCenter(), Color.blue, 1.0f, 0.0f, false);
-            else if (doingAction)
+            if (currentBreakable != null) DebugExtension.DebugPoint(currentBreakable.GetCenter(), Color.blue, 1.0f, 0.0f, false);
+        }
+
+        public void CheckStopInteraction()
+        {
+            if (current_action == PLAYER_ACTIONS.UPGRADE && (!bestUpgradeable || !bestUpgradeable.CanBeUpgraded(inventory)))
+                StopInteracting();
+            else if ((current_action == PLAYER_ACTIONS.REPAIR || current_action == PLAYER_ACTIONS.GATHER || current_action == PLAYER_ACTIONS.BREAK) && !currentBreakable)
                 StopInteracting();
         }
 
@@ -149,26 +157,43 @@ namespace XD
             StartInteraction();
         }
 
-        private void StartInteraction()
+        private void AttemptInteractionUpgradeable()
         {
-            Vector3 center = currentBreakable.GetCenter();
-            center.y = transform.position.y;
-            doingAction = true;
-            lastInteractHitTime = TimeUtils.GetTime() - interactStartHitTimeOffset;
-            if(current_action == PLAYER_ACTIONS.GATHER)
+            current_action = PLAYER_ACTIONS.UPGRADE;
+            StartInteraction(true);
+        }
+
+        private void StartInteraction(bool isUpgrade = false)
+        {
+            if (isUpgrade)
             {
-                GathereableResource resource = currentBreakable as GathereableResource;
-                if (resource)
-                {
-                    if (resource.type == RESOURCE_TYPE.STONE)
-                        pickaxe.SetActive(true);
-                    else if (resource.type == RESOURCE_TYPE.WOOD)
-                        axe.SetActive(true);
-                }
-            }
-            else if (current_action == PLAYER_ACTIONS.REPAIR)
-            {
+                Vector3 center = bestUpgradeable.GetCurrentInteractPosition();
                 hammer.SetActive(true);
+                lastInteractHitTime = TimeUtils.GetTime() - interactStartHitTimeOffset;
+                doingAction = true;
+                currentUpgradeableHitCount = 0;
+            }
+            else
+            {
+                Vector3 center = currentBreakable.GetCenter();
+                center.y = transform.position.y;
+                doingAction = true;
+                lastInteractHitTime = TimeUtils.GetTime() - interactStartHitTimeOffset;
+                if (current_action == PLAYER_ACTIONS.GATHER)
+                {
+                    GathereableResource resource = currentBreakable as GathereableResource;
+                    if (resource)
+                    {
+                        if (resource.type == RESOURCE_TYPE.STONE)
+                            pickaxe.SetActive(true);
+                        else if (resource.type == RESOURCE_TYPE.WOOD)
+                            axe.SetActive(true);
+                    }
+                }
+                else if (current_action == PLAYER_ACTIONS.REPAIR)
+                {
+                    hammer.SetActive(true);
+                }
             }
         }
 
@@ -178,6 +203,7 @@ namespace XD
             axe.SetActive(false);
             hammer.SetActive(false);
             doingAction = false;
+            currentUpgradeableHitCount = 0;
             current_action = PLAYER_ACTIONS.NONE;
         }
 
@@ -185,74 +211,103 @@ namespace XD
         {
             if (!doingAction) return;
 
-            if (IsHitReady)
+            switch (current_action)
             {
-                switch (current_action)
-                {
-                    case PLAYER_ACTIONS.GATHER:
-                        {
-                            //TODO: Unify this blocks somwhere
-                            Vector3 center = currentBreakable.GetCenter();
-                            center.y = transform.position.y;
-                            transform.LookAt(center, Vector3.up);
-                            //**
+                case PLAYER_ACTIONS.GATHER:
+                    {
+                        if (!IsHitReady) return;
 
-                            GathereableResource gathereable = currentBreakable as GathereableResource;
-                            float gathered = gathereable.Gather(1.0f);
-                            if (gathereable.type == RESOURCE_TYPE.STONE)
-                            {
-                                Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
-                                ParticleSystemEvents.SpawnParticleEvent.Invoke(rockHitParticles, pos, Quaternion.identity);
-                                GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
-                            }
-                            else
-                            {
-                                Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
-                                ParticleSystemEvents.SpawnParticleEvent.Invoke(woodHitParticles, pos, Quaternion.identity);
-                                GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.CHOP_WOOD, this.gameObject);
-                            }
-                            inventory.AddResource(gathereable.type, gathered);
-                            lastInteractHitTime = TimeUtils.GetTime();
+                        //TODO: Unify this blocks somwhere
+                        Vector3 center = currentBreakable.GetCenter();
+                        center.y = transform.position.y;
+                        transform.LookAt(center, Vector3.up);
+                        //**
+
+                        GathereableResource gathereable = currentBreakable as GathereableResource;
+                        float gathered = gathereable.Gather(1.0f);
+                        if (gathereable.type == RESOURCE_TYPE.STONE)
+                        {
+                            Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
+                            ParticleSystemEvents.SpawnParticleEvent.Invoke(rockHitParticles, pos, Quaternion.identity);
+                            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
                         }
-                        break;
-                    case PLAYER_ACTIONS.REPAIR:
+                        else
+                        {
+                            Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
+                            ParticleSystemEvents.SpawnParticleEvent.Invoke(woodHitParticles, pos, Quaternion.identity);
+                            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.CHOP_WOOD, this.gameObject);
+                        }
+                        inventory.AddResource(gathereable.type, gathered);
+                        lastInteractHitTime = TimeUtils.GetTime();
+                    }
+                    break;
+                case PLAYER_ACTIONS.REPAIR:
+                    {
+                        if (!IsHitReady) return;
+
+                        //TODO: Unify this blocks somwhere
+                        Vector3 center = currentBreakable.GetCenter();
+                        center.y = transform.position.y;
+                        transform.LookAt(center, Vector3.up);
+                        //**
+
+                        float repairedAmmount = currentBreakable.Repair(2.0f);
+                        inventory.SubstractResource(currentBreakable.repairResource, 1.0f);
+                        GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.REPAIR_WOOD, this.gameObject);
+                        lastInteractHitTime = TimeUtils.GetTime();
+                        if (!inventory.HasResource(currentBreakable.repairResource)) StopInteracting();
+                    }
+                    break;
+                case PLAYER_ACTIONS.BREAK:
+                    {
+                        if (!IsHitReady) return;
+
+                        //TODO: Unify this blocks somwhere
+                        Vector3 center = currentBreakable.GetCenter();
+                        center.y = transform.position.y;
+                        transform.LookAt(center, Vector3.up);
+                        //**
+
+                        float hitAmmount = currentBreakable.Hit(1.0f);
+                        lastInteractHitTime = TimeUtils.GetTime();
+                    }
+
+                    break;
+                case PLAYER_ACTIONS.UPGRADE:
+                    {
+                        if (IsHitReady)
                         {
                             //TODO: Unify this blocks somwhere
-                            Vector3 center = currentBreakable.GetCenter();
+                            Vector3 center = bestUpgradeable.GetCurrentInteractPosition();
                             center.y = transform.position.y;
                             transform.LookAt(center, Vector3.up);
                             //**
 
-                            float repairedAmmount = currentBreakable.Repair(2.0f);
-                            inventory.SubstractResource(currentBreakable.repairResource, 1.0f);
                             GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.REPAIR_WOOD, this.gameObject);
+                            ParticleSystemEvents.SpawnParticleEvent.Invoke(woodHitParticles, center, Quaternion.identity);
                             lastInteractHitTime = TimeUtils.GetTime();
-                            if (!inventory.HasResource(currentBreakable.repairResource)) StopInteracting();
-                        }
-                        break;
-                    case PLAYER_ACTIONS.BREAK:
-                        {
-                            //TODO: Unify this blocks somwhere
-                            Vector3 center = currentBreakable.GetCenter();
-                            center.y = transform.position.y;
-                            transform.LookAt(center, Vector3.up);
-                            //**
-
-                            float hitAmmount = currentBreakable.Hit(1.0f);
-                            lastInteractHitTime = TimeUtils.GetTime();
+                            currentUpgradeableHitCount++;
+                            if (currentUpgradeableHitCount == 4)
+                            {
+                                //spend stuff
+                                bestUpgradeable.SpendCurrentRequirements(inventory);
+                                bestUpgradeable.Upgrade();
+                                StopInteracting();
+                            }
                         }
 
-                        break;
-                    case PLAYER_ACTIONS.NONE:
-                        break;
-                }
+
+                    }
+                    break;
+                case PLAYER_ACTIONS.NONE:
+                    break;
             }
         }
 
         public void UpdateCurrentUpgradeable()
         {
             float bestDist = float.PositiveInfinity;
-            if (bestUpgradeable) bestUpgradeable.HidePrompt();
+            //if (bestUpgradeable) bestUpgradeable.HidePrompt();
             bestUpgradeable = null;
 
             for (int i = 0; i < nearbyUpgradeables.Count; i++)
@@ -266,33 +321,27 @@ namespace XD
                 }
             }
 
-            if (bestUpgradeable != null) bestUpgradeable.ShowPrompt();
+            //if (bestUpgradeable != null) bestUpgradeable.ShowPrompt();
         }
 
         public void ManualUpdate()
         {
             UpdateCurrentBreakable();
             UpdateCurrentUpgradeable();
+            CheckStopInteraction();
 
             Vector3 right = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
             Vector3 forward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
 
             float horizontal = moveVector.x;
             float vertical = moveVector.y;
-            if (!doingAction && interactPressedThisFrame && (currentBreakable /*|| bestUpgradeable*/))
-            {
-                AttemptInteraction();
-            }
-            //TODO: refactor this and put upgradeables inside the action system
-            else if (!doingAction && interactPressedThisFrame)
-            {
-                if (bestUpgradeable && bestUpgradeable.CanBeUpgraded(inventory))
-                {
-                    bestUpgradeable.Upgrade();
-                    bestUpgradeable = null;
-                }
-            }
 
+            bool validUpgradeable = bestUpgradeable && bestUpgradeable.CanBeUpgraded(inventory);
+            if (!doingAction && interactPressedThisFrame)
+            {
+                if (validUpgradeable) AttemptInteractionUpgradeable();
+                else if (currentBreakable) AttemptInteraction();
+            }
 
             Vector3 movement = (horizontal * right) + (vertical * forward);
             movement = movement.normalized * moveSpeed * Time.deltaTime;
@@ -313,7 +362,10 @@ namespace XD
 
             if (doingAction)
             {
-                if (current_action == PLAYER_ACTIONS.BREAK || current_action == PLAYER_ACTIONS.REPAIR || (current_action == PLAYER_ACTIONS.GATHER && (currentBreakable as GathereableResource).type == RESOURCE_TYPE.WOOD))
+                //TODO: this could be baked in the updateAction or make som bools and set them here (but not checking it once more)
+                if (current_action == PLAYER_ACTIONS.BREAK || current_action == PLAYER_ACTIONS.REPAIR || 
+                    (current_action == PLAYER_ACTIONS.GATHER && (currentBreakable as GathereableResource).type == RESOURCE_TYPE.WOOD) 
+                    || current_action == PLAYER_ACTIONS.UPGRADE)
                     animator.SetBool("ChopWood", doingAction);
                 else
                     animator.SetBool("Minning", true);

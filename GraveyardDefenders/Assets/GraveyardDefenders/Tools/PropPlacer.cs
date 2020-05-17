@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace XD
@@ -17,7 +18,6 @@ namespace XD
             for (int i = 0; i < prefabs.Count; i++)
             {
                 Bounds b = prefabs[i].GetComponent<MeshRenderer>().bounds;
-                //float currentSize = GetMaxValue(b.size);
                 lastPos += Vector3.Project(b.size, dir);
                 GameObject go = UnityEditor.PrefabUtility.InstantiatePrefab(prefabs[i], gameObject.scene) as GameObject;
                 go.transform.position = lastPos;
@@ -32,3 +32,4 @@ namespace XD
         }
     }   
 }
+#endif

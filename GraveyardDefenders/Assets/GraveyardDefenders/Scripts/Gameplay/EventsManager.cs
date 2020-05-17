@@ -14,6 +14,11 @@ namespace XD
         public static Evnt newNightStared = new Evnt();
     }
 
+    public class NetEvents
+    {
+        public static Evnt boltStartDone = new Evnt();
+    }
+
     public static class PlayerEvents
     {
         public static Evnt<PlayerCharacter> playerAddedEvnt = new Evnt<PlayerCharacter>();

@@ -24,23 +24,24 @@ namespace XD
         public List<GameObject> levels = new List<GameObject>();
         public List<ResourceRequirements> requirementsForLevel = new List<ResourceRequirements>();
 
-
-        public GameObject prompt;
-
         public void Awake()
         {
-            SetLevel(currentLevel);
-            HidePrompt();
+            SetLevel(currentLevel); 
         }
 
-        public void ShowPrompt()
+        public void SpendCurrentRequirements(ResourceInventory inventory)
         {
-            prompt.SetActive(true);
+            ResourceRequirements requirements = requirementsForLevel[currentLevel];
+            for (int i = 0; i < requirements.requirements.Length; i++)
+            {
+                ResourceRequirements.Requirement requ = requirements.requirements[i];
+                inventory.SubstractResource(requ.resource, requ.ammount);
+            }
         }
 
-        public void HidePrompt()
+        public Vector3 GetCurrentInteractPosition()
         {
-            prompt.SetActive(false);
+            return transform.position;
         }
 
         public void SetLevel(int level)
@@ -71,7 +72,6 @@ namespace XD
         public void Upgrade()
         {
             SetLevel(currentLevel + 1);
-            HidePrompt();
         }
 
         private void OnTriggerEnter(Collider other)
