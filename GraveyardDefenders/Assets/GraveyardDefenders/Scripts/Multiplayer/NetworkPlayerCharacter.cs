@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using Bolt;
-using System;
-using System.Reflection;
 
 namespace XD.Multiplayer
 {
     public class NetworkPlayerCharacter : EntityBehaviour<IPlayerCharacter>
     {
+        public PlayerCharacter pc;
         public Animator animator;
 
-        AnimatorDataToken token = new AnimatorDataToken();
-        AnimatorDataToken lastToken = new AnimatorDataToken();
+        private AnimatorDataToken token = new AnimatorDataToken();
+        private AnimatorDataToken lastToken = new AnimatorDataToken();
 
         public void Awake()
         {
@@ -19,8 +18,7 @@ namespace XD.Multiplayer
 
         public void OnBoltStartDone()
         {
-            if (BoltNetwork.IsServer) 
-                BoltNetwork.Attach(entity);
+            BoltNetwork.Attach(entity);
         }
 
         public override void Attached()
@@ -29,10 +27,11 @@ namespace XD.Multiplayer
             state.SetTransforms(state.Transform, transform);
             if (entity.IsOwner)
             {
-
+                pc.isLocal = true;
             }
             else
             {
+                pc.isLocal = false;
                 animator.enabled = false;
             }
         }
@@ -68,7 +67,7 @@ namespace XD.Multiplayer
             else
             {
                 AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
-                if(info.fullPathHash != token.stateNameHash)
+                if (info.fullPathHash != token.stateNameHash)
                 {
                     Debug.Log("Was In different state");
                     animator.Play(token.stateNameHash, 0, token.normalizedTime);

@@ -39,6 +39,7 @@ namespace XD
         [NonSerialized] public List<Upgradeable> nearbyUpgradeables = new List<Upgradeable>();
         [NonSerialized] public Upgradeable bestUpgradeable;
         [NonSerialized] public int currentUpgradeableHitCount = 0;
+        public bool isLocal = false;
 
         #region SAFE_AREA
         public Vector3 lastSafeAreaExitPosition = Vector3.zero;

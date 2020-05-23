@@ -1,16 +1,26 @@
 ﻿using Bolt.Matchmaking;
 using UnityEngine;
 using System;
+using Photon;
 
 namespace XD.Multiplayer
 {
     [BoltGlobalBehaviour]
     public class Globalcallbacks : Bolt.GlobalEventListener
     {
+        public override void BoltStartBegin()
+        {
+            base.BoltStartBegin();
+            BoltNetwork.RegisterTokenClass<RoomProtocolToken>();
+            BoltNetwork.RegisterTokenClass<ServerDenyToken>();
+            BoltNetwork.RegisterTokenClass<ServerAcceptToken>();
+            BoltNetwork.RegisterTokenClass<AnimatorDataToken>(); 
+        }
+
+
         public override void BoltStartDone()
         {
             base.BoltStartDone();
-            BoltNetwork.RegisterTokenClass<AnimatorDataToken>();
             NetEvents.boltStartDone.Invoke();
 
             if (BoltNetwork.IsServer) BoltMatchmaking.CreateSession($"{DateTime.Now} : {UnityEngine.Random.Range(float.NegativeInfinity, float.PositiveInfinity)}");

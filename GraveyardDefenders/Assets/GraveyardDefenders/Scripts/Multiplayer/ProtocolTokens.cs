@@ -20,7 +20,7 @@ namespace XD.Multiplayer
         public void Read(UdpPacket packet)
         {
             normalizedTime = packet.ReadFloat();
-            stateNameHash = packet.ReadInt(stateNameHash);
+            stateNameHash = packet.ReadInt();
         }
 
         public void Write(UdpPacket packet)

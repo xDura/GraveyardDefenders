@@ -102,6 +102,7 @@ MonoBehaviour:
   woodHitParticles: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37,
     type: 3}
   respawnParticles: {fileID: 100000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
+  isLocal: 0
   lastSafeAreaExitPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 3
   interactRadius: 1
@@ -150,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f0c7ff0895bf64a8b946610459ab64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pc: {fileID: 5948106498394154124}
   animator: {fileID: 6393734529707143098}
 --- !u!1 &1134856105141445175
 GameObject:
