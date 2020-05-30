@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Bolt;
+using System.Security.Principal;
 
 namespace XD.Multiplayer
 {
@@ -50,10 +51,27 @@ namespace XD.Multiplayer
             if (token.normalizedTime > 1.0f) token.normalizedTime %= 1.0f;
             if (!token.TokenEquals(lastToken))
             {
+                state.AnimatorStatesData = null;
                 state.AnimatorStatesData = token;
                 lastToken.normalizedTime = token.normalizedTime;
                 lastToken.stateNameHash = token.stateNameHash;
             }
+        }
+
+        public void ReplayAnimationClient()
+        {
+            lastToken = token;
+            token = state.AnimatorStatesData as AnimatorDataToken;
+            if (token == null || lastToken == null){}
+            else
+            {
+                if (lastToken.stateNameHash != token.stateNameHash)
+                {
+                    Debug.Log("Was In different state: Crossfading");
+                    animator.CrossFadeInFixedTime(token.stateNameHash, 0.1f, 0);
+                }
+            }
+            animator.Update(Time.deltaTime);
         }
 
         public void Update()
@@ -61,20 +79,7 @@ namespace XD.Multiplayer
             if (!(BoltNetwork.IsRunning && BoltNetwork.IsConnected)) return;
             if (!entity.IsAttached) return;
             if (entity.IsOwner) return;
-
-            token = state.AnimatorStatesData as AnimatorDataToken;
-            if (token == null) { }
-            else
-            {
-                AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
-                if (info.fullPathHash != token.stateNameHash)
-                {
-                    Debug.Log("Was In different state");
-                    animator.Play(token.stateNameHash, 0, token.normalizedTime);
-                }
-            }
-
-            animator.Update(Time.deltaTime);
+            ReplayAnimationClient();
         }
     }   
 }
