@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using RotaryHeart.Lib.SerializableDictionary;
 using UnityEngine.SceneManagement;
+using XD.Utils;
 
 namespace XD
 {
@@ -11,44 +12,53 @@ namespace XD
     {
         public Pool skeletonPool;
         public SkeletonSet skeletons;
+        public int skeletonsLeft = 0;
 
         public Pool ghostPool;
         public GhostSet ghosts;
         PlayerGhostDictionary ghostForPlayer = new PlayerGhostDictionary();
         public bool inMenus = false;
 
+
         public override void OnSingletonAwake()
         {
             base.OnSingletonAwake();
             Clear();
             SceneManager.sceneLoaded += OnSceneLoaded;
+            GlobalEvents.newDayStarted.AddListener(OnNewDayStarted);
         }
 
         public override void OnSingletonDestroy(bool isMainInstance)
         {
             base.OnSingletonDestroy(isMainInstance);
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            GlobalEvents.newDayStarted.RemoveListener(OnNewDayStarted);
         }
 
-        public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        void OnNewDayStarted()
+        {
+            skeletonsLeft = ProgressionUtils.DayToProgression(DayNightCycle.daysSurvived_s);
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             inMenus = (scene.name == "MainMenu");
             if (inMenus) Clear();
         }
 
-        public void OnEnable() 
+        void OnEnable() 
         {
             Clear();
             GlobalEvents.newDayStarted.AddListener(FadeGhosts);
         }
 
-        public void OnDisable() 
+        void OnDisable() 
         { 
             Clear();
             GlobalEvents.newDayStarted.RemoveListener(FadeGhosts);
         }
 
-        public void Update()
+        void Update()
         {
             if (inMenus) return;
 
@@ -78,7 +88,9 @@ namespace XD
         public bool InstantiateSkeleton(Vector3 position, Quaternion rotation)
         {
             if(Constants.Instance.noEnemiesMode) return false;
+            if (skeletonsLeft <= 0) return false;
 
+            skeletonsLeft--;
             GameObject newSkeleton = skeletonPool.Spawn(position, rotation);
             if (!newSkeleton) return false;
 

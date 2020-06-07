@@ -12,6 +12,14 @@ namespace XD
 
         public static Evnt newDayStarted = new Evnt();
         public static Evnt newNightStared = new Evnt();
+
+        public static Evnt<Upgradeable> upgradeableUpgraded = new Evnt<Upgradeable>();
+    }
+
+    public class UIEvents
+    {
+        public static Evnt<PlayerCharacter, Upgradeable> showUpgradeableEvnt = new Evnt<PlayerCharacter, Upgradeable>();
+        public static Evnt<PlayerCharacter, Upgradeable> hideUpgradeableEvnt = new Evnt<PlayerCharacter, Upgradeable>();
     }
 
     public class NetEvents

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace XD
 {
-
     [System.Serializable]
     public class ResourceRequirements
     {
@@ -23,10 +22,16 @@ namespace XD
         public bool IsMaxLevel => currentLevel >= MaxLevel;
         public List<GameObject> levels = new List<GameObject>();
         public List<ResourceRequirements> requirementsForLevel = new List<ResourceRequirements>();
+        public Vector3 uiOffset;
 
         public void Awake()
         {
             SetLevel(currentLevel); 
+        }
+
+        public ResourceRequirements GetCurrentRequirements()
+        {
+            return requirementsForLevel[currentLevel];
         }
 
         public void SpendCurrentRequirements(ResourceInventory inventory)
@@ -42,6 +47,11 @@ namespace XD
         public Vector3 GetCurrentInteractPosition()
         {
             return transform.position;
+        }
+
+        public Vector3 GetCurrentUIPosition()
+        {
+            return transform.position + uiOffset;
         }
 
         public void SetLevel(int level)
@@ -72,18 +82,27 @@ namespace XD
         public void Upgrade()
         {
             SetLevel(currentLevel + 1);
+            GlobalEvents.upgradeableUpgraded.Invoke(this);
         }
 
         private void OnTriggerEnter(Collider other)
         {
             PlayerCharacter pc = other.GetComponent<PlayerCharacter>();
-            if (pc) pc.nearbyUpgradeables.Add(this);
+            if (pc && !IsMaxLevel)
+            {
+                UIEvents.showUpgradeableEvnt.Invoke(pc, this);
+                pc.nearbyUpgradeables.Add(this);
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             PlayerCharacter pc = other.GetComponent<PlayerCharacter>();
-            if (pc) pc.nearbyUpgradeables.Remove(this);
+            if (pc)
+            {
+                UIEvents.hideUpgradeableEvnt.Invoke(pc, this);
+                pc.nearbyUpgradeables.Remove(this);
+            }
         }
     }   
 }

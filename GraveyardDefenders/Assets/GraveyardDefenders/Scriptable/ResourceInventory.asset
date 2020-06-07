@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: ResourceInventory
   m_EditorClassIdentifier: 
   resources:
-  - 3
+  - 0
+  - 0
   - 0

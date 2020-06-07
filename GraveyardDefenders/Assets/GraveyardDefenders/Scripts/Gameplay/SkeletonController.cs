@@ -53,6 +53,7 @@ namespace XD
             if(!currentObjective) currentObjective = FindObjectOfType<Objective>();
             currentHP = maxHP;
             agent.autoTraverseOffMeshLink = false;
+            currentTarget = null;
         }
 
         void Update()

@@ -26,6 +26,7 @@ namespace XD
     {
         public static DAY_NIGHT_PHASE currentPhase_s = DAY_NIGHT_PHASE.NIGHT;
         public static float lastPhaseStartTime_s = float.NegativeInfinity;
+        public static int daysSurvived_s = 0;
 
         [Header("Assignable")]
         public Light directionalLight;
@@ -56,6 +57,7 @@ namespace XD
             currentPhase = startingPhase;
             currentPhase_s = currentPhase;
             daysSurvived = 0;
+            daysSurvived_s = 0;
             lastPhaseStartTime = TimeUtils.GetTime();
             lastPhaseStartTime_s = lastPhaseStartTime;
 
@@ -75,10 +77,24 @@ namespace XD
         {
             DAY_NIGHT_PHASE nextPhase = (DAY_NIGHT_PHASE)((int)(currentPhase + 1) % dayNightCycleLightAttributes.Count);
             if (currentPhase == DAY_NIGHT_PHASE.NIGHT)
+            {
                 daysSurvived++;
+                daysSurvived_s++;
+            }
+
+            DayNightCycleLightAttributes nextPhaseAttribs = dayNightCycleLightAttributes[(int)nextPhase];
+            directionalLight.DOIntensity(nextPhaseAttribs.intensity, transitionTime);
+            directionalLight.DOColor(nextPhaseAttribs.color, transitionTime);
+            directionalLight.transform.DORotate(nextPhaseAttribs.rotation, transitionTime);
+
+            currentPhase = nextPhase;
+            currentPhase_s = nextPhase;
+            lastPhaseStartTime = TimeUtils.GetTime();
+            lastPhaseStartTime_s = TimeUtils.GetTime();
 
             if(nextPhase == DAY_NIGHT_PHASE.DAY)
             {
+                //start growing trees and other materials that might be consumed
                 for (int i = 0; i < breakables.items.Count; i++)
                 {
                     BreakableObject breakable = breakables.items[i];
@@ -97,15 +113,6 @@ namespace XD
                 GlobalEvents.newNightStared.Invoke();
             }
 
-            DayNightCycleLightAttributes nextPhaseAttribs = dayNightCycleLightAttributes[(int)nextPhase];
-            directionalLight.DOIntensity(nextPhaseAttribs.intensity, transitionTime);
-            directionalLight.DOColor(nextPhaseAttribs.color, transitionTime);
-            directionalLight.transform.DORotate(nextPhaseAttribs.rotation, transitionTime);
-
-            currentPhase = nextPhase;
-            currentPhase_s = nextPhase;
-            lastPhaseStartTime = TimeUtils.GetTime();
-            lastPhaseStartTime_s = TimeUtils.GetTime();
         }
     }
 }

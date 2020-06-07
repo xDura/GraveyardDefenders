@@ -8,6 +8,7 @@ namespace XD
     {
         WOOD,
         STONE,
+        CRYSTAL,
     }
 
     [CreateAssetMenu(menuName = "XD/Resources")]

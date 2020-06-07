@@ -232,6 +232,12 @@ namespace XD
                             ParticleSystemEvents.SpawnParticleEvent.Invoke(rockHitParticles, pos, Quaternion.identity);
                             GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
                         }
+                        else if(gathereable.type == RESOURCE_TYPE.CRYSTAL)
+                        {
+                            Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);
+                            ParticleSystemEvents.SpawnParticleEvent.Invoke(rockHitParticles, pos, Quaternion.identity);
+                            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
+                        }
                         else
                         {
                             Vector3 pos = transform.position + (Vector3.up * 0.5f) + (transform.forward * 0.5f);

@@ -24,6 +24,7 @@ public enum AUDIO_FX
 
 public enum AUDIO_MUSICS
 {
+    NONE = -1,
     LEVEL_01_MUSIC,
     MAINMENU_MUSIC,
 }

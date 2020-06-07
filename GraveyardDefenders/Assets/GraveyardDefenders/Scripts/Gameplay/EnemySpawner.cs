@@ -46,7 +46,7 @@ namespace XD
         {
             if (needsInit) Init();
 
-            if(DayNightCycle.currentPhase_s == DAY_NIGHT_PHASE.DAY)
+            if(DayNightCycle.currentPhase_s == DAY_NIGHT_PHASE.DAY || NPCManager.Instance.skeletonsLeft <= 0)
             {
                 lastSpawnTime += Time.deltaTime;
                 Shake(0);

@@ -18,7 +18,6 @@ namespace XD.Audio
         public override void OnSingletonAwake()
         {
             base.OnSingletonAwake();
-            //Debug.Log($"OnSingletonAwake");GlobalEvents.playAmbienceEvent
             GlobalEvents.audioAmbienceEvent.AddListener(PlayAmbience);
             GlobalEvents.audioFXEvent.AddListener(PlayFX);
             GlobalEvents.audioMusic.AddListener(PlayMusic);
@@ -27,7 +26,6 @@ namespace XD.Audio
         public override void OnSingletonDestroy(bool isMainInstance)
         {
             base.OnSingletonDestroy(isMainInstance);
-            //Debug.Log($"OnSingletonDestroy {isMainInstance}");
             GlobalEvents.audioAmbienceEvent.RemoveListener(PlayAmbience);
             GlobalEvents.audioFXEvent.RemoveListener(PlayFX);
             GlobalEvents.audioMusic.RemoveListener(PlayMusic);
@@ -62,6 +60,7 @@ namespace XD.Audio
         public void PlayMusic(AUDIO_MUSICS id)
         {
             StopMusic();
+            if (!database.musics.ContainsKey(id)) return;
             AudioSourceData data = database.musics[id];
             mainMusicSource.BuildFrom(data);
             mainMusicSource.Play();

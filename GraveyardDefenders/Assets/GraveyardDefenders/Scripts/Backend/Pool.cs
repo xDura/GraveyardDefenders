@@ -67,7 +67,7 @@ namespace XD
 
         public void Despawn(GameObject go)
         {
-            go.transform.parent = this.transform;
+            go.transform.SetParent(this.transform);
             go.transform.position = Vector3.zero;
             go.transform.rotation = Quaternion.identity;
             go.SetActive(false);
