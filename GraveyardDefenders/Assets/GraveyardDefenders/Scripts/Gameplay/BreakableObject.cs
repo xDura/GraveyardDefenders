@@ -19,6 +19,7 @@ namespace XD
         public bool isRepairable = true;
         public RESOURCE_TYPE repairResource;
         public bool isInfinite = false;
+        public bool reflectDamage = false;
 
         [Header("Runtime")]
         public float currentHP;

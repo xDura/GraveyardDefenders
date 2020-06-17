@@ -309,16 +309,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7338067121427145172, guid: a4808ffcc5c6d4d44971020d242263a0,
-        type: 3}
-      propertyPath: m_Name
-      value: UIMainMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 7338067121427145172, guid: a4808ffcc5c6d4d44971020d242263a0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 335300660807488738, guid: a4808ffcc5c6d4d44971020d242263a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -449,6 +439,33 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5278980388221256934, guid: a4808ffcc5c6d4d44971020d242263a0,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e2385ba281d2354d8dabfcb27a38ad4,
+        type: 2}
+    - target: {fileID: 5278980388221256934, guid: a4808ffcc5c6d4d44971020d242263a0,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5288035330295180493, guid: 0e2385ba281d2354d8dabfcb27a38ad4,
+        type: 2}
+    - target: {fileID: 5278980388221256934, guid: a4808ffcc5c6d4d44971020d242263a0,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 57.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7338067121427145172, guid: a4808ffcc5c6d4d44971020d242263a0,
+        type: 3}
+      propertyPath: m_Name
+      value: UIMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7338067121427145172, guid: a4808ffcc5c6d4d44971020d242263a0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4808ffcc5c6d4d44971020d242263a0, type: 3}
 --- !u!1 &1299958729
@@ -541,11 +558,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3982329737546368578, guid: 0a4291ff4d38eed4c97151b720af6234,
-        type: 3}
-      propertyPath: m_Name
-      value: XD.PlayerInput
-      objectReference: {fileID: 0}
     - target: {fileID: 704801686791400981, guid: 0a4291ff4d38eed4c97151b720af6234,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -601,6 +613,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3982329737546368578, guid: 0a4291ff4d38eed4c97151b720af6234,
+        type: 3}
+      propertyPath: m_Name
+      value: XD.PlayerInput
+      objectReference: {fileID: 0}
     - target: {fileID: 8431173787000396823, guid: 0a4291ff4d38eed4c97151b720af6234,
         type: 3}
       propertyPath: debugNumPlayers
@@ -620,6 +637,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 51128015, guid: ea49725897927304eaf0abfa7e7b0126, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e2385ba281d2354d8dabfcb27a38ad4,
+        type: 2}
+    - target: {fileID: 51128015, guid: ea49725897927304eaf0abfa7e7b0126, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 5288035330295180493, guid: 0e2385ba281d2354d8dabfcb27a38ad4,
+        type: 2}
+    - target: {fileID: 51128015, guid: ea49725897927304eaf0abfa7e7b0126, type: 3}
+      propertyPath: m_fontStyle
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 51128015, guid: ea49725897927304eaf0abfa7e7b0126, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 10.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 51128015, guid: ea49725897927304eaf0abfa7e7b0126, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 34.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 51128015, guid: ea49725897927304eaf0abfa7e7b0126, type: 3}
+      propertyPath: m_fontSize
+      value: 34.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1576084656260263751, guid: ea49725897927304eaf0abfa7e7b0126,
         type: 3}
       propertyPath: m_Name

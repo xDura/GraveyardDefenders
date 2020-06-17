@@ -18,7 +18,9 @@ namespace XD
 
         public static Vector2 GetMoveVec(this Gamepad pad)
         {
-            return pad.leftStick.ReadValue();
+            Vector2 leftStickValue = pad.leftStick.ReadValue();
+            if (leftStickValue.magnitude <= 0.1f) leftStickValue = Vector3.zero;
+            return leftStickValue;
         }
 
         public static Vector2 GetMoveVec(this Keyboard keyboard, int index, Vector2 lastMoveVec)

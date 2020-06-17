@@ -63,11 +63,8 @@ namespace XD
             UpdateAnimation();
             UpdateHealthBar();
 
-            if (DayNightCycle.currentPhase_s== DAY_NIGHT_PHASE.DAY)
-            {
-                currentHP -= dayDamagePerSecond * Time.deltaTime;
-                if (currentHP <= 0) Die();
-            }
+            if (DayNightCycle.currentPhase_s== DAY_NIGHT_PHASE.DAY) currentHP -= dayDamagePerSecond * Time.deltaTime;
+            if (currentHP <= 0) Die();
         }
 
         public void UpdateHealthBar()
@@ -163,7 +160,10 @@ namespace XD
         private void Attack()
         {
             //Debug.Log(name + " is Attacking: " + currentTarget.name);
-            currentTarget.Hit(attackDamage);
+            float damagedealt = currentTarget.Hit(attackDamage);
+            if(currentTarget.reflectDamage && damagedealt > 0.0f)
+                currentHP -= damagedealt;
+
             animator.SetTrigger("Attack");
             if (currentTarget.destroyed) agent.CompleteOffMeshLink();
             lastAttackTime = TimeUtils.GetTime();
