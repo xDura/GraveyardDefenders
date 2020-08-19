@@ -14,6 +14,7 @@ namespace XD
         public static Evnt newNightStared = new Evnt();
 
         public static Evnt<Upgradeable> upgradeableUpgraded = new Evnt<Upgradeable>();
+        public static Evnt<SkeletonController> skeletonDespawned = new Evnt<SkeletonController>();
     }
 
     public class UIEvents

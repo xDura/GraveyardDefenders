@@ -105,6 +105,7 @@ namespace XD
             if (controller == null) return;
             skeletons.Remove(controller);
             skeletonPool.Despawn(controller.gameObject);
+            GlobalEvents.skeletonDespawned.Invoke(controller);
         }
 
         public bool InstantiateGhost(Vector3 position, Quaternion rotation, PlayerCharacter characterToFollow)

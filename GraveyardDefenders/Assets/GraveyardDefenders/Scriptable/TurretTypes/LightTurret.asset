@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92072eb56b4f16143b3f409f4606fad6, type: 3}
+  m_Name: LightTurret
+  m_EditorClassIdentifier: 
+  type: 3
+  resource: 2
+  projectile: {fileID: 1462629665406442414, guid: cf9bf71dc8b9014488fa8931a5352698,
+    type: 3}
+  turretVisuals: {fileID: 0}
+  throw_periode: 2
+  projectiles_per_charge: 5

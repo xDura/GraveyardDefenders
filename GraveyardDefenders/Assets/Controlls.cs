@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 
 public class @Controlls : IInputActionCollection, IDisposable
 {
-    private InputActionAsset asset;
+    public InputActionAsset asset { get; }
     public @Controlls()
     {
         asset = InputActionAsset.FromJson(@"{

@@ -11,6 +11,7 @@ namespace XD
         public NavMeshAgent agent;
         public Animator animator;
         public Image healthBar;
+        public CapsuleCollider capsule;
 
         [Header("Runtime")]
         public float maxRayDistance = 100.0f;
@@ -29,20 +30,14 @@ namespace XD
         public float attackRange = 0.05f;
         public float dayDamagePerSecond;
         public float maxHP;
-        public float TimeSinceLastAttack
-        {
-            get { return TimeUtils.TimeSince(lastAttackTime); }
-        }
-
-        public float CurrentHPPercent
-        {
-            get { return currentHP / maxHP; }
-        }
+        public float TimeSinceLastAttack => TimeUtils.TimeSince(lastAttackTime); 
+        public float CurrentHPPercent => currentHP / maxHP;
 
         void Start()
         {
             if (!agent) agent = GetComponent<NavMeshAgent>();
             if (!animator) animator = GetComponent<Animator>();
+            if (!capsule) capsule = GetComponent<CapsuleCollider>();
 
             Init();
         }
@@ -63,8 +58,14 @@ namespace XD
             UpdateAnimation();
             UpdateHealthBar();
 
-            if (DayNightCycle.currentPhase_s== DAY_NIGHT_PHASE.DAY) currentHP -= dayDamagePerSecond * Time.deltaTime;
+            if (DayNightCycle.currentPhase_s== DAY_NIGHT_PHASE.DAY) ReceiveHit(dayDamagePerSecond * Time.deltaTime);
             if (currentHP <= 0) Die();
+        }
+
+        public void ReceiveHit(float damage)
+        {
+            currentHP -= damage;
+            currentHP = Mathf.Clamp(currentHP, 0.0f, maxHP);
         }
 
         public void UpdateHealthBar()
@@ -161,8 +162,7 @@ namespace XD
         {
             //Debug.Log(name + " is Attacking: " + currentTarget.name);
             float damagedealt = currentTarget.Hit(attackDamage);
-            if(currentTarget.reflectDamage && damagedealt > 0.0f)
-                currentHP -= damagedealt;
+            if (currentTarget.reflectDamage && damagedealt > 0.0f) ReceiveHit(damagedealt);
 
             animator.SetTrigger("Attack");
             if (currentTarget.destroyed) agent.CompleteOffMeshLink();
