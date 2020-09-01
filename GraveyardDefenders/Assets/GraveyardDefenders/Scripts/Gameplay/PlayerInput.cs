@@ -15,8 +15,9 @@ namespace XD
         [NonSerialized, Tooltip("Used only for keyboard players")] public List<int> deviceIndices = new List<int>(Constants.maxPlayers);
         public bool inGameplayScene = false;
         public int CurrentPlayerCount { get { return devices.Count; } }
-        public GameObject playerPrefab;
+        public List<GameObject> playerPrefabs;
         public bool debugCreatePlayers = false;
+        public List<int> debugSelected = new List<int>();
         [Range(1, 4)] public int debugNumPlayers = 1;
 
         public override void OnSingletonAwake()
@@ -96,12 +97,14 @@ namespace XD
             {
                 if (debugCreatePlayers)
                 {
+                    selectedPlayers = new List<int>(debugSelected);
+
                     for (int i = 0; i < debugNumPlayers; i++)
                     {
                         Transform spawn = spawnPoints.spawns[i].transform;
                         devices.Add(Keyboard.current);
                         deviceIndices.Add(i);
-                        GameObject p = Instantiate(playerPrefab, spawn.position, spawn.rotation);
+                        GameObject p = Instantiate(playerPrefabs[selectedPlayers[i]], spawn.position, spawn.rotation);
                         PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
                         pc.id = i;
                         local_players.Add(pc);
@@ -113,7 +116,7 @@ namespace XD
                     for (int i = 0; i < devices.Count; i++)
                     {
                         Transform spawn = spawnPoints.spawns[i].transform;
-                        GameObject p = Instantiate(playerPrefab, spawn.position, spawn.rotation);
+                        GameObject p = Instantiate(playerPrefabs[selectedPlayers[i]], spawn.position, spawn.rotation);
                         PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
                         pc.id = i;
                         local_players.Add(pc);

@@ -33,10 +33,8 @@ namespace XD
         [Header("Events")]
         public UnityEvent brokeEvent;
         public UnityEvent hitEvent;
-        //called when the breakable was broken and is repaired
-        public UnityEvent onRepairEvent;
-        //called each time the breakable is repaired
-        public UnityEvent onRepairHitEvent;
+        public UnityEvent onRepairEvent; //called when the breakable was broken and is repaired
+        public UnityEvent onRepairHitEvent; //called each time the breakable is repaired
 
         public float CurrentHPPercent { get { return currentHP / maxHP; } }
 
@@ -47,15 +45,9 @@ namespace XD
             breakableSet.Add(this);
         }
 
-        public void OnDisable()
-        {
-            breakableSet.Remove(this);
-        }
+        public void OnDisable() { breakableSet.Remove(this); }
 
-        void Start()
-        {
-            Init();
-        }
+        void Start() { Init(); }
 
         protected virtual void Init()
         {
@@ -72,7 +64,6 @@ namespace XD
 
             if (currentHP == 0.0f)
             {
-                //Debug.LogFormat($"{name} has been broken");
                 brokeEvent.Invoke();
                 destroyed = true; 
             }
@@ -106,25 +97,13 @@ namespace XD
             return currentHP - oldHP;
         }
 
-        public Vector3 GetClosestPoint(Vector3 source)
-        {
-            return col.ClosestPoint(source);
-        }
+        public Vector3 GetClosestPoint(Vector3 source) { return col.ClosestPoint(source); }
 
-        public Vector3 GetCenter()
-        {
-            return cached_center;
-        }
+        public Vector3 GetCenter() { return cached_center; }
 
         public void UpdateHealthBar()
         {
             if (healthBar != null) healthBar.fillAmount = CurrentHPPercent;
-        }
-
-        [ContextMenu("Checkbounds")]
-        private void ShowBounds()
-        {
-            DebugExtension.DebugPoint(GetCenter(), Color.red, 10.0f, 10.0f, false);
         }
     }
 }

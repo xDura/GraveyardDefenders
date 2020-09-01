@@ -20,11 +20,6 @@ namespace XD
         public UnityEvent OnGrowStart;
         public override bool CanGather { get { return !destroyed; } }
 
-        protected override void Init()
-        {
-            base.Init();
-        }
-
         public float Gather(float dmg)
         {
             float gathered = Hit(dmg);
@@ -44,17 +39,11 @@ namespace XD
             OnGrowStart.Invoke();
         }
 
-        private void GrowUpdate()
-        {}
-
+        private void GrowUpdate() {}
         public void OnGrowEnded()
         {
-            //Debug.Log("OnGrowEnded");
             currentHP = maxHP;
             destroyed = false;
-            //Vector3 localPos = transform.localPosition;
-            //localPos.y = 0;
-            //transform.localPosition = localPos;
             OnGrowDone.Invoke();
         }
     }
