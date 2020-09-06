@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8258878564007935916}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4280501753899867056}
   - component: {fileID: 2304085449074845326}
   - component: {fileID: 8118223971729489548}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,6 +83,7 @@ MonoBehaviour:
   isRepairable: 0
   repairResource: 0
   isInfinite: 1
+  reflectDamage: 0
   currentHP: 0
   destroyed: 0
   cached_center: {x: 0, y: 0, z: 0}
@@ -178,6 +179,10 @@ PrefabInstance:
     - target: {fileID: 1836286742895764, guid: 0dddc57938c3d3541a7b210224f98858, type: 3}
       propertyPath: m_Name
       value: ZLPP_Rock_A_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1836286742895764, guid: 0dddc57938c3d3541a7b210224f98858, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4839846335136806, guid: 0dddc57938c3d3541a7b210224f98858, type: 3}
       propertyPath: m_LocalPosition.x

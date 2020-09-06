@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 namespace XD
 {
-    public class BreakableObject : MonoBehaviour
+    public class BreakableObject : MonoBehaviour, IInteractable
     {
         [Header("Assignable")]
         public Image healthBar;
@@ -22,11 +22,11 @@ namespace XD
         public bool reflectDamage = false;
 
         [Header("Runtime")]
-        public float currentHP;
+        public float currentHP; //TODO: Create a HealthComponent and use it for skeletons and other future enemies
         public bool destroyed = false;
-        public bool CanHit { get { return !destroyed; } }
-        public bool CanRepair { get { return isRepairable && currentHP < maxHP; } }
-        public virtual bool CanGather { get {return false; } }
+        public bool CanHit => !destroyed;
+        public bool CanRepair => isRepairable && currentHP < maxHP;
+        public virtual bool CanGather => false;
 
         public Vector3 cached_center;
 
@@ -98,12 +98,19 @@ namespace XD
         }
 
         public Vector3 GetClosestPoint(Vector3 source) { return col.ClosestPoint(source); }
-
         public Vector3 GetCenter() { return cached_center; }
 
         public void UpdateHealthBar()
         {
             if (healthBar != null) healthBar.fillAmount = CurrentHPPercent;
         }
+
+        #region IInteractable
+        public GameObject GetGO() { return gameObject; }
+        public float GetDistance(Vector3 pos) { return Vector3.Distance(pos, GetClosestPoint(pos)); }
+        public virtual bool CanBeInteracted(ResourceInventory inventory) { return CanRepair && inventory.HasResource(repairResource); } //in breakables interaction is repair
+        public virtual PLAYER_ACTIONS GetAction() { return PLAYER_ACTIONS.REPAIR; }
+        public Vector3 GetInteractLookAt() { return GetCenter(); }
+        #endregion
     }
 }

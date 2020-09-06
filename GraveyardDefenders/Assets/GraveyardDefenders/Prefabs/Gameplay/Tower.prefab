@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7164031714751654238}
   - component: {fileID: 7122950501643493972}
   - component: {fileID: 4537119389566793170}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8764461496295481803}
   - component: {fileID: 8258076133373439751}
-  m_Layer: 0
+  - component: {fileID: 3363123848787056636}
+  m_Layer: 13
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,8 +106,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwTransform: {fileID: 8811970858415863971}
   trigger: {fileID: 4537119389566793170}
-  type: {fileID: 11400000, guid: fdbf874b2f76be44b8b2db662029bc13, type: 2}
+  col: {fileID: 3363123848787056636}
   maxCharges: 4
+  currentVisuals: {fileID: 0}
+--- !u!65 &3363123848787056636
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6506507789064443527}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 1.5, z: 0.6}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!1 &8891461728666424034
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8811970858415863971}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: throwTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,6 +162,10 @@ PrefabInstance:
     - target: {fileID: 162356, guid: 56c812ba01809a649a7f0667b2f02e0f, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Village_07
+      objectReference: {fileID: 0}
+    - target: {fileID: 162356, guid: 56c812ba01809a649a7f0667b2f02e0f, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 453362, guid: 56c812ba01809a649a7f0667b2f02e0f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -204,7 +223,9 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64801492646202772, guid: 56c812ba01809a649a7f0667b2f02e0f, type: 3}
+    - {fileID: 64902464254974884, guid: 56c812ba01809a649a7f0667b2f02e0f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 56c812ba01809a649a7f0667b2f02e0f, type: 3}
 --- !u!4 &5903083818082501198 stripped
 Transform:

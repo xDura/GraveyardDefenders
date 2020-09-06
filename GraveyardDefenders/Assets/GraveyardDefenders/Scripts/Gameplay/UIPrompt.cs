@@ -47,7 +47,7 @@ namespace XD
         void Update()
         {
             if (!upgradeable) return;
-            Vector3 desiredPosInScreen = Cam.WorldToScreenPoint(upgradeable.GetCurrentUIPosition());
+            Vector3 desiredPosInScreen = Cam.WorldToScreenPoint(upgradeable.UIPos);
             desiredPosInScreen.z = 0.0f;
             rect.position = desiredPosInScreen;
         }

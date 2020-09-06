@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace XD
 {
-    public class Tower : MonoBehaviour
+    public class Tower : MonoBehaviour, IInteractable
     {
         [System.Serializable]
         public class TurretCharge
@@ -22,6 +22,7 @@ namespace XD
         [Header("Assignable")]
         public Transform throwTransform;
         public CustomTrigger trigger;
+        public Collider col;
 
         [Header("Variables")]
         public int maxCharges = 4;
@@ -90,7 +91,7 @@ namespace XD
             Projectile new_projectile = new_projectile_GO.GetComponent<Projectile>();
             new_projectile.Init(target);
             CurrentCharge.current_charges--;
-            if(CurrentCharge.current_charges <= 0)
+            if (CurrentCharge.current_charges <= 0)
             {
                 charges.RemoveAt(0);
                 SelectedChargeChanged();
@@ -112,7 +113,7 @@ namespace XD
             {
                 SkeletonController current = targets[i];
                 float currentDist = Vector3.Distance(current.transform.position, transform.position);
-                if(currentDist < bestDistance)
+                if (currentDist < bestDistance)
                 {
                     bestTarget = current;
                     bestDistance = currentDist;
@@ -135,7 +136,7 @@ namespace XD
         {
             //TODO: Remove instantiates here: pool, easy to pool
             if (currentVisuals) Destroy(currentVisuals);
-            currentVisuals = Instantiate(CurrentCharge.VisualsPrefab, throwTransform);
+            if(charges.Count > 0) currentVisuals = Instantiate(CurrentCharge.VisualsPrefab, throwTransform, false);
         }
         #endregion
 
@@ -150,11 +151,19 @@ namespace XD
             else CheckCurrentTargetValid();
             if (target == null) return;
 
-            if(Utils.TimeUtils.TimeSince(lastHitTime) >= CurrentCharge.ThrowPeriode)
+            if (Utils.TimeUtils.TimeSince(lastHitTime) >= CurrentCharge.ThrowPeriode)
             {
                 Shoot();
                 lastHitTime = Time.timeSinceLevelLoad;
             }
         }
+
+        #region IInteractable
+        public GameObject GetGO() { return gameObject; }
+        public bool CanBeInteracted(ResourceInventory inventory) { return inventory.HasAnyResource(); }
+        public float GetDistance(Vector3 pos) { return Vector3.Distance(col.ClosestPoint(pos), pos); }
+        public PLAYER_ACTIONS GetAction() { return PLAYER_ACTIONS.ADD_RESOURCE; }
+        public Vector3 GetInteractLookAt() { return transform.position; }
+        #endregion
     }
 }

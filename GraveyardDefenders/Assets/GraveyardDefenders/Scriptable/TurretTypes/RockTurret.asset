@@ -16,5 +16,7 @@ MonoBehaviour:
   resource: 1
   projectile: {fileID: 1462629665406442414, guid: cf9bf71dc8b9014488fa8931a5352698,
     type: 3}
+  turretVisuals: {fileID: 4643186756301632310, guid: e598915cd18baae4b86f5e2b728caa1f,
+    type: 3}
   throw_periode: 2
   projectiles_per_charge: 5

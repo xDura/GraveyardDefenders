@@ -18,12 +18,38 @@ namespace XD
         public Vector3 growStartScale;
         public UnityEvent OnGrowDone;
         public UnityEvent OnGrowStart;
-        public override bool CanGather { get { return !destroyed; } }
+        public override bool CanGather => !destroyed;
 
-        public float Gather(float dmg)
+        public float Gather(float dmg, Vector3 gatherPos)
         {
             float gathered = Hit(dmg);
+            SpawnGatherEffects(gatherPos);
             return gathered;
+        }
+
+        void SpawnGatherEffects(Vector3 gatherPos)
+        {
+            switch (type)
+            {
+                case RESOURCE_TYPE.STONE:
+                    {
+                        ParticleSystemEvents.SpawnParticleEvent.Invoke(Constants.Instance.rockHitParticles, gatherPos, Quaternion.identity);
+                        GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
+                    }
+                    break;
+                case RESOURCE_TYPE.WOOD:
+                    {
+                        ParticleSystemEvents.SpawnParticleEvent.Invoke(Constants.Instance.woodHitParticles, gatherPos, Quaternion.identity);
+                        GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.CHOP_WOOD, this.gameObject);
+                    }
+                    break;
+                case RESOURCE_TYPE.CRYSTAL:
+                    {
+                        ParticleSystemEvents.SpawnParticleEvent.Invoke(Constants.Instance.rockHitParticles, gatherPos, Quaternion.identity);
+                        GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MINING_STONE, this.gameObject);
+                    }
+                    break;
+            }
         }
 
         public void StartGrowing()
@@ -46,5 +72,10 @@ namespace XD
             destroyed = false;
             OnGrowDone.Invoke();
         }
+
+        #region IInteractable
+        public override bool CanBeInteracted(ResourceInventory inventory) { return CanGather; } //TODO: future: check if the bag is full
+        public override PLAYER_ACTIONS GetAction() { return PLAYER_ACTIONS.GATHER; }
+        #endregion
     }
 }

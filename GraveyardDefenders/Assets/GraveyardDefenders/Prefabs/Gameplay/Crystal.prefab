@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4976293862590223544}
   - component: {fileID: 814442963938376202}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CrystalLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 6159429833433845223}
   - component: {fileID: 6159429833433845241}
   - component: {fileID: 6159429833433845240}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Crystal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,6 +144,7 @@ MonoBehaviour:
   isRepairable: 0
   repairResource: 2
   isInfinite: 0
+  reflectDamage: 0
   currentHP: 0
   destroyed: 0
   cached_center: {x: 0, y: 0, z: 0}
@@ -239,6 +240,10 @@ PrefabInstance:
     - target: {fileID: 1887979866507258, guid: ee730f65fc16b17449627fa6020339f7, type: 3}
       propertyPath: m_Name
       value: ZLPP_Grass_K_09
+      objectReference: {fileID: 0}
+    - target: {fileID: 1887979866507258, guid: ee730f65fc16b17449627fa6020339f7, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4169288834609398, guid: ee730f65fc16b17449627fa6020339f7, type: 3}
       propertyPath: m_LocalPosition.x

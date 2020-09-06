@@ -117,14 +117,7 @@ namespace XD
 
         #region HITS
 
-        float TimePlayerHasBeenInsideHitRange
-        {
-            get
-            {
-                if (!playerInHitRange) return 0f;
-                else return TimeUtils.GetTime() - timeEnteredHitRange;
-            }
-        }
+        float TimePlayerHasBeenInsideHitRange => playerInHitRange ? (TimeUtils.GetTime() - timeEnteredHitRange) : 0f;
 
         void UpdateChaseHit()
         {

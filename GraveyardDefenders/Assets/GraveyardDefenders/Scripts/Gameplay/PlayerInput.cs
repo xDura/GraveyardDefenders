@@ -29,17 +29,13 @@ namespace XD
                 Debug.Log($"Device Change::device: {device.name} change: {change}");
                 switch (change)
                 {
-                    case InputDeviceChange.Added:
-                        // New Device.
+                    case InputDeviceChange.Added: // New Device.
                         break;
-                    case InputDeviceChange.Disconnected:
-                        // Device got unplugged.
+                    case InputDeviceChange.Disconnected: // Device got unplugged.
                         break;
-                    case InputDeviceChange.Reconnected:
-                        // Plugged back in.
+                    case InputDeviceChange.Reconnected: // Plugged back in.
                         break;
-                    case InputDeviceChange.Removed:
-                        // Remove from Input System entirely; by default, Devices stay in the system once discovered.
+                    case InputDeviceChange.Removed: // Remove from Input System entirely; by default, Devices stay in the system once discovered.
                         break;
                     default:
                         break;

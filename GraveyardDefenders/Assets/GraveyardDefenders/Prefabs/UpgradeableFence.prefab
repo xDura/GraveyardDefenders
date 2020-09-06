@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1149771408760581006}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: linkStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 204375898111287193}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 2758828395437656805}
   - component: {fileID: 2758828395437656804}
   - component: {fileID: 4208341894830155320}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: lifeBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 2758828395975702039}
   - component: {fileID: 2758828395975702037}
   - component: {fileID: 2758828395975702038}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: lifeBarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 2758828396437863871}
   - component: {fileID: 2758828396437863864}
   - component: {fileID: 2758828396437863865}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: lifeBarImage (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 5992524731631178266}
   - component: {fileID: 2742304662229177110}
   - component: {fileID: 2956039489919861778}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Stockade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,6 +401,7 @@ MonoBehaviour:
   isRepairable: 1
   repairResource: 0
   isInfinite: 0
+  reflectDamage: 0
   currentHP: 0
   destroyed: 0
   cached_center: {x: 0, y: 0, z: 0}
@@ -546,7 +547,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5505308372115020310}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: linkEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,7 +578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5640302525932354713}
   - component: {fileID: 8855048476175379389}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: doorCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -622,7 +623,7 @@ GameObject:
   - component: {fileID: 9188064156432153888}
   - component: {fileID: 9188064156432153891}
   - component: {fileID: 9188064156432153890}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: UpgradeableFence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,6 +769,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StockadeBlockade01
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 44ca4e1615860dc448dcca1c24ccdc4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44ca4e1615860dc448dcca1c24ccdc4d, type: 3}

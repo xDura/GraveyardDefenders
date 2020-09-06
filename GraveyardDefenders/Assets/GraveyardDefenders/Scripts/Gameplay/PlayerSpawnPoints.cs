@@ -24,14 +24,10 @@ namespace XD
         {
             switch (index)
             {
-                case 0:
-                    return Color.white;
-                case 1:
-                    return Color.red;
-                case 2:
-                    return Color.green;
-                case 3:
-                    return Color.blue;
+                case 0: return Color.white;
+                case 1: return Color.red;
+                case 2: return Color.green;
+                case 3: return Color.blue;
             }
 
             return Color.white;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2669719251889547499}
   - component: {fileID: 5725621122984865162}
   - component: {fileID: 4110661635172260426}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,6 +65,8 @@ MonoBehaviour:
   maxHP: 10
   isRepairable: 0
   repairResource: 0
+  isInfinite: 0
+  reflectDamage: 0
   currentHP: 0
   destroyed: 0
   cached_center: {x: 0, y: 0, z: 0}
@@ -173,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2904488176968038514}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,11 +204,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2904488176968038514}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 46e6a723f8961f74d84eb76e64018a8d,
-        type: 3}
-      propertyPath: m_Name
-      value: tree_blue_02
-      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 46e6a723f8961f74d84eb76e64018a8d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -267,6 +264,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3b47be93bc40c7a4ab0df4a3d2e81333, type: 2}
+    - target: {fileID: -927199367670048503, guid: 46e6a723f8961f74d84eb76e64018a8d,
+        type: 3}
+      propertyPath: m_Name
+      value: tree_blue_02
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 46e6a723f8961f74d84eb76e64018a8d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46e6a723f8961f74d84eb76e64018a8d, type: 3}
 --- !u!4 &7046764102847512987 stripped

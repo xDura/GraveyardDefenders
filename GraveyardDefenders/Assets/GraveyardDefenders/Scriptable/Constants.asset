@@ -13,3 +13,10 @@ MonoBehaviour:
   m_Name: Constants
   m_EditorClassIdentifier: 
   noEnemiesMode: 0
+  debugFlags: 0
+  rockHitParticles: {fileID: 1040608886635896, guid: 801b5c210c3c1a3419170ac0b825747f,
+    type: 3}
+  woodHitParticles: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37,
+    type: 3}
+  respawnParticles: {fileID: 100000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
+  turretTypesDB: {fileID: 11400000, guid: 020b971a7c891894499783faf4ec0e1e, type: 2}

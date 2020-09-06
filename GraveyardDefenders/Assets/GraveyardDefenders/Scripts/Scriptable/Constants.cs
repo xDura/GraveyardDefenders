@@ -11,20 +11,32 @@ namespace XD
         [System.Flags]
         public enum DEBUG_FLAGS
         {
-            PLAYER,
-            GATHEREABLE_OBJECTS,
-            RESOURCES_INVENTORY,
-            AI,
-            DAY_NIGHT_CYCLE,
-            AUDIO,
-            EVENTS,
+            NONE = 0,
+            PLAYER = 1 << 1,
+            GATHEREABLE_OBJECTS = 1 << 2,
+            RESOURCES_INVENTORY = 1 << 3,
+            AI = 1 << 4,
+            DAY_NIGHT_CYCLE = 1 << 5,
+            AUDIO = 1 << 6,
+            EVENTS = 1 << 7,
         }
 
         public bool noEnemiesMode = false;
+        public DEBUG_FLAGS debugFlags;
 
-        public static Constants Instance
+        //TODO: move this prefabs to another place
+        #region PREFABS
+        public GameObject rockHitParticles;
+        public GameObject woodHitParticles;
+        public GameObject respawnParticles;
+        #endregion
+
+        public TurretTypesDatabase turretTypesDB;
+
+        public static Constants Instance => ConstantsManager.Instance.constants; 
+        public bool HasDebugFlag(DEBUG_FLAGS flag)
         {
-            get { return ConstantsManager.Instance.constants; }
+            return (debugFlags & flag) != 0;
         }
     }   
 }

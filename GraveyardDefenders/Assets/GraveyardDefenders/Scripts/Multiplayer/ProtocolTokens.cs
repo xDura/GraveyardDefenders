@@ -4,6 +4,8 @@ using UdpKit;
 
 namespace XD.Multiplayer
 {
+    //trying to implement a solution for animation sync
+    //via stateid and normalizedTime
     public class AnimatorDataToken : IProtocolToken
     {
         public float normalizedTime;

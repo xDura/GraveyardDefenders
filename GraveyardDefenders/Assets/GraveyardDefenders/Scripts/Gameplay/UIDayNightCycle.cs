@@ -60,19 +60,9 @@ namespace XD
             }
         }
 
-        public void ShowDayCount()
-        {
-            dayCountCanvasGroup.DOFade(1.0f, showDayCounterFadeDuration).OnComplete(HideDayCountDelayed);
-        }
+        public void ShowDayCount() { dayCountCanvasGroup.DOFade(1.0f, showDayCounterFadeDuration).OnComplete(HideDayCountDelayed); }
+        public void HideDayCountDelayed() { dayCountCanvasGroup.DOFade(0.0f, showDayCounterFadeDuration).SetDelay(showDayCounterDuration); }
 
-        public void HideDayCountDelayed()
-        {
-            dayCountCanvasGroup.DOFade(0.0f, showDayCounterFadeDuration).SetDelay(showDayCounterDuration);
-        }
-
-        private void FindDayNightCycle()
-        {
-            cycle = FindObjectOfType<DayNightCycle>();
-        }
+        private void FindDayNightCycle() { cycle = FindObjectOfType<DayNightCycle>(); }
     }
 }

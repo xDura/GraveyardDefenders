@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace XD
 {
+    //Exporting a level to XML so that I can load it inside a c++ application
     public class LevelExport : MonoBehaviour
     {
         public LevelData level = new LevelData();

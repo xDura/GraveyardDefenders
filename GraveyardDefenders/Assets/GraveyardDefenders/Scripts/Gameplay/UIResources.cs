@@ -16,9 +16,9 @@ namespace XD
         private float lastRockCount = 0;
         private float lastCrystalCount = 0;
 
-        bool HasToUpdateWood { get { return lastWoodCount != inventory.GetResourceCount(RESOURCE_TYPE.WOOD); } }
-        bool HasToUpdateRock { get { return lastRockCount != inventory.GetResourceCount(RESOURCE_TYPE.STONE); } }
-        bool HasToUpdateCrystal { get { return lastCrystalCount != inventory.GetResourceCount(RESOURCE_TYPE.CRYSTAL); } }
+        bool HasToUpdateWood => lastWoodCount != inventory.GetResourceCount(RESOURCE_TYPE.WOOD);
+        bool HasToUpdateRock => lastRockCount != inventory.GetResourceCount(RESOURCE_TYPE.STONE);
+        bool HasToUpdateCrystal => lastCrystalCount != inventory.GetResourceCount(RESOURCE_TYPE.CRYSTAL);
 
         void Update()
         {

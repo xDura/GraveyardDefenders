@@ -41,16 +41,10 @@ namespace XD
         [Header("Runtime")]
         public DAY_NIGHT_PHASE currentPhase = DAY_NIGHT_PHASE.NIGHT;
         public float lastPhaseStartTime = float.NegativeInfinity;
-        public bool HasToSwapPhase
-        {
-            get { return TimeUtils.TimeSince(lastPhaseStartTime) > cycleTime; }
-        }
         public int daysSurvived = 0;
 
-        public float CycleRemainingTimeNormalized
-        {
-            get { return TimeUtils.TimeSince(lastPhaseStartTime) / cycleTime; }
-        }
+        public bool HasToSwapPhase =>TimeUtils.TimeSince(lastPhaseStartTime) > cycleTime;
+        public float CycleRemainingTimeNormalized => TimeUtils.TimeSince(lastPhaseStartTime) / cycleTime;
 
         void Start()
         {
@@ -69,8 +63,7 @@ namespace XD
 
         void Update()
         {
-            if (HasToSwapPhase)
-                DoTransitionCycle();
+            if (HasToSwapPhase) DoTransitionCycle();
         }
 
         public void DoTransitionCycle()

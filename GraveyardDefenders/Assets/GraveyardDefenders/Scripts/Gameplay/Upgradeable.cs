@@ -15,7 +15,7 @@ namespace XD
         public Requirement[] requirements;
     }
 
-    public class Upgradeable : MonoBehaviour
+    public class Upgradeable : MonoBehaviour, IInteractable
     {
         public int currentLevel;
         public int MaxLevel => levels.Count - 1;
@@ -23,6 +23,8 @@ namespace XD
         public List<GameObject> levels = new List<GameObject>();
         public List<ResourceRequirements> requirementsForLevel = new List<ResourceRequirements>();
         public Vector3 uiOffset;
+        public Vector3 InteractPos => transform.position;
+        public Vector3 UIPos => transform.position + uiOffset;
 
         public void Awake()
         {
@@ -42,16 +44,6 @@ namespace XD
                 ResourceRequirements.Requirement requ = requirements.requirements[i];
                 inventory.SubstractResource(requ.resource, requ.ammount);
             }
-        }
-
-        public Vector3 GetCurrentInteractPosition()
-        {
-            return transform.position;
-        }
-
-        public Vector3 GetCurrentUIPosition()
-        {
-            return transform.position + uiOffset;
         }
 
         public void SetLevel(int level)
@@ -91,7 +83,7 @@ namespace XD
             if (pc && !IsMaxLevel)
             {
                 UIEvents.showUpgradeableEvnt.Invoke(pc, this);
-                pc.nearbyUpgradeables.Add(this);
+                //pc.interactSystem.UpgradeableNear(this);
             }
         }
 
@@ -101,8 +93,16 @@ namespace XD
             if (pc)
             {
                 UIEvents.hideUpgradeableEvnt.Invoke(pc, this);
-                pc.nearbyUpgradeables.Remove(this);
+                //pc.interactSystem.UpgradeableFar(this);
             }
         }
-    }   
+
+        #region IInteractable
+        public GameObject GetGO() { return gameObject; }
+        public bool CanBeInteracted(ResourceInventory inventory) { return CanBeUpgraded(inventory); }
+        public float GetDistance(Vector3 pos) { return Vector3.Distance(pos, transform.position); }
+        public PLAYER_ACTIONS GetAction() { return PLAYER_ACTIONS.UPGRADE; }
+        public Vector3 GetInteractLookAt() { return InteractPos; }
+        #endregion
+    }
 }

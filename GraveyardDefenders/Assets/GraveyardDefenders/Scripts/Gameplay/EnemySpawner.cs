@@ -9,7 +9,7 @@ namespace XD
         public float timeToSpawn;
         public float lastSpawnTime;
         public Transform spawnTransform;
-        public bool HasToSpawn { get { return TimeUtils.TimeSince(lastSpawnTime) > timeToSpawn; } }
+        public bool HasToSpawn => TimeUtils.TimeSince(lastSpawnTime) > timeToSpawn;
 
         [Header("Shake")]
         public Shaker shaker;
@@ -21,10 +21,9 @@ namespace XD
         public bool fadeout = false;
 
         public int lastShakeID = 0;
-        public int CurrentShakeID { get { return Mathf.FloorToInt(((TimeUtils.TimeSince(lastSpawnTime)) * 3.0f )/ (timeToSpawn)); } }
+        public int CurrentShakeID => Mathf.FloorToInt(((TimeUtils.TimeSince(lastSpawnTime)) * 3.0f )/ (timeToSpawn));
 
         public const int randomSeed = 200;
-
         private bool needsInit = false;
 
         void Start()
