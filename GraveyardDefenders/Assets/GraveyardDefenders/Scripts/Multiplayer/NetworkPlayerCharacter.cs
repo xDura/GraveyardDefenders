@@ -27,19 +27,19 @@ namespace XD.Multiplayer
             {
                 pc.isLocal = false;
                 pc.enabled = false;
-                state.AddCallback("Minning", OnMinningChanged);
-                state.AddCallback("ChopWood", OnChopWoodChanged);
-                state.AddCallback("Walk", OnWalkChanged);
+                state.AddCallback(PlayerAnimParams.Minning, OnMinningChanged);
+                state.AddCallback(PlayerAnimParams.ChopWood, OnChopWoodChanged);
+                state.AddCallback(PlayerAnimParams.Walk, OnWalkChanged);
             }
         }
 
         #region VARIABLE_CALLBACKS
-        void OnMinningChanged() { animator.SetBool("Minning", state.Minning); }
-        void OnChopWoodChanged() { animator.SetBool("ChopWood", state.ChopWood); }
+        void OnMinningChanged() { animator.SetBool(PlayerAnimParams.Minning, state.Minning); }
+        void OnChopWoodChanged() { animator.SetBool(PlayerAnimParams.ChopWood, state.ChopWood); }
         void OnWalkChanged() 
         {
             bool walk = state.Walk;
-            animator.SetBool("Walk", walk);
+            animator.SetBool(PlayerAnimParams.Walk, walk);
         }
         #endregion
 
@@ -51,9 +51,9 @@ namespace XD.Multiplayer
         public override void SimulateOwner()
         {
             base.SimulateOwner();
-            state.Minning = animator.GetBool("Minning");
-            state.ChopWood = animator.GetBool("ChopWood");
-            state.Walk = animator.GetBool("Walk");
+            state.Minning = animator.GetBool(PlayerAnimParams.Minning);
+            state.ChopWood = animator.GetBool(PlayerAnimParams.ChopWood);
+            state.Walk = animator.GetBool(PlayerAnimParams.Walk);
         }
 
         void Update()

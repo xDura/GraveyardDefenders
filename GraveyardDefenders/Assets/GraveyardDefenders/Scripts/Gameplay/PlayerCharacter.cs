@@ -102,7 +102,7 @@ namespace XD
 
             if (movement != Vector3.zero)
             {
-                animator.SetBool("Walk", true);
+                animator.SetBool(PlayerAnimParams.Walk, true);
                 PlayWalkDust();
                 transform.rotation = Quaternion.LookRotation(movement, Vector3.up);
                 characterController.Move(movement);
@@ -110,7 +110,7 @@ namespace XD
             else
             {
                 StopWalkDust();
-                animator.SetBool("Walk", false);
+                animator.SetBool(PlayerAnimParams.Walk, false);
             }
         }
 
@@ -123,5 +123,12 @@ namespace XD
         {
             walkDustParticles.Stop();
         }
+    }
+
+    public class PlayerAnimParams
+    {
+        public const string Walk = "Walk";
+        public const string Minning = "Minning";
+        public const string ChopWood = "ChopWood";
     }
 }

@@ -65,7 +65,7 @@ namespace XD
         {
             base.Start(interactable);
             breakable = target as BreakableObject;
-            playerCharacter.animator.SetBool("ChopWood", true);
+            playerCharacter.animator.SetBool(PlayerAnimParams.ChopWood, true);
             playerCharacter.hammer.SetActive(true);
         }
 
@@ -80,7 +80,7 @@ namespace XD
         public override void Stop()
         {
             base.Stop();
-            playerCharacter.animator.SetBool("ChopWood", false);
+            playerCharacter.animator.SetBool(PlayerAnimParams.ChopWood, false);
             playerCharacter.hammer.SetActive(false);
             breakable = null;
         }
@@ -98,12 +98,12 @@ namespace XD
             gathereable = interactable as GathereableResource;
             if (gathereable.type == RESOURCE_TYPE.WOOD)
             {
-                playerCharacter.animator.SetBool("ChopWood", true);
+                playerCharacter.animator.SetBool(PlayerAnimParams.ChopWood, true);
                 playerCharacter.axe.SetActive(true);
             }
             else
             {
-                playerCharacter.animator.SetBool("Minning", true);
+                playerCharacter.animator.SetBool(PlayerAnimParams.Minning, true);
                 playerCharacter.pickaxe.SetActive(true);
             }
         }
@@ -121,12 +121,12 @@ namespace XD
             base.Stop();
             if (gathereable.type == RESOURCE_TYPE.WOOD)
             {
-                playerCharacter.animator.SetBool("ChopWood", false);
+                playerCharacter.animator.SetBool(PlayerAnimParams.ChopWood, false);
                 playerCharacter.axe.SetActive(false);
             }
             else
             {
-                playerCharacter.animator.SetBool("Minning", false);
+                playerCharacter.animator.SetBool(PlayerAnimParams.Minning, false);
                 playerCharacter.pickaxe.SetActive(false);
             }
             gathereable = null;
@@ -145,7 +145,7 @@ namespace XD
             base.Start(interactable);
             currentHitCount = 0;
             playerCharacter.hammer.SetActive(true);
-            playerCharacter.animator.SetBool("ChopWood", true);
+            playerCharacter.animator.SetBool(PlayerAnimParams.ChopWood, true);
             playerCharacter.hammer.SetActive(true);
         }
 
@@ -169,7 +169,7 @@ namespace XD
         {
             base.Stop();
             playerCharacter.hammer.SetActive(false);
-            playerCharacter.animator.SetBool("ChopWood", false);
+            playerCharacter.animator.SetBool(PlayerAnimParams.ChopWood, false);
         }
     }
 
@@ -182,7 +182,7 @@ namespace XD
         public override void Start(IInteractable interactable)
         {
             base.Start(interactable);
-            playerCharacter.animator.SetBool("ChopWood", true);
+            playerCharacter.animator.SetBool(PlayerAnimParams.ChopWood, true);
             playerCharacter.hammer.SetActive(true);
             tower = interactable as Tower; 
         }
@@ -215,7 +215,7 @@ namespace XD
         public override void Stop()
         {
             base.Stop();
-            playerCharacter.animator.SetBool("ChopWood", false);
+            playerCharacter.animator.SetBool(PlayerAnimParams.ChopWood, false);
             playerCharacter.hammer.SetActive(false);
             tower = null;
         }
