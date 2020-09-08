@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Bolt;
-using System.Security.Principal;
 
 namespace XD.Multiplayer
 {
@@ -8,9 +7,6 @@ namespace XD.Multiplayer
     {
         public PlayerCharacter pc;
         public Animator animator;
-
-        private AnimatorDataToken token = new AnimatorDataToken();
-        private AnimatorDataToken lastToken = new AnimatorDataToken();
 
         public void Awake()
         {
@@ -26,16 +22,27 @@ namespace XD.Multiplayer
         {
             base.Attached();
             state.SetTransforms(state.Transform, transform);
-            if (entity.IsOwner)
-            {
-                pc.isLocal = true;
-            }
+            if (entity.IsOwner){}
             else
             {
                 pc.isLocal = false;
-                animator.enabled = false;
+                state.AddCallback("Minning", OnMinningChanged);
+                state.AddCallback("ChopWood", OnChopWoodChanged);
+                state.AddCallback("Walk", OnWalkChanged);
             }
         }
+
+        #region VARIABLE_CALLBACKS
+        void OnMinningChanged() { animator.SetBool("Minning", state.Minning); }
+        void OnChopWoodChanged() { animator.SetBool("ChopWood", state.ChopWood); }
+        void OnWalkChanged() 
+        {
+            bool walk = state.Walk;
+            animator.SetBool("Walk", walk);
+            if (walk) pc.PlayWalkDust();
+            else pc.StopWalkDust();
+        }
+        #endregion
 
         public override void Detached()
         {
@@ -45,41 +52,20 @@ namespace XD.Multiplayer
         public override void SimulateOwner()
         {
             base.SimulateOwner();
-            AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
-            token.stateNameHash = info.fullPathHash;
-            token.normalizedTime = info.normalizedTime;
-            if (token.normalizedTime > 1.0f) token.normalizedTime %= 1.0f;
-            if (!token.TokenEquals(lastToken))
-            {
-                state.AnimatorStatesData = null;
-                state.AnimatorStatesData = token;
-                lastToken.normalizedTime = token.normalizedTime;
-                lastToken.stateNameHash = token.stateNameHash;
-            }
+            state.Minning = animator.GetBool("Minning");
+            state.ChopWood = animator.GetBool("ChopWood");
+            state.Walk = animator.GetBool("Walk");
         }
 
-        public void ReplayAnimationClient()
-        {
-            lastToken = token;
-            token = state.AnimatorStatesData as AnimatorDataToken;
-            if (token == null || lastToken == null){}
-            else
-            {
-                if (lastToken.stateNameHash != token.stateNameHash)
-                {
-                    Debug.Log("Was In different state: Crossfading");
-                    animator.CrossFadeInFixedTime(token.stateNameHash, 0.1f, 0);
-                }
-            }
-            animator.Update(Time.deltaTime);
-        }
-
-        public void Update()
+        void Update()
         {
             if (!(BoltNetwork.IsRunning && BoltNetwork.IsConnected)) return;
             if (!entity.IsAttached) return;
-            if (entity.IsOwner) return;
-            ReplayAnimationClient();
+            if (entity.IsOwner) UpdateOwner();
+            else UpdateNonOwner();
         }
+
+        void UpdateOwner() {}
+        void UpdateNonOwner() {}
     }   
 }

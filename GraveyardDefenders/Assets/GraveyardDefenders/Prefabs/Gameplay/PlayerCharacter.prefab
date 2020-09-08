@@ -93,7 +93,6 @@ MonoBehaviour:
   characterController: {fileID: 5882644875818427611}
   interactSystem: {fileID: 5590226002922636096}
   animator: {fileID: 6393734529707143098}
-  resources: {fileID: 11400000, guid: e43bbe8a14d055c4397bdf92a15c0dc3, type: 2}
   inventory: {fileID: 11400000, guid: 3ca397700407f8e499cd0de51b6d586b, type: 2}
   pickaxe: {fileID: 1134856105141445175}
   axe: {fileID: 7449987174548016924}
@@ -102,10 +101,6 @@ MonoBehaviour:
   isLocal: 0
   lastSafeAreaExitPosition: {x: 0, y: 0, z: 0}
   moveSpeed: 3
-  interactRadius: 1
-  interactHitTime: 0.5
-  interactStartHitTimeOffset: 0.25
-  lastInteractHitTime: -Infinity
 --- !u!114 &-2466693128353938979
 MonoBehaviour:
   m_ObjectHideFlags: 0

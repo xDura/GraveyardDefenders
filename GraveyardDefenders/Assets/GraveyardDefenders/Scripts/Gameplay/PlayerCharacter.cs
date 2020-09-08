@@ -103,15 +103,25 @@ namespace XD
             if (movement != Vector3.zero)
             {
                 animator.SetBool("Walk", true);
-                if(!walkDustParticles.isPlaying) walkDustParticles.Play();
+                PlayWalkDust();
                 transform.rotation = Quaternion.LookRotation(movement, Vector3.up);
                 characterController.Move(movement);
             }
             else
             {
-                walkDustParticles.Stop();
+                StopWalkDust();
                 animator.SetBool("Walk", false);
             }
+        }
+
+        public void PlayWalkDust()
+        {
+            if(!walkDustParticles.isPlaying) walkDustParticles.Play();
+        }
+
+        public void StopWalkDust()
+        {
+            walkDustParticles.Stop();
         }
     }
 }
