@@ -26,6 +26,7 @@ namespace XD.Multiplayer
             else
             {
                 pc.isLocal = false;
+                pc.enabled = false;
                 state.AddCallback("Minning", OnMinningChanged);
                 state.AddCallback("ChopWood", OnChopWoodChanged);
                 state.AddCallback("Walk", OnWalkChanged);
@@ -39,8 +40,6 @@ namespace XD.Multiplayer
         {
             bool walk = state.Walk;
             animator.SetBool("Walk", walk);
-            if (walk) pc.PlayWalkDust();
-            else pc.StopWalkDust();
         }
         #endregion
 
@@ -66,6 +65,10 @@ namespace XD.Multiplayer
         }
 
         void UpdateOwner() {}
-        void UpdateNonOwner() {}
+        void UpdateNonOwner() 
+        {
+            if (state.Walk) pc.PlayWalkDust();
+            else pc.StopWalkDust();
+        }
     }   
 }
