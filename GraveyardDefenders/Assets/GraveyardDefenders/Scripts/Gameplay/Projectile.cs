@@ -4,12 +4,12 @@ namespace XD
 {
     public class Projectile : MonoBehaviour
     {
-        public SkeletonController skeleton; //TODO: change this to generic enemy class
+        public Skeleton skeleton; //TODO: change this to generic enemy class
         public float velocity = 0.5f;
         public float radius = 0.2f;
         public float damage = 0.1f;
 
-        public void Init(SkeletonController sk_controller) { skeleton = sk_controller; }
+        public void Init(Skeleton sk_controller) { skeleton = sk_controller; }
         private void Start() { StartProjectile(); }
         private void Update() { UpdateProjectile(Time.deltaTime); }
 

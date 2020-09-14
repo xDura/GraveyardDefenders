@@ -5,60 +5,24 @@ using XD.Utils;
 
 namespace XD
 {
-    public class SkeletonController : MonoBehaviour
+    public class Skeleton : Enemy
     {
-        [Header("Assignables")]
-        public NavMeshAgent agent;
-        public Animator animator;
-        public Image healthBar;
-        public CapsuleCollider capsule;
-
-        [Header("Runtime")]
-        public float maxRayDistance = 100.0f;
-        public NavMeshHit navmesh_hit_helper;
-        public RaycastHit hit_helper;
-        public BreakableObject currentTarget = default;
-        Objective currentObjective = default;
-        NavMeshPath path_helper = default;
-        public Vector3 currentClosestObjectivePoint = Vector3.zero;
-        public float currentHP;
-
         [Header("Variables")]
         public float attackDamage = 1.0f;
         public float attackVelocity = 1.0f;
         public float lastAttackTime = float.NegativeInfinity;
         public float attackRange = 0.05f;
-        public float dayDamagePerSecond;
-        public float maxHP;
         public float TimeSinceLastAttack => TimeUtils.TimeSince(lastAttackTime); 
-        public float CurrentHPPercent => currentHP / maxHP;
 
-        void Start()
+        public override void UpdateEnemy(float deltaTime)
         {
-            if (!agent) agent = GetComponent<NavMeshAgent>();
-            if (!animator) animator = GetComponent<Animator>();
-            if (!capsule) capsule = GetComponent<CapsuleCollider>();
-
-            Init();
-        }
-
-        public void Init()
-        {
-            if(path_helper == null) path_helper = new NavMeshPath();
-            if(!currentObjective) currentObjective = FindObjectOfType<Objective>();
-            currentHP = maxHP;
-            agent.autoTraverseOffMeshLink = false;
-            currentTarget = null;
-        }
-
-        void Update()
-        {
+            base.UpdateEnemy(deltaTime);
             UpdateNavigation();
             UpdateCombat();
             UpdateAnimation();
             UpdateHealthBar();
 
-            if (DayNightCycle.currentPhase_s== DAY_NIGHT_PHASE.DAY) ReceiveHit(dayDamagePerSecond * Time.deltaTime);
+            if (DayNightCycle.currentPhase_s== DAY_NIGHT_PHASE.DAY) ReceiveHit(dayDamagePerSecond * deltaTime);
             if (currentHP <= 0) Die();
         }
 

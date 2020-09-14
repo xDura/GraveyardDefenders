@@ -84,22 +84,22 @@ namespace XD
             for (int i = 0; i < ghosts.items.Count; i++) ghosts.items[i].DisappearAndDespawn();
         }
 
-        public bool InstantiateSkeleton(Vector3 position, Quaternion rotation)
+        public bool InstantiateSkeleton(Vector3 position, Quaternion rotation, bool isNecromancer = false)
         {
             if(Constants.Instance.noEnemiesMode) return false;
-            if (skeletonsLeft <= 0) return false;
+            if (!isNecromancer && skeletonsLeft <= 0) return false; //TODO: refactor skeleton spawns to avoid this
 
             skeletonsLeft--;
             GameObject newSkeleton = skeletonPool.Spawn(position, rotation);
             if (!newSkeleton) return false;
 
-            SkeletonController controller = newSkeleton.GetComponent<SkeletonController>();
+            Skeleton controller = newSkeleton.GetComponent<Skeleton>();
             controller.Init();
             skeletons.Add(controller);
             return true;
         }
 
-        public void RemoveSkeleton(SkeletonController controller)
+        public void RemoveSkeleton(Skeleton controller)
         {
             if (controller == null) return;
             skeletons.Remove(controller);

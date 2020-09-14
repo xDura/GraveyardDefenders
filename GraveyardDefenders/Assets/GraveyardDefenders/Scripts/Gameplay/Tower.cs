@@ -29,8 +29,8 @@ namespace XD
 
         //runtime
         float lastHitTime = 0.0f;
-        SkeletonController target = null; //TODO: this needs to be a more generic enemy class
-        [System.NonSerialized] public List<SkeletonController> targets;
+        Skeleton target = null; //TODO: this needs to be a more generic enemy class
+        [System.NonSerialized] public List<Skeleton> targets;
         [System.NonSerialized] public List<TurretCharge> charges;
         public bool HasCharge => charges.Count > 0;
         public TurretCharge CurrentCharge => charges[0];
@@ -39,7 +39,7 @@ namespace XD
         void OnEnable()
         {
             if (!trigger) trigger = GetComponentInChildren<CustomTrigger>();
-            targets = new List<SkeletonController>();
+            targets = new List<Skeleton>();
             charges = new List<TurretCharge>();
             trigger.onTriggerEnter.AddListener(TriggerEnter);
             trigger.onTriggerExit.AddListener(TriggerExit);
@@ -56,17 +56,17 @@ namespace XD
         #region TRIGGER_HANDLING
         void TriggerEnter(Collider col)
         {
-            SkeletonController sc = col.GetComponent<SkeletonController>();
+            Skeleton sc = col.GetComponent<Skeleton>();
             if (sc && !targets.Contains(sc)) targets.Add(sc);
         }
 
         void TriggerExit(Collider col)
         {
-            SkeletonController sc = col.GetComponent<SkeletonController>();
+            Skeleton sc = col.GetComponent<Skeleton>();
             if (sc && targets.Contains(sc)) targets.Remove(sc);
         }
 
-        void OnSkeletonDespawned(SkeletonController controller)
+        void OnSkeletonDespawned(Skeleton controller)
         {
             targets.Remove(controller);
         }
@@ -79,7 +79,7 @@ namespace XD
             lastHitTime = float.PositiveInfinity;
         }
 
-        void SetTarget(SkeletonController controller)
+        void SetTarget(Skeleton controller)
         {
             target = controller;
             lastHitTime = Time.timeSinceLevelLoad;
@@ -108,10 +108,10 @@ namespace XD
         void UpdateBestTarget()
         {
             float bestDistance = float.PositiveInfinity;
-            SkeletonController bestTarget = null;
+            Skeleton bestTarget = null;
             for (int i = 0; i < targets.Count; i++)
             {
-                SkeletonController current = targets[i];
+                Skeleton current = targets[i];
                 float currentDist = Vector3.Distance(current.transform.position, transform.position);
                 if (currentDist < bestDistance)
                 {
