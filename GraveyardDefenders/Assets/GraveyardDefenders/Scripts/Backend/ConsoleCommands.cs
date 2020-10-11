@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using CommandTerminal;
 using UnityEditor;
-using UdpKit;
 using UnityEngine.InputSystem;
 using XD.Multiplayer;
-using Bolt;
 
 namespace XD
 {
@@ -19,13 +17,13 @@ namespace XD
         [RegisterCommand("Server", Help = "Connect a server", MaxArgCount = 1, MinArgCount = 0)]
         static void CreateServer(CommandArg[] args)
         {
-            BoltLauncher.StartServer();
+            //BoltLauncher.StartServer();
         }
 
         [RegisterCommand("Client", Help = "Connect a client", MaxArgCount = 1, MinArgCount = 0)]
         static void ConnectAsClient(CommandArg[] args)
         {
-            BoltLauncher.StartClient(UdpEndPoint.Any);
+            //BoltLauncher.StartClient(UdpEndPoint.Any);
         }
 
     }   
