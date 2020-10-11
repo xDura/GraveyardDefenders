@@ -4,7 +4,7 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
 
-namespace XD.Multiplayer
+namespace XD.Net
 {
     public class NetManager : Singleton<NetManager>, IConnectionCallbacks, IInRoomCallbacks, ILobbyCallbacks, IMatchmakingCallbacks, IOnEventCallback
     {
@@ -12,6 +12,10 @@ namespace XD.Multiplayer
         public bool IsConnected => PhotonNetwork.IsConnected;
         public bool IsConnectedAndReady => PhotonNetwork.IsConnectedAndReady;
         public Room CurrentRoom => PhotonNetwork.CurrentRoom;
+        public bool InRoom => IsConnectedAndReady && CurrentRoom != null;
+        public bool IsMulti => InRoom;
+        public bool IsMaster => InRoom && PhotonNetwork.IsMasterClient;
+        public bool IsClient => InRoom && !PhotonNetwork.IsMasterClient;
 
         public void ConnectToPhoton()
         {
@@ -67,31 +71,37 @@ namespace XD.Multiplayer
         #region PUN_IConnectionCallbacks
         public void OnConnected()
         {
+            NetEvents.OnConnected.Invoke();
             DebugLog("OnConnected");
         }
 
         public void OnConnectedToMaster()
         {
+            NetEvents.OnConnectedToMaster.Invoke();
             DebugLog("OnConnectedToMaster");
         }
 
         public void OnCustomAuthenticationFailed(string debugMessage)
         {
+            NetEvents.OnCustomAuthenticationFailed.Invoke(debugMessage);
             DebugLog($"OnCustomAuthenticationFailed debugMessage:{debugMessage}");
         }
 
         public void OnCustomAuthenticationResponse(Dictionary<string, object> data)
         {
+            NetEvents.OnCustomAuthenticationResponse.Invoke(data);
             DebugLog($"OnCustomAuthenticationResponse");
         }
 
         public void OnDisconnected(DisconnectCause cause)
         {
+            NetEvents.OnDisconnected.Invoke(cause);
             DebugLog($"OnDisconnected: {cause}");
         }
 
         public void OnRegionListReceived(RegionHandler regionHandler)
         {
+            NetEvents.OnRegionListReceived.Invoke(regionHandler);
             DebugLog($"OnRegionListReceived {regionHandler.BestRegion}");
         }
         #endregion
@@ -99,26 +109,31 @@ namespace XD.Multiplayer
         #region PUN_IInRoomCallbacks
         public void OnMasterClientSwitched(Player newMasterClient)
         {
+            NetEvents.OnMasterClientSwitched.Invoke(newMasterClient);
             DebugLog($"OnMasterClientSwitched {newMasterClient.NickName}");
         }
 
         public void OnPlayerEnteredRoom(Player newPlayer)
         {
+            NetEvents.OnPlayerEnteredRoom.Invoke(newPlayer);
             DebugLog($"OnPlayerEnteredRoom {newPlayer.NickName}");
         }
 
         public void OnPlayerLeftRoom(Player otherPlayer)
         {
+            NetEvents.OnPlayerLeftRoom.Invoke(otherPlayer);
             DebugLog($"OnPlayerLeftRoom {otherPlayer.NickName}");
         }
 
         public void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
         {
+            NetEvents.OnPlayerPropertiesUpdate.Invoke(targetPlayer, changedProps);
             DebugLog($"OnPlayerPropertiesUpdate {targetPlayer.NickName}");
         }
 
         public void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
         {
+            NetEvents.OnRoomPropertiesUpdate.Invoke(propertiesThatChanged);
             DebugLog($"OnRoomPropertiesUpdate");
         }
         #endregion
@@ -127,21 +142,25 @@ namespace XD.Multiplayer
 
         public void OnJoinedLobby()
         {
+            NetEvents.OnJoinedLobby.Invoke();
             DebugLog($"OnJoinedLobby");
         }
 
         public void OnLeftLobby()
         {
+            NetEvents.OnLeftLobby.Invoke();
             DebugLog($"OnLeftLobby");
         }
 
         public void OnRoomListUpdate(List<RoomInfo> roomList)
         {
+            NetEvents.OnRoomListUpdate.Invoke(roomList);
             DebugLog($"OnRoomListUpdate");
         }
 
         public void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)
         {
+            NetEvents.OnLobbyStatisticsUpdate.Invoke(lobbyStatistics);
             DebugLog($"OnLobbyStatisticsUpdate");
         }
         #endregion
@@ -150,36 +169,43 @@ namespace XD.Multiplayer
 
         public void OnFriendListUpdate(List<FriendInfo> friendList)
         {
+            NetEvents.OnFriendListUpdate.Invoke(friendList);
             DebugLog($"OnFriendListUpdate");
         }
 
         public void OnCreatedRoom() //only the host will call this
         {
+            NetEvents.OnCreatedRoom.Invoke();
             DebugLog($"OnCreatedRoom name:{CurrentRoom.Name}, playerCount:{CurrentRoom.PlayerCount}");
         }
 
         public void OnCreateRoomFailed(short returnCode, string message)
         {
+            NetEvents.OnCreateRoomFailed.Invoke(returnCode, message);
             DebugLog($"OnCreateRoomFailed {returnCode} {message}");
         }
 
         public void OnJoinedRoom() //remember that the host does also call this one
         {
+            NetEvents.OnJoinedRoom.Invoke();
             DebugLog($"OnJoinedRoom {CurrentRoom.Name}, playerCount:{CurrentRoom.PlayerCount}");
         }
 
         public void OnJoinRoomFailed(short returnCode, string message)
         {
+            NetEvents.OnJoinRoomFailed.Invoke(returnCode, message);
             DebugLog($"OnJoinRoomFailed {returnCode} {message}");
         }
 
         public void OnJoinRandomFailed(short returnCode, string message)
         {
+            NetEvents.OnJoinRandomFailed.Invoke(returnCode, message);
             DebugLog($"OnJoinRandomFailed {returnCode} {message}");
         }
 
         public void OnLeftRoom()
         {
+            NetEvents.OnLeftRoom.Invoke();
             DebugLog($"OnLeftRoom");
         }
         #endregion
@@ -187,6 +213,7 @@ namespace XD.Multiplayer
         #region PUN_IOnEventCallback
         public void OnEvent(EventData photonEvent)
         {
+            NetEvents.OnEvent.Invoke(photonEvent);
             DebugLog($"OnEvent {photonEvent.Code}");
         }
         #endregion

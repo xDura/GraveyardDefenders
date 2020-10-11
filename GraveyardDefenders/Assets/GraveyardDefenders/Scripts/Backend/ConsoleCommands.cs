@@ -2,7 +2,7 @@
 using CommandTerminal;
 using UnityEditor;
 using UnityEngine.InputSystem;
-using XD.Multiplayer;
+using XD.Net;
 
 namespace XD
 {
@@ -42,6 +42,21 @@ namespace XD
         static void JoinRoom(CommandArg[] args)
         {
             NetManager.Instance.JoinRoom(args[0].String);
+        }
+
+        [RegisterCommand("net.state", Help = "net state window", MaxArgCount = 0, MinArgCount = 0)]
+        static void NetStateWindow(CommandArg[] args)
+        {
+            NetStateDebugWindow ns = GameObject.FindObjectOfType<NetStateDebugWindow>();
+            if(ns == null)
+            {
+                GameObject go = new GameObject("NetStateDebugWindow");
+                go.AddComponent<NetStateDebugWindow>();
+            }
+            else
+            {
+                GameObject.Destroy(ns.gameObject);
+            }
         }
     }   
 }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using XD.Events;
-using XD.Audio;
+using Photon.Realtime;
+using System.Collections.Generic;
+using Photon.Pun;
 
 namespace XD
 {
@@ -23,9 +25,34 @@ namespace XD
         public static Evnt<PlayerCharacter, Upgradeable> hideUpgradeableEvnt = new Evnt<PlayerCharacter, Upgradeable>();
     }
 
-    public class NetEvents
+    namespace Net
     {
-        public static Evnt boltStartDone = new Evnt();
+        public class NetEvents
+        {
+            public static Evnt OnConnected = new Evnt();
+            public static Evnt OnConnectedToMaster = new Evnt();
+            public static Evnt<string> OnCustomAuthenticationFailed = new Evnt<string>();
+            public static Evnt<Dictionary<string, object>> OnCustomAuthenticationResponse = new Evnt<Dictionary<string, object>>();
+            public static Evnt<DisconnectCause> OnDisconnected = new Evnt<DisconnectCause>();
+            public static Evnt<RegionHandler> OnRegionListReceived = new Evnt<RegionHandler>();
+            public static Evnt<Player> OnMasterClientSwitched = new Evnt<Player>();
+            public static Evnt<Player> OnPlayerEnteredRoom = new Evnt<Player>();
+            public static Evnt<Player> OnPlayerLeftRoom = new Evnt<Player>();
+            public static Evnt<Player, ExitGames.Client.Photon.Hashtable> OnPlayerPropertiesUpdate = new Evnt<Player, ExitGames.Client.Photon.Hashtable>();
+            public static Evnt<ExitGames.Client.Photon.Hashtable> OnRoomPropertiesUpdate = new Evnt<ExitGames.Client.Photon.Hashtable>();
+            public static Evnt OnJoinedLobby = new Evnt();
+            public static Evnt OnLeftLobby = new Evnt();
+            public static Evnt<List<RoomInfo>> OnRoomListUpdate = new Evnt<List<RoomInfo>>();
+            public static Evnt<List<TypedLobbyInfo>> OnLobbyStatisticsUpdate = new Evnt<List<TypedLobbyInfo>>();
+            public static Evnt<List<FriendInfo>> OnFriendListUpdate = new Evnt<List<FriendInfo>>();
+            public static Evnt OnCreatedRoom = new Evnt(); //only the host will call this
+            public static Evnt<short, string> OnCreateRoomFailed = new Evnt<short, string>();
+            public static Evnt OnJoinedRoom = new Evnt(); //remember that the host does also call this one
+            public static Evnt<short, string> OnJoinRoomFailed = new Evnt< short, string>();
+            public static Evnt<short, string> OnJoinRandomFailed = new Evnt<short, string>();
+            public static Evnt OnLeftRoom = new Evnt();
+            public static Evnt<ExitGames.Client.Photon.EventData> OnEvent = new Evnt<ExitGames.Client.Photon.EventData>();
+        }
     }
 
     public static class PlayerEvents
