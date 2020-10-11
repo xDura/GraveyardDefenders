@@ -31,6 +31,8 @@ namespace XD
             }
         }
 
+        public static bool Exists() { return instance != null; }
+
         public void Awake()
         {
             if (instance == null) instance = (this as T);
