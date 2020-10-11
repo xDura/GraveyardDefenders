@@ -27,10 +27,15 @@ namespace XD.Multiplayer
         //    PhotonNetwork.ConnectToRegion(regionCode);
         //}
 
-        public void CreateRoom(string id)
+        public void JoinRoom(string roomId)
         {
-            if (IsConnectedAndReady) PhotonNetwork.CreateRoom(id);
-            else Debug.LogError($"CreateRoom {id} and still not connectedandeady");
+            PhotonNetwork.JoinRoom(roomId);
+        }
+
+        public void CreateRoom(string roomId)
+        {
+            if (IsConnectedAndReady) PhotonNetwork.CreateRoom(roomId);
+            else Debug.LogError($"CreateRoom {roomId} and still not connectedandeady");
         }
 
         public void JoinLobby()

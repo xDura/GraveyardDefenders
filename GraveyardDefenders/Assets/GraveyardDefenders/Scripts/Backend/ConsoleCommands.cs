@@ -37,5 +37,11 @@ namespace XD
         {
             NetManager.Instance.CreateRoom(args[0].String);
         }
+
+        [RegisterCommand("net.joinroom", Help = "join a photon room", MaxArgCount = 1, MinArgCount = 1)]
+        static void JoinRoom(CommandArg[] args)
+        {
+            NetManager.Instance.JoinRoom(args[0].String);
+        }
     }   
 }
