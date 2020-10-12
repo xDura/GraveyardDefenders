@@ -11,15 +11,22 @@ namespace XD.Multiplayer
         public Animator animator;
 
         bool last_tick_walk = false;
+
+        [ContextMenu("transferownership")]
+        void TransferOwnerShip()
+        {
+            pView.TransferOwnership(PhotonNetwork.LocalPlayer);
+        }
+
         protected override void OnAttachedOwner()
         {
             base.OnAttachedOwner();
-            if (NetManager.Instance.IsClient) pView.RequestOwnership();
+            if (NetManager.Instance.IsClient) pView.TransferOwnership(PhotonNetwork.LocalPlayer);
         }
         public override void OnAtachedNonOwner(Player player)
         {
             base.OnAtachedNonOwner(player);
-            //if (NetManager.Instance.IsMaster) pView.TransferOwnership(player);
+            if (NetManager.Instance.IsMaster) pView.TransferOwnership(player);
             pc.enabled = false;
             pc.interactSystem.enabled = false;
         }

@@ -5,7 +5,7 @@ using Photon.Realtime;
 
 namespace XD
 {
-    public class NetworkEntity : MonoBehaviourPunCallbacks, IPunObservable
+    public class NetworkEntity : MonoBehaviourPunCallbacks, IPunObservable, IPunOwnershipCallbacks
     {
         [Header("Assinables")]
         public PhotonView pView;
@@ -92,6 +92,22 @@ namespace XD
             {
                 Debug.LogError($"Client had local scene entity {name}");
                 Destroy(this.gameObject);
+            }
+        }
+
+        public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
+        {
+            if(targetView == pView)
+            {
+                Debug.Log($"{requestingPlayer.UserId} requesting for ownership on {targetView.name}");
+            }
+        }
+
+        public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
+        {
+            if (targetView == pView)
+            {
+                Debug.Log($"granted ownership of {targetView.name} previous owner was: {previousOwner.UserId} ");
             }
         }
     }
