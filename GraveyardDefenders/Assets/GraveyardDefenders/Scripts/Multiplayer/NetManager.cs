@@ -57,7 +57,7 @@ namespace XD.Net
         public void AttachPhotonView(Transform t, PhotonView pView, PREFAB_ID prefabId, bool sceneEntity)
         {
             DebugLog($"Attaching {t.name} {prefabId} {sceneEntity}");
-            bool isAllocated = false;
+            bool isAllocated;
             if (sceneEntity) isAllocated = PhotonNetwork.AllocateSceneViewID(pView);
             else isAllocated = PhotonNetwork.AllocateViewID(pView);
 
@@ -74,7 +74,6 @@ namespace XD.Net
                     CachingOption = EventCaching.AddToRoomCache
                 };
                 SendOptions sendOptions = new SendOptions { Reliability = true };
-
                 PhotonNetwork.RaiseEvent(instantiationEventCode, data, raiseEventOptions, sendOptions);
             }
             else

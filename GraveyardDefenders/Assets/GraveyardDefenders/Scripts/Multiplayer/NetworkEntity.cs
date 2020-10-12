@@ -99,7 +99,7 @@ namespace XD
         {
             if(targetView == pView)
             {
-                Debug.Log($"{requestingPlayer.UserId} requesting for ownership on {targetView.name}");
+                Debug.Log($"{requestingPlayer?.UserId} requesting for ownership on {targetView.name}");
             }
         }
 
@@ -107,7 +107,7 @@ namespace XD
         {
             if (targetView == pView)
             {
-                Debug.Log($"granted ownership of {targetView.name} previous owner was: {previousOwner.UserId} ");
+                Debug.Log($"granted ownership of {targetView.name} previous owner was: {previousOwner?.UserId} ");
             }
         }
     }

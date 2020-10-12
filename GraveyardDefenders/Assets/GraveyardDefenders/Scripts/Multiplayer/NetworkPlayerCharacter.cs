@@ -21,12 +21,16 @@ namespace XD.Multiplayer
         protected override void OnAttachedOwner()
         {
             base.OnAttachedOwner();
-            if (NetManager.Instance.IsClient) pView.TransferOwnership(PhotonNetwork.LocalPlayer);
         }
+
         public override void OnAtachedNonOwner(Player player)
         {
             base.OnAtachedNonOwner(player);
-            if (NetManager.Instance.IsMaster) pView.TransferOwnership(player);
+            if (NetManager.Instance.IsMaster)
+            {
+                pView.TransferOwnership(PhotonNetwork.LocalPlayer);
+                pView.TransferOwnership(player);
+            }
             pc.enabled = false;
             pc.interactSystem.enabled = false;
         }
