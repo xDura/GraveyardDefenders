@@ -12,8 +12,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6098306f068e40d4193800a730ac02f7, type: 3}
   m_Name: Constants
   m_EditorClassIdentifier: 
-  noEnemiesMode: 0
+  noEnemiesMode: 1
   debugFlags: 0
+  prefabDB:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 000000000100000002000000140000001500000050000000510000005a0000005b000000640000006500000066000000
+    _keys: 000000000100000002000000140000001500000050000000510000005a0000005b000000640000006500000066000000
+    _values:
+    - {fileID: 209472812064365628, guid: 3c80d75c735b8bb42939c4a9f1c0023a, type: 3}
+    - {fileID: 7996200366710097096, guid: d7336476a4eb7404a967fb70b6bf5e1d, type: 3}
+    - {fileID: 7996200366710097096, guid: abb9be628222f7e41bdfb624e6c64f8c, type: 3}
+    - {fileID: 1941065752043778575, guid: 4a409809445b5c44a9f82cd67414a6b3, type: 3}
+    - {fileID: 1081618010621250046, guid: f53aa82e44387944d943c8ff030770f0, type: 3}
+    - {fileID: -927199367670048503, guid: 46e6a723f8961f74d84eb76e64018a8d, type: 3}
+    - {fileID: -927199367670048503, guid: d92c3cddca79f594b92c909a8747f702, type: 3}
+    - {fileID: 8014855839471330126, guid: 8e9164ecf6659aa42bf535647a6fd998, type: 3}
+    - {fileID: 4258778533712742898, guid: 90ff57f9216f1f34eb5b41aa830c6a7c, type: 3}
+    - {fileID: 6159429833433845222, guid: 2db95382cc4d58b49b9e761a67d866a6, type: 3}
+    - {fileID: 5326097442785546594, guid: 90ba2aed3d443b147ad4243b98ee5408, type: 3}
+    - {fileID: 7778570903793392637, guid: 1660277141db3f44999539582d3c2a46, type: 3}
   rockHitParticles: {fileID: 1040608886635896, guid: 801b5c210c3c1a3419170ac0b825747f,
     type: 3}
   woodHitParticles: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37,
