@@ -43,6 +43,9 @@ namespace XD
             };
 
             SceneManager.sceneLoaded += OnSceneLoaded;
+#if UNITY_EDITOR
+            Init();
+#endif
         }
 
         public override void OnSingletonDestroy(bool isMainInstance)
