@@ -4,27 +4,14 @@ using XD.Net;
 
 namespace XD.Multiplayer
 {
-    public class NetworkPlayerCharacter: MonoBehaviourPunCallbacks, IPunObservable
+    public class NetworkPlayerCharacter: NetworkEntity
     {
         public PlayerCharacter pc;
         public Animator animator;
-        public PhotonView pView;
 
         bool last_tick_walk = false;
 
-        private void Awake()
-        {
-            if (NetManager.Instance.InRoom) AttachToNetwork();
-            else NetEvents.OnCreatedRoom.AddListener(AttachToNetwork);
-        }
-
-        void AttachToNetwork()
-        {
-            NetManager.Instance.AttachPhotonView(transform, pView, 0);
-            DontDestroyOnLoad(this);
-        }
-
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        protected override void OnSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (pView.IsMine)
             {

@@ -54,13 +54,18 @@ namespace XD.Net
             PhotonNetwork.Disconnect();
         }
 
-        public void AttachPhotonView(Transform t, PhotonView pView, int prefabId)
+        public void AttachPhotonView(Transform t, PhotonView pView, PREFAB_ID prefabId, bool sceneEntity)
         {
-            if (PhotonNetwork.AllocateViewID(pView))
+            DebugLog($"Attaching {t.name} {prefabId} {sceneEntity}");
+            bool isAllocated = false;
+            if (sceneEntity) isAllocated = PhotonNetwork.AllocateSceneViewID(pView);
+            else isAllocated = PhotonNetwork.AllocateViewID(pView);
+
+            if (isAllocated)
             {
                 object[] data = new object[]
                 {
-                    t.position, t.rotation, pView.ViewID, prefabId,
+                    t.position, t.rotation, pView.ViewID, (int)prefabId,
                 };
 
                 RaiseEventOptions raiseEventOptions = new RaiseEventOptions
@@ -80,7 +85,7 @@ namespace XD.Net
 
         public void OnReceivedAttachedPhotonView(EventData photonEvent)
         {
-            DebugLog($"Received instantiation {photonEvent.CustomData}");
+            DebugLog($"Received attachment {photonEvent.CustomData}");
             object[] data = (object[])photonEvent.CustomData;
             Vector3 pos = (Vector3)data[0];
             Quaternion rot = (Quaternion)data[1];
@@ -88,9 +93,11 @@ namespace XD.Net
             int prefabID = (int)data[3];
 
             GameObject prefab = Constants.Instance.GetPrefab(prefabID);
-            GameObject instantiated = (GameObject)Instantiate(prefab, pos, rot);
+            GameObject instantiated = Instantiate(prefab, pos, rot);
             PhotonView photonView = instantiated.GetComponent<PhotonView>();
+            NetworkEntity entity = instantiated.GetComponent<NetworkEntity>();
             photonView.ViewID = viewID;
+            entity.OnAtachedNonOwner();
         }
 
         #region SINGLETON_STUFF
