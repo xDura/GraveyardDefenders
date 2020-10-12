@@ -16,6 +16,7 @@ namespace XD.Net
         public bool IsMulti => InRoom;
         public bool IsMaster => InRoom && PhotonNetwork.IsMasterClient;
         public bool IsClient => InRoom && !PhotonNetwork.IsMasterClient;
+        public const byte instantiationEventCode = 1;  
 
         public void ConnectToPhoton()
         {
@@ -51,6 +52,40 @@ namespace XD.Net
         public void Disconnect()
         {
             PhotonNetwork.Disconnect();
+        }
+
+        public void AttachPhotonView(Transform t, PhotonView pView, int prefabId)
+        {
+            if (PhotonNetwork.AllocateViewID(pView))
+            {
+                object[] data = new object[]
+                {
+                    t.position, t.rotation, pView.ViewID, prefabId,
+                };
+
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions
+                {
+                    Receivers = ReceiverGroup.Others,
+                    CachingOption = EventCaching.AddToRoomCache
+                };
+                SendOptions sendOptions = new SendOptions { Reliability = true };
+
+                PhotonNetwork.RaiseEvent(instantiationEventCode, data, raiseEventOptions, sendOptions);
+            }
+            else
+            {
+                Debug.LogError("Failed to allocate a ViewId.");
+            }
+        }
+
+        public void OnReceivedAttachedPhotonView(EventData photonEvent)
+        {
+            Debug.Log($"Received instantiation {photonEvent.CustomData}");
+            if (photonEvent.Parameters != null)
+            {
+                foreach (KeyValuePair<byte, object> pair in photonEvent.Parameters)
+                    Debug.Log($"instantiation data {pair.Key} {pair.Value}");
+            }
         }
 
         #region SINGLETON_STUFF
@@ -214,6 +249,7 @@ namespace XD.Net
         public void OnEvent(EventData photonEvent)
         {
             NetEvents.OnEvent.Invoke(photonEvent);
+            if (photonEvent.Code == instantiationEventCode) OnReceivedAttachedPhotonView(photonEvent);
             DebugLog($"OnEvent {photonEvent.Code}");
         }
         #endregion
