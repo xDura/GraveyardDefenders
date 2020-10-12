@@ -21,6 +21,7 @@ namespace XD.Multiplayer
         void AttachToNetwork()
         {
             NetManager.Instance.AttachPhotonView(transform, pView, 1);
+            DontDestroyOnLoad(this);
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
