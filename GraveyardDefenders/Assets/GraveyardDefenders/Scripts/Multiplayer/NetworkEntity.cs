@@ -95,20 +95,7 @@ namespace XD
             }
         }
 
-        public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
-        {
-            if(targetView == pView)
-            {
-                Debug.Log($"{requestingPlayer?.UserId} requesting for ownership on {targetView.name}");
-            }
-        }
-
-        public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
-        {
-            if (targetView == pView)
-            {
-                Debug.Log($"granted ownership of {targetView.name} previous owner was: {previousOwner?.UserId} ");
-            }
-        }
+        public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer){}
+        public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner){}
     }
 }
