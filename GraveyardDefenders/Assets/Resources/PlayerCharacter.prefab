@@ -136,7 +136,7 @@ MonoBehaviour:
   prefixField: -1
   observableSearch: 2
   Synchronization: 1
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   ObservedComponents:
   - {fileID: 1556052026267026485}
   - {fileID: -7265224050128318757}
@@ -170,9 +170,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f0c7ff0895bf64a8b946610459ab64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pView: {fileID: 4801978474148539476}
+  prefab_id: 0
+  autoattach: 1
+  isSceneEntity: 0
   pc: {fileID: 5948106498394154124}
   animator: {fileID: 6393734529707143098}
-  pView: {fileID: 4801978474148539476}
 --- !u!1 &1134856105141445175
 GameObject:
   m_ObjectHideFlags: 0
