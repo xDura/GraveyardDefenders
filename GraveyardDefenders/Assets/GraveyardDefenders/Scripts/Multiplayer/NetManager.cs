@@ -97,7 +97,8 @@ namespace XD.Net
             PhotonView photonView = instantiated.GetComponent<PhotonView>();
             NetworkEntity entity = instantiated.GetComponent<NetworkEntity>();
             photonView.ViewID = viewID;
-            entity.OnAtachedNonOwner();
+            Player sender = CurrentRoom.GetPlayer(photonEvent.Sender);
+            entity.OnAtachedNonOwner(sender);
         }
 
         #region SINGLETON_STUFF

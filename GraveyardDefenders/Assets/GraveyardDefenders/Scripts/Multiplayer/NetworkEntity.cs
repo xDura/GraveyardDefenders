@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using XD.Net;
+using Photon.Realtime;
 
 namespace XD
 {
@@ -35,7 +36,7 @@ namespace XD
         protected virtual void UpdateOwner() {}
         protected virtual void UpdateNonOwner() {}
         protected virtual void OnAttachedOwner() { DontDestroyOnLoad(gameObject); }
-        public virtual void OnAtachedNonOwner() { DontDestroyOnLoad(gameObject); }
+        public virtual void OnAtachedNonOwner(Player player) { DontDestroyOnLoad(gameObject); }
         protected virtual void AttachToNetwork() 
         { 
             NetManager.Instance.AttachPhotonView(transform, pView, prefab_id, isSceneEntity); 

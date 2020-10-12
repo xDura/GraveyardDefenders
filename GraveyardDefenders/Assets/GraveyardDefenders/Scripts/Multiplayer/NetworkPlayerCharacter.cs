@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using XD.Net;
+using Photon.Realtime;
 
 namespace XD.Multiplayer
 {
@@ -11,9 +12,17 @@ namespace XD.Multiplayer
 
         bool last_tick_walk = false;
 
+        public override void OnAtachedNonOwner(Player player)
+        {
+            base.OnAtachedNonOwner(player);
+            if (NetManager.Instance.IsMaster) pView.TransferOwnership(player);
+            pc.enabled = false;
+            pc.interactSystem.enabled = false;
+        }
+
         protected override void OnSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (pView.IsMine)
+            if (stream.IsWriting)
             {
                 stream.SendNext(animator.GetBool(PlayerAnimParams.Minning));
                 stream.SendNext(animator.GetBool(PlayerAnimParams.ChopWood));
