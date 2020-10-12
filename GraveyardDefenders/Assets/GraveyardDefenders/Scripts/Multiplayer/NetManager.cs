@@ -80,12 +80,17 @@ namespace XD.Net
 
         public void OnReceivedAttachedPhotonView(EventData photonEvent)
         {
-            Debug.Log($"Received instantiation {photonEvent.CustomData}");
-            if (photonEvent.Parameters != null)
-            {
-                foreach (KeyValuePair<byte, object> pair in photonEvent.Parameters)
-                    Debug.Log($"instantiation data {pair.Key} {pair.Value}");
-            }
+            DebugLog($"Received instantiation {photonEvent.CustomData}");
+            object[] data = (object[])photonEvent.CustomData;
+            Vector3 pos = (Vector3)data[0];
+            Quaternion rot = (Quaternion)data[1];
+            int viewID = (int)data[2];
+            int prefabID = (int)data[3];
+
+            GameObject prefab = Constants.Instance.GetPrefab(prefabID);
+            GameObject instantiated = (GameObject)Instantiate(prefab, pos, rot);
+            PhotonView photonView = instantiated.GetComponent<PhotonView>();
+            photonView.ViewID = viewID;
         }
 
         #region SINGLETON_STUFF

@@ -20,7 +20,7 @@ namespace XD.Multiplayer
 
         void AttachToNetwork()
         {
-            NetManager.Instance.AttachPhotonView(transform, pView, 1);
+            NetManager.Instance.AttachPhotonView(transform, pView, 0);
             DontDestroyOnLoad(this);
         }
 

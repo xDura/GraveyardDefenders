@@ -84,8 +84,10 @@ namespace XD
             selectedPlayers.Add(0);
         }
 
-    public void Init()
-    {
+        public GameObject GetPlayerPrefab(int id) { return Constants.Instance.GetPrefab(id); }
+
+        public void Init()
+        {
             local_players.Clear();
             PlayerSpawnPoints spawnPoints = FindObjectOfType<PlayerSpawnPoints>();
             bool gameplayScene = spawnPoints != null;
@@ -100,7 +102,7 @@ namespace XD
                         Transform spawn = spawnPoints.spawns[i].transform;
                         devices.Add(Keyboard.current);
                         deviceIndices.Add(i);
-                        GameObject p = Instantiate(playerPrefabs[selectedPlayers[i]], spawn.position, spawn.rotation);
+                        GameObject p = Instantiate(GetPlayerPrefab(i), spawn.position, spawn.rotation);
                         PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
                         pc.id = i;
                         local_players.Add(pc);
@@ -112,7 +114,7 @@ namespace XD
                     for (int i = 0; i < devices.Count; i++)
                     {
                         Transform spawn = spawnPoints.spawns[i].transform;
-                        GameObject p = Instantiate(playerPrefabs[selectedPlayers[i]], spawn.position, spawn.rotation);
+                        GameObject p = Instantiate(GetPlayerPrefab(i), spawn.position, spawn.rotation);
                         PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
                         pc.id = i;
                         local_players.Add(pc);
