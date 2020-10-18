@@ -431,7 +431,7 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
-      isExpanded: 0
+      isExpanded: 1
       label:
         m_Text: Keys
         m_Image: {fileID: 0}
@@ -446,7 +446,7 @@ MonoBehaviour:
       elementNameOverride: 
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
-    isExpanded: 0
+    isExpanded: 1
     _keyValues: 0100000000000000
     _keys: 0100000000000000
     _values:
@@ -475,7 +475,7 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: d501db175f1c46e42b98e22f7c1d42cf, type: 3}
       timeSamples: 0
       pitch: 1
-      volume: 0.5
+      volume: 0.2
       useRandomPitch: 0
       maxRandomPitch: 1
       minRandomPitch: 1

@@ -44,6 +44,12 @@ namespace XD
             NetManager.Instance.JoinRoom(args[0].String);
         }
 
+        [RegisterCommand("net.region", Help = "join a photon region", MaxArgCount = 1, MinArgCount = 1)]
+        static void ConnectToRegion(CommandArg[] args)
+        {
+            NetManager.Instance.ConnectToRegion(args[0].String);
+        }
+
         [RegisterCommand("net.state", Help = "net state window", MaxArgCount = 0, MinArgCount = 0)]
         static void NetStateWindow(CommandArg[] args)
         {

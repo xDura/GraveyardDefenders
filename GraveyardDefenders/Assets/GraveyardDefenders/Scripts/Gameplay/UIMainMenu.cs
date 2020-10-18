@@ -16,6 +16,7 @@ namespace XD
         public CanvasGroup group;
         public GameObject mainMenuButtons;
         public GameObject multiMenuButtons;
+        public GameObject gameBrowserMenu;
 
         [Header("Variables")]
         public float fadeTime;
@@ -65,11 +66,13 @@ namespace XD
         public void OnlineBrowse()
         {
             NetManager.Instance.JoinLobby();
+            multiMenuButtons.SetActive(false);
+            gameBrowserMenu.SetActive(true);
         }
 
         public void OnlineCreateGame()
         {
-            NetManager.Instance.CreateRoom(DateTime.Now.ToString());
+            NetManager.Instance.CreateRoom();
         }
         #endregion
 

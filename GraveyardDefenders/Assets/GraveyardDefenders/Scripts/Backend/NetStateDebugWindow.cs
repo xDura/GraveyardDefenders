@@ -13,6 +13,7 @@ namespace XD
             GUILayout.Toggle(nm.IsConnected, "IsConnected");
             GUILayout.Toggle(nm.IsConnectedAndReady, "IsConnectedAndReady");
             GUILayout.Label($"NetClientState {nm.NetClientState}");
+            GUILayout.Label($"RegionCode {nm.CurrentRegionCode}");
             if (nm.InRoom)
             {
                 GUILayout.Toggle(nm.IsMaster, "IsMaster");

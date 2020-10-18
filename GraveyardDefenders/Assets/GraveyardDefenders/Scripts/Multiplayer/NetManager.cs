@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
+using WebSocketSharp;
 
 namespace XD.Net
 {
@@ -11,6 +12,8 @@ namespace XD.Net
         public ClientState NetClientState => PhotonNetwork.NetworkClientState;
         public bool IsConnected => PhotonNetwork.IsConnected;
         public bool IsConnectedAndReady => PhotonNetwork.IsConnectedAndReady;
+        public bool IsConnectedAndReadyTrue => NetClientState == ClientState.ConnectedToMasterServer;
+        public string CurrentRegionCode => PhotonNetwork.CloudRegion;
         public Room CurrentRoom => PhotonNetwork.CurrentRoom;
         public bool InRoom => IsConnectedAndReady && CurrentRoom != null;
         public bool InLobby => PhotonNetwork.InLobby;
@@ -23,6 +26,8 @@ namespace XD.Net
 
         public List<RoomInfo> room_list = new List<RoomInfo>();
 
+        public bool IsInRegion(string regionCode) { return IsConnected && CurrentRegionCode == regionCode; }
+
         public void ConnectToPhoton()
         {
             //TODO: add settings in a scriptableObject easy to modify 
@@ -31,27 +36,45 @@ namespace XD.Net
             else DebugLog("ConnectToPhoton and allready connected");
         }
 
-        //public void ConnectToRegion(string regionCode)
-        //{
-        //    if (IsConnected) Disconnect();
-        //    PhotonNetwork.ConnectToRegion(regionCode);
-        //}
+        public void ConnectToRegion(string regionCode)
+        {
+            if (IsInRegion(regionCode)) return;
+
+            if (IsConnected) Disconnect();
+            PhotonNetwork.ConnectToRegion(regionCode);
+        }
 
         public void JoinRoom(string roomId)
         {
             PhotonNetwork.JoinRoom(roomId);
         }
 
-        public void CreateRoom(string roomId)
+        public void CreateRoom(string roomId = "")
         {
+            if (roomId.IsNullOrEmpty()) roomId = GenRoomId();
             if (IsConnectedAndReady) PhotonNetwork.CreateRoom(roomId);
             else Debug.LogError($"CreateRoom {roomId} and still not connectedandeady");
+        }
+
+        string GenRoomId()
+        {
+            System.Guid guid = System.Guid.NewGuid();
+            //choke the guid into parts
+            string guid_str = guid.ToString();
+            string yourPlatformName = "MyName";
+            return $"{yourPlatformName}_{guid_str.Split('-')[0]}";
         }
 
         public void JoinLobby()
         {
             if (!IsConnected) Debug.LogError($"Trying to joinlobby and state is {NetClientState}");
+            if (InRoom) { PhotonNetwork.LeaveRoom(); }
             PhotonNetwork.JoinLobby();
+        }
+
+        public void LeaveLobby()
+        {
+            if (InLobby) PhotonNetwork.LeaveLobby();
         }
 
         public void Disconnect()
@@ -147,6 +170,7 @@ namespace XD.Net
 
         public void OnDisconnected(DisconnectCause cause)
         {
+            room_list.Clear();
             NetEvents.OnDisconnected.Invoke(cause);
             DebugLog($"OnDisconnected: {cause}");
         }
@@ -206,7 +230,7 @@ namespace XD.Net
 
         public void OnRoomListUpdate(List<RoomInfo> roomList)
         {
-            room_list = roomList;
+            room_list.AddRange(roomList);
             NetEvents.OnRoomListUpdate.Invoke(roomList);
             DebugLog($"OnRoomListUpdate");
         }
