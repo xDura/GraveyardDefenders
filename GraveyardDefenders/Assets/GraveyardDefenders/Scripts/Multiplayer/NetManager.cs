@@ -13,10 +13,15 @@ namespace XD.Net
         public bool IsConnectedAndReady => PhotonNetwork.IsConnectedAndReady;
         public Room CurrentRoom => PhotonNetwork.CurrentRoom;
         public bool InRoom => IsConnectedAndReady && CurrentRoom != null;
+        public bool InLobby => PhotonNetwork.InLobby;
+        public TypedLobby CurrentLobby => PhotonNetwork.CurrentLobby;
+        public LobbyType CurrentLobbyType => CurrentLobby.Type;
         public bool IsMulti => InRoom;
         public bool IsMaster => InRoom && PhotonNetwork.IsMasterClient;
         public bool IsClient => InRoom && !PhotonNetwork.IsMasterClient;
-        public const byte instantiationEventCode = 1;  
+        public const byte instantiationEventCode = 1;
+
+        public List<RoomInfo> room_list = new List<RoomInfo>();
 
         public void ConnectToPhoton()
         {
@@ -201,6 +206,7 @@ namespace XD.Net
 
         public void OnRoomListUpdate(List<RoomInfo> roomList)
         {
+            room_list = roomList;
             NetEvents.OnRoomListUpdate.Invoke(roomList);
             DebugLog($"OnRoomListUpdate");
         }

@@ -58,5 +58,20 @@ namespace XD
                 GameObject.Destroy(ns.gameObject);
             }
         }
+
+        [RegisterCommand("net.lobbystate", Help = "lobby state window", MaxArgCount = 0, MinArgCount = 0)]
+        static void LobbyStateWindow(CommandArg[] args)
+        {
+            LobbyStateDebugWindow ns = GameObject.FindObjectOfType<LobbyStateDebugWindow>();
+            if (ns == null)
+            {
+                GameObject go = new GameObject("LobbyStateWidnow");
+                go.AddComponent<LobbyStateDebugWindow>();
+            }
+            else
+            {
+                GameObject.Destroy(ns.gameObject);
+            }
+        }
     }   
 }

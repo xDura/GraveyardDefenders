@@ -5,7 +5,7 @@ namespace XD
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         public bool dontDestroyOnLoad = true;
-        static string TypeString { get { return typeof(T).ToString(); } }
+        static string TypeString => typeof(T).Name;
         static private T instance;
         static public T Instance
         {

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using XD.Net;
+using System;
 
 namespace XD
 {
@@ -12,6 +14,8 @@ namespace XD
         [Header("Assignables")]
         public Canvas canvas;
         public CanvasGroup group;
+        public GameObject mainMenuButtons;
+        public GameObject multiMenuButtons;
 
         [Header("Variables")]
         public float fadeTime;
@@ -20,12 +24,25 @@ namespace XD
         [Header("Events")]
         public static UnityEvent OnGameStart;
 
-        public void StartGame()
+        #region MAIN_BUTTONS
+        public void Couch()
         {
-            group.DOFade(0.0f, fadeTime).OnComplete(StartGameFadeEnded);
-            SceneManager.LoadScene(sceneToLoadName);
+
         }
 
+        public void Online()
+        {
+            NetManager.Instance.ConnectToPhoton();
+            multiMenuButtons.SetActive(true);
+            mainMenuButtons.SetActive(false);
+        }
+
+        public void Settings()
+        {
+
+        }
+
+        //called from button
         public void Quit()
         {
 #if UNITY_EDITOR
@@ -33,6 +50,33 @@ namespace XD
 #else
             Application.Quit();
 #endif
+        }
+        #endregion
+
+        #region MULTI_BUTTONS
+
+        public void OnlineBack()
+        {
+            multiMenuButtons.SetActive(false);
+            mainMenuButtons.SetActive(true);
+            NetManager.Instance.Disconnect();
+        }
+
+        public void OnlineBrowse()
+        {
+            NetManager.Instance.JoinLobby();
+        }
+
+        public void OnlineCreateGame()
+        {
+            NetManager.Instance.CreateRoom(DateTime.Now.ToString());
+        }
+        #endregion
+
+        public void StartGame()
+        {
+            group.DOFade(0.0f, fadeTime).OnComplete(StartGameFadeEnded);
+            SceneManager.LoadScene(sceneToLoadName);
         }
 
         private void StartGameFadeEnded()
