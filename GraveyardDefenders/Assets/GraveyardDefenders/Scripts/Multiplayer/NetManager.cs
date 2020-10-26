@@ -49,6 +49,11 @@ namespace XD.Net
             PhotonNetwork.JoinRoom(roomId);
         }
 
+        public void LeaveRoom()
+        {
+            if (InRoom) PhotonNetwork.LeaveRoom();
+        }
+
         public void CreateRoom(string roomId = "")
         {
             if (roomId.IsNullOrEmpty()) roomId = GenRoomId();

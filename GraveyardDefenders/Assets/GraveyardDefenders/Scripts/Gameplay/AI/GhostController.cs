@@ -49,13 +49,13 @@ namespace XD
                 materials.AddRange(renderers[i].materials);
         }
 
-        [ContextMenu("Appear")]
+        [Button]
         public void Appear()
         {
             for (int i = 0; i < materials.Count; i++) materials[i].DOFade(1.0f, fadeTime).SetId(fadeId);
         }
 
-        [ContextMenu("Disappear")]
+        [Button]
         public void Disappear()
         {
             for (int i = 0; i < materials.Count; i++) materials[i].DOFade(0.0f, fadeTime).SetId(fadeId);

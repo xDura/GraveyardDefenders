@@ -7,7 +7,6 @@ namespace XD
     [CreateAssetMenu(menuName = "XD/Sets/GathereableSet")]
     public class GathereableSet : RuntimeSet<GathereableResource>
     {
-        [ContextMenu("LogNames")]
         public void LogNames()
         {
             foreach (GathereableResource resource in items)

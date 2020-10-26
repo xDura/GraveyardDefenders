@@ -8,7 +8,7 @@ namespace XD.Audio
         public AUDIO_FX fxToPlay;
         public AudioSource source;
 
-        [ContextMenu("PlayAudioSource")]
+        [Button]
         void PlayAudioSource()
         {
             source.Play();

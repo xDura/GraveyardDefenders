@@ -15,7 +15,7 @@ namespace XD
 
         //TODO: some randomnes stuff? (ie: same particles can end with different offsets)
 
-        [ContextMenu("CollectParticleSystems")]
+        [Button]
         void CollectParticleSystemsRecursive()
         {
             CollectTransform(transform);
@@ -29,7 +29,7 @@ namespace XD
             for (int i = 0; i < t.childCount; i++) CollectTransform(t.GetChild(i));
         }
 
-        [ContextMenu("Play")]
+        [Button]
         public void Play()
         {
             startedDespawning = false;

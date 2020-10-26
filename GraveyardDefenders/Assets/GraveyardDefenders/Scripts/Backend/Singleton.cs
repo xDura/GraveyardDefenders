@@ -35,11 +35,12 @@ namespace XD
 
         public void Awake()
         {
-            if (instance == null) instance = (this as T);
+            if (!Exists()) instance = (this as T);
             else
             {
                 if (instance != this)
                 {
+                    Debug.Log($"Destroying {gameObject.name}");
                     Destroy(this.gameObject);
                     return;
                 }

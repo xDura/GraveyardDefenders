@@ -25,6 +25,22 @@ namespace XD
         public static Evnt<PlayerCharacter, Upgradeable> hideUpgradeableEvnt = new Evnt<PlayerCharacter, Upgradeable>();
     }
 
+    public class MainMenuEvents
+    {
+        public static Evnt couchButtonPressed = new Evnt();
+        public static Evnt onlineButtonPressed = new Evnt();
+        public static Evnt onlineBackButtonPressed = new Evnt();
+        public static Evnt createRoomPressed = new Evnt();
+        public static Evnt onlineBrowsePressed = new Evnt();
+        public static Evnt settingsPressed = new Evnt();
+        public static Evnt settingsBackPressed = new Evnt();
+        public static Evnt onlineBrowseBackPressed = new Evnt();
+        //public static Evnt lobbyBackPressed = new Evnt();
+        public static Evnt enteredLobby = new Evnt();
+        public static Evnt leftLobby = new Evnt();
+        public static Evnt allPlayersReadyLobby = new Evnt();
+    }
+
     namespace Net
     {
         public class NetEvents

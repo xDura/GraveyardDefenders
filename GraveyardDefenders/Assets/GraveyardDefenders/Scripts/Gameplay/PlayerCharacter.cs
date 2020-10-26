@@ -19,10 +19,17 @@ namespace XD
         public GameObject hammer;
         public ParticleSystem walkDustParticles;
 
-        [Header("Runtime")]
+        Camera Cam
+        {
+            get
+            {
+                if (cam == null) cam = Camera.main;
+                return cam;
+            }
+        }
         Camera cam;
         [NonSerialized] public int id;
-        public bool isLocal = false;
+        [NonSerialized] public bool isLocal = true;
 
         #region SAFE_AREA
         public Vector3 lastSafeAreaExitPosition = Vector3.zero;
@@ -57,7 +64,6 @@ namespace XD
             inventory.Reset();
             pickaxe.SetActive(false);
             axe.SetActive(false);
-            if (!cam) cam = Camera.main;
             if (!animator) animator = GetComponent<Animator>();
             if (!characterController) characterController = GetComponent<CharacterController>();
         }
@@ -91,8 +97,8 @@ namespace XD
 
         public void ManualUpdate()
         {
-            Vector3 right = Vector3.ProjectOnPlane(cam.transform.right, Vector3.up).normalized;
-            Vector3 forward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up).normalized;
+            Vector3 right = Vector3.ProjectOnPlane(Cam.transform.right, Vector3.up).normalized;
+            Vector3 forward = Vector3.ProjectOnPlane(Cam.transform.forward, Vector3.up).normalized;
 
             float horizontal = moveVector.x;
             float vertical = moveVector.y;

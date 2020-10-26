@@ -12,7 +12,7 @@ namespace XD
     {
         [SerializeField] private List<Button> room_uis = new List<Button>();
 
-        [SerializeField] private Button refreshButton = default;
+        //[SerializeField] private Button refreshButton = default;
         [SerializeField] private Button leftButton = default;
         [SerializeField] private Button rightButton = default;
         public GameObject multiplayerMenu;
@@ -81,8 +81,8 @@ namespace XD
 
         public void OnBackButton()
         {
+            MainMenuEvents.onlineBrowseBackPressed.Invoke();
             this.gameObject.SetActive(false);
-            multiplayerMenu.SetActive(true);
             NetManager.Instance.LeaveLobby();
         }
 

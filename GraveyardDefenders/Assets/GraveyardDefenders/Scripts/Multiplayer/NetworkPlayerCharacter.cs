@@ -12,7 +12,6 @@ namespace XD.Multiplayer
 
         bool last_tick_walk = false;
 
-        [ContextMenu("transferownership")]
         void TransferOwnerShip()
         {
             pView.TransferOwnership(PhotonNetwork.LocalPlayer);
@@ -32,6 +31,7 @@ namespace XD.Multiplayer
                 pView.TransferOwnership(player);
             }
             pc.enabled = false;
+            pc.isLocal = false;
             pc.interactSystem.enabled = false;
         }
 

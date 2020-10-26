@@ -8,13 +8,13 @@ namespace XD
 {
     public class PlayerInput : Singleton<PlayerInput>
     {
-        [NonSerialized] public List<PlayerCharacter> local_players = new List<PlayerCharacter>(Constants.maxPlayers);
-        [NonSerialized] public List<InputDevice> devices = new List<InputDevice>(Constants.maxPlayers);
-        [NonSerialized] public List<int> selectedPlayers = new List<int>(Constants.maxPlayers);
+        [NonSerialized] public List<PlayerCharacter> local_players;
+        [NonSerialized] public List<InputDevice> devices;
+        [NonSerialized] public List<int> selectedPlayers;
 
-        [NonSerialized, Tooltip("Used only for keyboard players")] public List<int> deviceIndices = new List<int>(Constants.maxPlayers);
+        [NonSerialized, Tooltip("Used only for keyboard players")] public List<int> deviceIndices;
         public bool inGameplayScene = false;
-        public int CurrentPlayerCount { get { return devices.Count; } }
+        public int CurrentPlayerCount => devices.Count;
         public List<GameObject> playerPrefabs;
         public bool debugCreatePlayers = false;
         public List<int> debugSelected = new List<int>();
@@ -23,6 +23,17 @@ namespace XD
         public override void OnSingletonAwake()
         {
             base.OnSingletonAwake();
+
+            local_players = new List<PlayerCharacter>(Constants.maxPlayers);
+            devices = new List<InputDevice>(Constants.maxPlayers);
+            selectedPlayers = new List<int>(Constants.maxPlayers);
+            deviceIndices = new List<int>(Constants.maxPlayers);
+
+            MainMenuEvents.enteredLobby.AddListener(JoinLobby);
+            MainMenuEvents.leftLobby.AddListener(LeaveLobby);
+            MainMenuEvents.enteredLobby.AddListener(EnteredLobby);
+            MainMenuEvents.allPlayersReadyLobby.AddListener(OnAllPlayersReadyLobby);
+
             InputSystem.onDeviceChange +=
             (device, change) =>
             {
@@ -44,26 +55,39 @@ namespace XD
 
             SceneManager.sceneLoaded += OnSceneLoaded;
 #if UNITY_EDITOR
-            Init();
+            //para testeo añadir algo Init();
 #endif
         }
 
         public override void OnSingletonDestroy(bool isMainInstance)
         {
             base.OnSingletonDestroy(isMainInstance);
+            Debug.Log("OnSingletonDestroy");
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            MainMenuEvents.enteredLobby.RemoveListener(JoinLobby);
+            MainMenuEvents.leftLobby.RemoveListener(LeaveLobby);
+            MainMenuEvents.enteredLobby.RemoveListener(EnteredLobby);
+            MainMenuEvents.allPlayersReadyLobby.RemoveListener(OnAllPlayersReadyLobby);
+        }
+
+        void OnAllPlayersReadyLobby()
+        {
+            DestroyAllPlayerCharacters();
         }
 
         public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Init();
+            DestroyAllPlayerCharacters();
+            if (FindObjectOfType<UIMainMenu>()) return;
+
+            SpawnAllPlayersForDevices();
         }
 
         public bool AddPlayerAttempt(InputDevice device, int index)
         {
-            if (local_players.Count >= Constants.maxPlayers)
+            if (CurrentPlayerCount >= Constants.maxPlayers)
             {
-                Debug.Log($"AddPlayerAttempt but local players has allready: {local_players.Count} local players");
+                Debug.Log($"AddPlayerAttempt but local players has allready: {CurrentPlayerCount} local players");
                 return false;
             }
 
@@ -85,46 +109,58 @@ namespace XD
             devices.Add(device);
             deviceIndices.Add(index);
             selectedPlayers.Add(0);
+            SpawnPlayer(index, selectedPlayers[index]);
         }
 
         public GameObject GetPlayerPrefab(int id) { return Constants.Instance.GetPrefab(id); }
 
-        public void Init()
+        public void JoinLobby()
         {
-            local_players.Clear();
-            PlayerSpawnPoints spawnPoints = FindObjectOfType<PlayerSpawnPoints>();
-            bool gameplayScene = spawnPoints != null;
-            if (gameplayScene)
+            int i = 0;
+            foreach (Gamepad gamepad in Gamepad.all)
             {
-                if (debugCreatePlayers)
-                {
-                    selectedPlayers = new List<int>(debugSelected);
-
-                    for (int i = 0; i < debugNumPlayers; i++)
-                    {
-                        Transform spawn = spawnPoints.spawns[i].transform;
-                        devices.Add(Keyboard.current);
-                        deviceIndices.Add(i);
-                        GameObject p = Instantiate(GetPlayerPrefab(i), spawn.position, spawn.rotation);
-                        PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
-                        pc.id = i;
-                        local_players.Add(pc);
-                        PlayerEvents.playerAddedEvnt.Invoke(pc);
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < devices.Count; i++)
-                    {
-                        Transform spawn = spawnPoints.spawns[i].transform;
-                        GameObject p = Instantiate(GetPlayerPrefab(i), spawn.position, spawn.rotation);
-                        PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
-                        pc.id = i;
-                        local_players.Add(pc);
-                        PlayerEvents.playerAddedEvnt.Invoke(pc);
-                    }
-                }
+                AddPlayerAttempt(gamepad, i);
+                i++;
             }
+        }
+
+        void EnteredLobby()
+        {
+            SpawnAllPlayersForDevices();
+        }
+
+        void SpawnAllPlayersForDevices()
+        {
+            for (int i = 0; i < devices.Count; i++)
+                SpawnPlayer(deviceIndices[i], selectedPlayers[i]);
+        }
+
+        void DestroyAllPlayerCharacters()
+        {
+            for (int i = 0; i < local_players.Count; i++)
+            {
+                if (local_players[i] == null) continue;
+
+                Destroy(local_players[i].gameObject);
+            }
+            local_players.Clear();
+        }
+
+        public void LeaveLobby()
+        {
+            DestroyAllPlayerCharacters();
+        }
+
+        public PlayerCharacter SpawnPlayer(int index, int skin)
+        {
+            PlayerSpawnPoints spawnPoints = FindObjectOfType<PlayerSpawnPoints>();
+            Transform spawn = spawnPoints.spawns[index].transform;
+            GameObject p = Instantiate(GetPlayerPrefab(skin), spawn.position, spawn.rotation);
+            PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
+            pc.id = local_players.Count;
+            local_players.Add(pc);
+            PlayerEvents.playerAddedEvnt.Invoke(pc);
+            return pc;
         }
 
         public void Update()

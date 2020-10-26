@@ -10,7 +10,7 @@ namespace XD
         public Transform start;
         public Vector3 dir;
 
-        [ContextMenu("Spawn")]
+        [Button]
         public void Spawn()
         {
             Vector3 lastPos = start.transform.position;

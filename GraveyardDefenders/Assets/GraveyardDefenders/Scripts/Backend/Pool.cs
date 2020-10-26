@@ -12,14 +12,14 @@ namespace XD
         public List<GameObject> available;
         public GameObject prefab;
 
-        [ContextMenu("Init")]
+        [Button]
         public void Init()
         {
             available = new List<GameObject>(size);
             for (int i = 0; i < size; i++) InstantiateElement();
         }
 
-        [ContextMenu("Clear")]
+        [Button]
         public void Clear()
         {
             for (int i = 0; i < available.Count; i++)
