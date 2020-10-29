@@ -157,6 +157,7 @@ namespace XD
             Transform spawn = spawnPoints.spawns[index].transform;
             GameObject p = Instantiate(GetPlayerPrefab(skin), spawn.position, spawn.rotation);
             PlayerCharacter pc = p.GetComponent<PlayerCharacter>();
+            pc.SetSkin(skin);
             pc.id = local_players.Count;
             local_players.Add(pc);
             PlayerEvents.playerAddedEvnt.Invoke(pc);

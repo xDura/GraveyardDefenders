@@ -21,6 +21,42 @@ MonoBehaviour:
       draggable: 1
       expandable: 1
       multipleSelection: 1
+      isExpanded: 0
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 0
+    _keyValues: 00000000140000001500000050000000510000005a0000005b000000640000006500000066000000
+    _keys: 00000000140000001500000050000000510000005a0000005b000000640000006500000066000000
+    _values:
+    - {fileID: 209472812064365628, guid: 3c80d75c735b8bb42939c4a9f1c0023a, type: 3}
+    - {fileID: 4358205472157564515, guid: 00f53ad119443944aacc52597a29d31b, type: 3}
+    - {fileID: 1081618010621250046, guid: f53aa82e44387944d943c8ff030770f0, type: 3}
+    - {fileID: -927199367670048503, guid: 46e6a723f8961f74d84eb76e64018a8d, type: 3}
+    - {fileID: -927199367670048503, guid: d92c3cddca79f594b92c909a8747f702, type: 3}
+    - {fileID: 8014855839471330126, guid: 8e9164ecf6659aa42bf535647a6fd998, type: 3}
+    - {fileID: 4258778533712742898, guid: 90ff57f9216f1f34eb5b41aa830c6a7c, type: 3}
+    - {fileID: 6159429833433845222, guid: 2db95382cc4d58b49b9e761a67d866a6, type: 3}
+    - {fileID: 5326097442785546594, guid: 90ba2aed3d443b147ad4243b98ee5408, type: 3}
+    - {fileID: 7778570903793392637, guid: 1660277141db3f44999539582d3c2a46, type: 3}
+  skinsDB:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
       isExpanded: 1
       label:
         m_Text: Keys
@@ -37,24 +73,46 @@ MonoBehaviour:
       elementIcon: {fileID: 0}
     reqReferences: {fileID: 0}
     isExpanded: 1
-    _keyValues: 000000000100000002000000140000001500000050000000510000005a0000005b000000640000006500000066000000
-    _keys: 000000000100000002000000140000001500000050000000510000005a0000005b000000640000006500000066000000
+    _keyValues: 000000000100000002000000
+    _keys: 000000000100000002000000
     _values:
-    - {fileID: 209472812064365628, guid: 3c80d75c735b8bb42939c4a9f1c0023a, type: 3}
-    - {fileID: 7996200366710097096, guid: d7336476a4eb7404a967fb70b6bf5e1d, type: 3}
-    - {fileID: 7996200366710097096, guid: abb9be628222f7e41bdfb624e6c64f8c, type: 3}
-    - {fileID: 1941065752043778575, guid: 4a409809445b5c44a9f82cd67414a6b3, type: 3}
-    - {fileID: 1081618010621250046, guid: f53aa82e44387944d943c8ff030770f0, type: 3}
-    - {fileID: -927199367670048503, guid: 46e6a723f8961f74d84eb76e64018a8d, type: 3}
-    - {fileID: -927199367670048503, guid: d92c3cddca79f594b92c909a8747f702, type: 3}
-    - {fileID: 8014855839471330126, guid: 8e9164ecf6659aa42bf535647a6fd998, type: 3}
-    - {fileID: 4258778533712742898, guid: 90ff57f9216f1f34eb5b41aa830c6a7c, type: 3}
-    - {fileID: 6159429833433845222, guid: 2db95382cc4d58b49b9e761a67d866a6, type: 3}
-    - {fileID: 5326097442785546594, guid: 90ba2aed3d443b147ad4243b98ee5408, type: 3}
-    - {fileID: 7778570903793392637, guid: 1660277141db3f44999539582d3c2a46, type: 3}
+    - {fileID: 3687844508876688254, guid: 9c04721f23f2ade498faca6a6728f6a1, type: 3}
+    - {fileID: 4358205472157564515, guid: 00f53ad119443944aacc52597a29d31b, type: 3}
+    - {fileID: 48295661735532812, guid: d496cc7b1f45f1e4ba79605410196a06, type: 3}
+  avatarsDB:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 000000000100000002000000
+    _keys: 000000000100000002000000
+    _values:
+    - {fileID: 9000000, guid: bf514ebc9e7a4ae4889bc2185e5caa49, type: 3}
+    - {fileID: 9000000, guid: e6f8c6b4cd0c5d24fbefebd224edfdb5, type: 3}
+    - {fileID: 9000000, guid: e6f8c6b4cd0c5d24fbefebd224edfdb5, type: 3}
   rockHitParticles: {fileID: 1040608886635896, guid: 801b5c210c3c1a3419170ac0b825747f,
     type: 3}
   woodHitParticles: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37,
     type: 3}
   respawnParticles: {fileID: 100000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
+  changeSkinParticles: {fileID: 3980167898128157111, guid: 832e920989ab3cb439260cd8a48a4833,
+    type: 3}
   turretTypesDB: {fileID: 11400000, guid: 020b971a7c891894499783faf4ec0e1e, type: 2}

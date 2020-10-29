@@ -18,6 +18,7 @@ namespace XD
         public GameObject axe;
         public GameObject hammer;
         public ParticleSystem walkDustParticles;
+        public BoneData bones;
 
         Camera Cam
         {
@@ -53,11 +54,18 @@ namespace XD
 
         [Header("Variables")]
         public float moveSpeed;
-
+        private GameObject currentSkin = null;
+        private int currentSkinID = -1;
+        public int CurrentSkinID => currentSkinID;
+        private bool HasSkin => CurrentSkinID != -1 && currentSkin != null;
         [NonSerialized] public Vector2 moveVector;
         [NonSerialized] public bool interactPressedThisFrame = false;
         [NonSerialized] public bool interactReleasedThisFrame = false;
         public bool HasResource(RESOURCE_TYPE type) { return inventory.HasResource(type); }
+
+        public Vector3 ChestPosition => bones.GetBone(BONE_ID.CHEST).position;
+
+        private bool rebindNextFrame = false;
 
         void Start()
         {
@@ -66,8 +74,28 @@ namespace XD
             axe.SetActive(false);
             if (!animator) animator = GetComponent<Animator>();
             if (!characterController) characterController = GetComponent<CharacterController>();
+            if(bones) bones.CollectBones();
+            if (currentSkin == null) SetSkin(0);
         }
 
+        public void SetSkin(int skin_id)
+        {
+            Constants constants = Constants.Instance;
+            GameObject skinPrefab = constants.GetSkin(skin_id);
+
+            //TODO: avoid instantiate and destroy
+            if (HasSkin) Destroy(currentSkin); 
+            currentSkin = GameObject.Instantiate(skinPrefab, this.transform);
+
+            currentSkinID = skin_id;
+            animator.avatar = Constants.Instance.GetAvatar(skin_id);
+            animator.Rebind();
+            if (bones) bones.CollectBones();
+            rebindNextFrame = true;
+            ParticleSystemEvents.SpawnParticleEvent.Invoke(constants.changeSkinParticles, ChestPosition, transform.rotation);
+            PlayerEvents.playerSkinChanged.Invoke(this);
+            //TODO: spawn skin particles
+        }
 
         public void Respawn()
         {
@@ -76,7 +104,7 @@ namespace XD
             Transform n = sp.spawns[id];
             transform.position = n.position;
             transform.rotation = n.rotation;
-            ParticleSystemEvents.SpawnParticleEvent.Invoke(Constants.Instance.respawnParticles, n.position, Quaternion.LookRotation(Vector3.up));
+            ParticleSystemEvents.SpawnParticleEvent.Invoke(Constants.Instance.respawnParticles, transform.position, Quaternion.LookRotation(Vector3.up));
         }
 
         public void OnActionEnded(PLAYER_ACTIONS action)
@@ -97,6 +125,12 @@ namespace XD
 
         public void ManualUpdate()
         {
+            if (rebindNextFrame)
+            {
+                animator.Rebind();
+                rebindNextFrame = false;
+            }
+
             Vector3 right = Vector3.ProjectOnPlane(Cam.transform.right, Vector3.up).normalized;
             Vector3 forward = Vector3.ProjectOnPlane(Cam.transform.forward, Vector3.up).normalized;
 

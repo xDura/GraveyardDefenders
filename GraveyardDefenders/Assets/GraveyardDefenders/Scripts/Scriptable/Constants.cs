@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
-using XD.Events;
 using RotaryHeart.Lib.SerializableDictionary;
+using System.Collections.Generic;
 
 namespace XD
 {
     public enum PREFAB_ID
     {
-        PLAYER_SKIN_0 = 0,
-        PLAYER_SKIN_1 = 1,
-        PLAYER_SKIN_2 = 2,
+        PLAYER_CHARACTER = 0,
         //---
         //---
         SKELETON = 20,
@@ -26,6 +24,13 @@ namespace XD
         CRYSTAL_00 = 100,
         CRYSTAL_01 = 101,
         CRYSTAL_02 = 102,
+    }
+
+    public enum SKIN_ID
+    {
+        PLAYER_SKIN_0 = 0,
+        PLAYER_SKIN_1 = 1,
+        PLAYER_SKIN_2 = 2,
     }
 
     [CreateAssetMenu(menuName = "XD/Constants")]
@@ -56,9 +61,18 @@ namespace XD
         public GameObject GetPrefab(int id) { return prefabDB.TryGetValue((PREFAB_ID)id, out GameObject prefab) ? prefab : null; }
         public GameObject GetPrefab(PREFAB_ID id) { return prefabDB.TryGetValue(id, out GameObject prefab) ? prefab : null; }
 
+        public SkinsDB skinsDB;
+        public GameObject GetSkin(int id) { return skinsDB.TryGetValue((SKIN_ID)id, out GameObject skin) ? skin : null; }
+        public GameObject GetSkin(SKIN_ID id) { return skinsDB.TryGetValue(id, out GameObject skin) ? skin : null; }
+        public int SkinCount => skinsDB.Count;
+        public AvatarsDB avatarsDB;
+        public Avatar GetAvatar(int id) { return avatarsDB.TryGetValue((SKIN_ID)id, out Avatar avatar) ? avatar : null; }
+        public Avatar GetAvatar(SKIN_ID id) { return avatarsDB.TryGetValue(id, out Avatar avatar) ? avatar : null; }
+
         public GameObject rockHitParticles;
         public GameObject woodHitParticles;
         public GameObject respawnParticles;
+        public GameObject changeSkinParticles;
         #endregion
 
         public TurretTypesDatabase turretTypesDB;
@@ -70,5 +84,7 @@ namespace XD
         }
 
         [System.Serializable] public class PrefabDB : SerializableDictionaryBase<PREFAB_ID, GameObject> { }
+        [System.Serializable] public class SkinsDB : SerializableDictionaryBase<SKIN_ID, GameObject> { }
+        [System.Serializable] public class AvatarsDB : SerializableDictionaryBase<SKIN_ID, Avatar> { }
     }   
 }

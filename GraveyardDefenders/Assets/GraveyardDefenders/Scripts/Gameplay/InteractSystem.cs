@@ -31,33 +31,9 @@ namespace XD
                 { PLAYER_ACTIONS.ADD_RESOURCE, new AddResource(playerCharacter) },
                 { PLAYER_ACTIONS.REPAIR, new Repair(playerCharacter) },
                 { PLAYER_ACTIONS.UPGRADE, new Upgrade(playerCharacter) },
+                { PLAYER_ACTIONS.TALK_NPC, new TalkNPC(playerCharacter) },
             };
         }
-
-        //public void UpgradeableNear(Upgradeable upgradeable) 
-        //{
-        //    nearbyUpgradeables.Add(upgradeable); 
-        //} //TODO: move this to listen an event
-        //public void UpgradeableFar(Upgradeable upgradeable) 
-        //{ 
-        //    nearbyUpgradeables.Remove(upgradeable); 
-        //} //TODO: move this to listen an event
-
-        //public void UpdateBestUpgradeable()
-        //{
-        //    float bestDist = float.PositiveInfinity;
-        //    for (int i = 0; i < nearbyUpgradeables.Count; i++)
-        //    {
-        //        Upgradeable u = nearbyUpgradeables[i];
-        //        if (!u.CanBeInteracted(playerCharacter.inventory)) continue;
-        //        float currentDist = u.GetDistance(transform.position);
-        //        if (currentDist < bestDist)
-        //        {
-        //            bestDist = currentDist;
-        //            bestInteractable = u;
-        //        }
-        //    }
-        //}
 
         public void Update()
         {
@@ -93,7 +69,6 @@ namespace XD
         void SearchInteractables()
         {
             bestInteractable = null;
-            //UpdateBestUpgradeable();
 
             if (bestInteractable == null) //TODO: once upgradeables are changed: remove this case (now upgradeables have super priority)
             {
@@ -116,6 +91,8 @@ namespace XD
 #if DEBUG_INTERACT_SYSTEM
         void VisualDebug()
         {
+            if(currentAction != null)
+            Debug.Log($"currentAction -> {currentAction.GetType().ToString()}");
             for (int i = 0; i < foundCols; i++)
             {
                 Collider current_collider = overlap_collider_cache[i];

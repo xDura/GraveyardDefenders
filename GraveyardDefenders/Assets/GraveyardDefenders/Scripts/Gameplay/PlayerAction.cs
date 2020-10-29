@@ -11,6 +11,7 @@ namespace XD
         REPAIR, //TODO: WILL DISAPPEAR -> will be add resource
         UPGRADE, //TODO: WILL DISAPPEAR -> will be add resource
         ADD_RESOURCE,
+        TALK_NPC,
     }
 
     public abstract class PlayerAction
@@ -219,6 +220,20 @@ namespace XD
             playerCharacter.hammer.SetActive(false);
             tower = null;
         }
+    }
 
+    public class TalkNPC : PlayerAction
+    {
+        public TalkNPC(PlayerCharacter pc) : base(pc) { }
+        public override PLAYER_ACTIONS Id => PLAYER_ACTIONS.TALK_NPC;
+
+        public override void Start(IInteractable interactable)
+        {
+            base.Start(interactable);
+            interactable.GetGO().GetComponent<TalkableNPC>().Talk(playerCharacter);
+            interactSystem.StopCurrentAction();
+        }
+
+        public override void Do(){}
     }
 }

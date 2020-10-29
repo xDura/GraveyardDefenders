@@ -21,8 +21,8 @@ namespace XD
 
     public class UIEvents
     {
-        public static Evnt<PlayerCharacter, Upgradeable> showUpgradeableEvnt = new Evnt<PlayerCharacter, Upgradeable>();
-        public static Evnt<PlayerCharacter, Upgradeable> hideUpgradeableEvnt = new Evnt<PlayerCharacter, Upgradeable>();
+        public static PlayerUpgradeableEvnt showUpgradeableEvnt = new PlayerUpgradeableEvnt();
+        public static PlayerUpgradeableEvnt hideUpgradeableEvnt = new PlayerUpgradeableEvnt();
     }
 
     public class MainMenuEvents
@@ -73,6 +73,10 @@ namespace XD
 
     public static class PlayerEvents
     {
-        public static Evnt<PlayerCharacter> playerAddedEvnt = new Evnt<PlayerCharacter>();
+        public static PlayerEvnt playerAddedEvnt = new PlayerEvnt();
+        public static PlayerEvnt playerSkinChanged = new PlayerEvnt();
     }
+
+    public class PlayerEvnt : Evnt<PlayerCharacter> { };
+    public class PlayerUpgradeableEvnt : Evnt<PlayerCharacter, Upgradeable> { };
 }

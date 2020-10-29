@@ -18,7 +18,6 @@ namespace XD
         {
             MainMenuEvents.couchButtonPressed.AddListener(Enter);
             MainMenuEvents.createRoomPressed.AddListener(Enter);
-            //MainMenuEvents.lobbyBackPressed.AddListener(Exit);
             NetEvents.OnJoinedRoom.AddListener(OnJoinedRoom);
             NetEvents.OnLeftRoom.AddListener(Exit);
 
@@ -31,7 +30,6 @@ namespace XD
         {
             MainMenuEvents.couchButtonPressed.RemoveListener(Enter);
             MainMenuEvents.createRoomPressed.RemoveListener(Enter);
-            //MainMenuEvents.lobbyBackPressed.RemoveListener(Exit);
             NetEvents.OnJoinedRoom.RemoveListener(OnJoinedRoom);
             NetEvents.OnLeftRoom.RemoveListener(Exit);
 
@@ -42,7 +40,6 @@ namespace XD
 
         void OnPlayerEnteredExitTrigger(PlayerCharacter pc)
         {
-            Debug.Log($"pc.isLocal {pc.isLocal}");
             if (!pc.isLocal) return;
             Exit();
         }
@@ -50,7 +47,6 @@ namespace XD
         void AllPlayersInsideReady()
         {
             allPlayersInside = true;
-            Debug.Log($"AllPlayersInside {allPlayersInside}");
             MainMenuEvents.allPlayersReadyLobby.Invoke();
             SceneManager.LoadScene("Level_01");
         }
@@ -58,7 +54,6 @@ namespace XD
         void OnPlayerExitReadyTrigger(PlayerCharacter pc)
         {
             allPlayersInside = false;
-            Debug.Log($"AllPlayersInside {allPlayersInside}");
         }
 
         void Update()

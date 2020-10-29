@@ -18,6 +18,7 @@ namespace XD
         public GameObject multiMenuButtons;
         public GameObject gameBrowserMenu;
         public GameObject title;
+        public Camera menusCamera;
 
         [Header("Variables")]
         public float fadeTime;
@@ -43,10 +44,12 @@ namespace XD
         void OnEnteredLobby()
         {
             title.gameObject.SetActive(false);
+            menusCamera.gameObject.SetActive(false);
         }
 
         void OnExitLobby()
         {
+            menusCamera.gameObject.SetActive(true);
             mainMenuButtons.SetActive(true);
             title.gameObject.SetActive(true);
         }
