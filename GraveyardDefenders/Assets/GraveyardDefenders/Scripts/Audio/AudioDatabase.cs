@@ -20,6 +20,8 @@ public enum AUDIO_FX
     FENCE_OPEN_CLOSE,
     START_DAY,
     START_NIGHT,
+    WITCH_LAUGH,
+    MAGIC_POOF,
 }
 
 public enum AUDIO_MUSICS

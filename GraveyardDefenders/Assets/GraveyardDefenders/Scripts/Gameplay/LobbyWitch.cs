@@ -15,6 +15,7 @@ namespace XD
             int nextSkin = (currentSkinID + 1) % skinCount;
             animator.SetTrigger(triggerToSetOntalk);
             pc.SetSkin(nextSkin);
+            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.WITCH_LAUGH, gameObject);
         }
     }   
 }

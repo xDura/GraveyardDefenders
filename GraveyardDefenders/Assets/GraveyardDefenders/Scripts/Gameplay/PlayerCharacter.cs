@@ -93,6 +93,7 @@ namespace XD
             if (bones) bones.CollectBones();
             rebindNextFrame = true;
             ParticleSystemEvents.SpawnParticleEvent.Invoke(constants.changeSkinParticles, ChestPosition, transform.rotation);
+            GlobalEvents.audioFXEvent.Invoke(AUDIO_FX.MAGIC_POOF, gameObject);
             PlayerEvents.playerSkinChanged.Invoke(this);
             //TODO: spawn skin particles
         }
